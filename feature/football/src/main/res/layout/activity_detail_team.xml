@@ -6,7 +6,9 @@
             android:id="@+id/root_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="true">
+            android:fitsSystemWindows="true"
+            android:clipChildren="false"
+            android:clipToPadding="false">
 
         <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/app_bar_layout"
@@ -22,11 +24,18 @@
                     app:layout_scrollFlags="scroll|exitUntilCollapsed"
                     app:titleEnabled="false">
 
+                <!--<androidx.recyclerview.widget.RecyclerView-->
+                <!--android:id="@+id/rvTeamBanner"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:fitsSystemWindows="true"-->
+                <!--app:layout_collapseMode="parallax"/>-->
+
                 <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:src="@drawable/background_arena"
                         android:scaleType="centerCrop"
-                        android:fitsSystemWindows="true"
                         app:layout_collapseMode="parallax"/>
 
                 <androidx.appcompat.widget.Toolbar
@@ -45,17 +54,36 @@
                 android:id="@+id/rv_team_information"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="44dp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-        <ImageView
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:scaleType="centerCrop"
-                android:background="@color/lighter_gray"
-                android:layout_marginStart="24dp"
-                app:layout_anchor="@id/rv_team_information"
-                app:layout_anchorGravity="top|start"/>
+        <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:layout_anchorGravity="top|end"
+                app:layout_anchor="@id/rv_team_information">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_favorite"
+                    style="@style/Widget.MaterialComponents.FloatingActionButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_favorite_no_fill_gray"
+                    app:backgroundTint="@android:color/white"
+                    android:layout_centerInParent="true"/>
+
+            <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lottieAnimationView"
+                    android:layout_width="48dp"
+                    android:layout_height="?attr/actionBarSize"
+                    app:lottie_rawRes="@raw/favorite"
+                    android:visibility="gone"
+                    android:layout_centerInParent="true"
+                    app:elevation="6dp"
+                    android:elevation="6dp"/>
+
+
+        </RelativeLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

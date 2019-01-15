@@ -49,6 +49,21 @@
 
         </activity>
 
+        <activity android:name=".ui.team.DetailTeamActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data
+                        android:host="@string/deep_link_detail_team"
+                        android:scheme="@string/scheme"/>
+            </intent-filter>
+
+        </activity>
+
     </application>
 
 </manifest>

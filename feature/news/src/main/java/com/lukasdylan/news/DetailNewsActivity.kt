@@ -1,11 +1,14 @@
 package com.lukasdylan.news
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.MenuItem
 import android.webkit.WebSettings
 import android.webkit.WebView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
+import com.lukasdylan.core.extension.titleTextView
 import com.lukasdylan.news.databinding.ActivityDetailNewsBinding
 
 
@@ -28,17 +31,24 @@ class DetailNewsActivity : AppCompatActivity() {
                 isScrollbarFadingEnabled = true
             }
             setSupportActionBar(toolbar)
-            return@with supportActionBar?.let {
-                it.title = "Football News 2"
-                it.setDisplayHomeAsUpEnabled(true)
-            }
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
 
         val bundle = intent.extras
         bundle?.let {
-            val newsUrl = it.getString("news_url") ?: ""
+            val newsUrl = it.getString("news_url").orEmpty()
+            val newsTitle = it.getString("news_title").orEmpty()
             binding.wvNews.loadUrl(newsUrl)
+            supportActionBar?.title = newsTitle
+            initTextViewToolbar(binding.toolbar)
         }
+    }
+
+    private fun initTextViewToolbar(toolbar: Toolbar) {
+        val toolbarTextView = toolbar.titleTextView()
+        toolbarTextView?.ellipsize = TextUtils.TruncateAt.MARQUEE
+        toolbarTextView?.marqueeRepeatLimit = -1
+        toolbarTextView?.isSelected = true
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

@@ -14,6 +14,8 @@ import com.lukasdylan.footballservice.data.model.League
 import com.lukasdylan.footballservice.data.response.DetailTeam
 import com.lukasdylan.footballservice.data.response.Standings
 import com.lukasdylan.home.ui.home.adapter.NAVIGATE_ALL_PREVIOUS_MATCH_SCREEN
+import com.lukasdylan.home.ui.home.adapter.NAVIGATE_DETAIL_NEWS_SCREEN
+import com.lukasdylan.home.ui.home.adapter.NAVIGATE_DETAIL_TEAM_SCREEN
 import com.lukasdylan.home.ui.home.adapter.NAVIGATE_STANDINGS_SCREEN
 import com.lukasdylan.newsservice.data.Article
 import kotlinx.coroutines.cancelChildren
@@ -91,6 +93,12 @@ class HomeViewModel(private val useCase: HomeUseCase, dispatcherProviders: Dispa
             "match_type" to type
         )
         _navigationScreenEvent.value = NavigationScreen(NAVIGATE_ALL_PREVIOUS_MATCH_SCREEN, params)
+    }
+
+    fun openDetailTeamScreen(teamId: String) {
+        val team = _leagueTeamDetailList.value?.firstOrNull { it.idTeam == teamId }
+        val params = arrayOf<Pair<String, Any?>>("team" to team)
+        _navigationScreenEvent.value = NavigationScreen(NAVIGATE_DETAIL_TEAM_SCREEN, params)
     }
 
     private fun loadLeagueTeamsData() {

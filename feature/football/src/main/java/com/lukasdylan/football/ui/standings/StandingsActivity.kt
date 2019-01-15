@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.lukasdylan.core.extension.observeValue
 import com.lukasdylan.football.R
 import com.lukasdylan.football.databinding.ActivityStandingsBinding
+import com.lukasdylan.football.ui.team.DetailTeamActivity
+import org.jetbrains.anko.startActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class StandingsActivity : AppCompatActivity() {
@@ -40,7 +42,7 @@ class StandingsActivity : AppCompatActivity() {
             observeValue(standingsList) { standingsSectionAdapter.addData(it) }
             observeValue(imageTeamMap) { standingsSectionAdapter.addImageData(it) }
             observeValue(navigationScreenEvent) {
-
+                startActivity<DetailTeamActivity>(*it.params.orEmpty())
             }
             intent.extras?.let { return@with loadData(it) }
         }

@@ -57,11 +57,10 @@ class MainSectionAdapter(layoutMaxWidth: Int, private val listener: (NavigationS
     }
 
     private val trendingNewsSectionAdapter by lazy {
-        TrendingNewsSectionAdapter(articleListener = {
-            val params = arrayOf<Pair<String, Any?>>("news_url" to it)
-            val navigationScreen = NavigationScreen(NAVIGATE_DETAIL_NEWS_SCREEN, params)
+        TrendingNewsSectionAdapter {
+            val navigationScreen = NavigationScreen(NAVIGATE_DETAIL_NEWS_SCREEN, it)
             listener(navigationScreen)
-        })
+        }
     }
 
     fun standingListUpdate(standingList: List<Standings>) {

@@ -4,4 +4,5 @@
     <string name="deep_link_detail_previous_match">detail_previous_match</string>
     <string name="deep_link_standings">standings</string>
     <string name="deep_link_match_list">match_list</string>
+    <string name="deep_link_detail_team">detail_team</string>
 </resources>

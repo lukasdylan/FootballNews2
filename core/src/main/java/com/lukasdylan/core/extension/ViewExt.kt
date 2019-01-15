@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.DrawableRes
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
@@ -14,6 +15,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.snackbar.Snackbar
 import com.lukasdylan.core.R
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.error
 import org.jetbrains.anko.findOptional
 
 fun ViewGroup.showErrorSnackBar(errorMessage: String?) {
@@ -73,5 +76,16 @@ fun ImageView.loadImage(any: Any) {
             })
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(this)
+    }
+}
+
+fun Toolbar.titleTextView(): TextView? {
+    return try {
+        val field = this.javaClass.getDeclaredField("mTitleTextView")
+        field.isAccessible = true
+        field.get(this) as? TextView
+    } catch (ex: Exception) {
+        AnkoLogger("Football News 2").error { ex.localizedMessage }
+        null
     }
 }

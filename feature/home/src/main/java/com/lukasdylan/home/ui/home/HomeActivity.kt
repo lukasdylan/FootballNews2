@@ -55,6 +55,10 @@ class HomeActivity : AppCompatActivity() {
             NAVIGATE_ALL_PREVIOUS_MATCH_SCREEN -> {
                 homeViewModel.openAllMatchListScreen(0)
             }
+            NAVIGATE_DETAIL_TEAM_SCREEN -> {
+                val teamId = navigationScreen.params?.get(0)?.second as? String
+                homeViewModel.openDetailTeamScreen(teamId.orEmpty())
+            }
         }
     }
 
@@ -111,6 +115,12 @@ class HomeActivity : AppCompatActivity() {
                     NAVIGATE_ALL_PREVIOUS_MATCH_SCREEN -> {
                         val scheme = resources.getString(R2.string.scheme)
                         val host = resources.getString(R2.string.deep_link_match_list)
+                        val bundle = bundleOf(*it.params.orEmpty())
+                        openDeepLinkActivity(scheme, host, bundle)
+                    }
+                    NAVIGATE_DETAIL_TEAM_SCREEN -> {
+                        val scheme = resources.getString(R2.string.scheme)
+                        val host = resources.getString(R2.string.deep_link_detail_team)
                         val bundle = bundleOf(*it.params.orEmpty())
                         openDeepLinkActivity(scheme, host, bundle)
                     }

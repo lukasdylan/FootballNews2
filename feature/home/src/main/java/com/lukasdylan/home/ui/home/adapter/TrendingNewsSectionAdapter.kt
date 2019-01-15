@@ -11,7 +11,7 @@ import com.lukasdylan.home.databinding.ItemTrendingNewsBinding
 import com.lukasdylan.newsservice.data.Article
 import org.jetbrains.anko.sdk27.coroutines.onClick
 
-class TrendingNewsSectionAdapter(private val articleListener: (String) -> Unit) :
+class TrendingNewsSectionAdapter(private val articleListener: (Array<Pair<String, Any?>>) -> Unit) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var trendingNewsList = listOf<Article>()
@@ -40,7 +40,7 @@ class TrendingNewsSectionAdapter(private val articleListener: (String) -> Unit) 
 
     class TrendingNewsViewHolder(
         private val binding: ItemTrendingNewsBinding,
-        private val listener: (String) -> Unit
+        private val listener: (Array<Pair<String, Any?>>) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(article: Article) {
@@ -48,7 +48,8 @@ class TrendingNewsSectionAdapter(private val articleListener: (String) -> Unit) 
                 tvNewsTitle.asyncText(article.title)
                 ivNewsImage.loadImageByUrl(article.urlToImage)
                 cvTrendingNews.onClick {
-                    listener(article.url.orEmpty())
+                    val params = arrayOf<Pair<String, Any?>>("news_url" to article.url, "news_title" to article.title)
+                    listener(params)
                 }
                 executePendingBindings()
             }

@@ -15,10 +15,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.appbar.AppBarLayout
-import com.lukasdylan.core.extension.loadImageByUrl
-import com.lukasdylan.core.extension.observeValue
-import com.lukasdylan.core.extension.showNormalSnackBar
-import com.lukasdylan.core.extension.showSuccessSnackBar
+import com.lukasdylan.core.extension.*
 import com.lukasdylan.core.widget.FootballPagerAdapter
 import com.lukasdylan.football.R
 import com.lukasdylan.football.databinding.ActivityPreviousMatchBinding
@@ -45,7 +42,8 @@ class PreviousMatchActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = DataBindingUtil.setContentView<ActivityPreviousMatchBinding>(this, R.layout.activity_previous_match)
+        val binding =
+            DataBindingUtil.setContentView<ActivityPreviousMatchBinding>(this, R.layout.activity_previous_match)
         with(binding) {
             setSupportActionBar(toolbar)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -136,20 +134,11 @@ class PreviousMatchActivity : AppCompatActivity() {
     }
 
     private fun initTextViewToolbar(toolbar: Toolbar, appBarLayout: AppBarLayout) {
-        val toolbarTextView: TextView? = try {
-            val field = toolbar.javaClass.getDeclaredField("mTitleTextView")
-            field.isAccessible = true
-            field.get(toolbar) as? TextView
-        } catch (ex: Exception) {
-            AnkoLogger("Football News 2").error { ex.localizedMessage }
-            null
-        }
-
+        val toolbarTextView = toolbar.titleTextView()
         toolbarTextView?.alpha = 0f
 
         appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
-            val alpha =
-                Math.abs(verticalOffset).toFloat() / (appBarLayout.measuredHeight - toolbar.measuredHeight)
+            val alpha = Math.abs(verticalOffset).toFloat() / (appBarLayout.measuredHeight - toolbar.measuredHeight)
             if (alpha <= 0.5f) {
                 toolbarTextView?.alpha = alpha
             } else {
