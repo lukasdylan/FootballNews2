@@ -2,6 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <import type="com.lukasdylan.home.R"/>
+
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -15,8 +21,8 @@
                 android:fontFamily="@font/fira_sans_medium"
                 android:gravity="center|start"
                 android:textColor="@android:color/black"
-                android:textSize="20sp"
-                app:asyncText='@{"Standings"}'
+                android:textSize="18sp"
+                app:asyncText='@{context.getString(R.string.title_standings_home)}'
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/tv_see_all_standings"
@@ -29,10 +35,10 @@
                 android:background="?attr/selectableItemBackground"
                 android:fontFamily="@font/fira_sans"
                 android:padding="4dp"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:textColor="@android:color/black"
                 android:visibility="gone"
-                app:asyncText='@{"See All"}'
+                app:asyncText='@{context.getString(R.string.title_see_all)}'
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/title_standings"

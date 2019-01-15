@@ -6,8 +6,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
-import com.airbnb.lottie.LottieAnimationView
-import com.airbnb.lottie.LottieDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -47,24 +45,6 @@ fun ImageView.loadImageByUrl(imageUrl: String?) {
         loadImage(R.drawable.no_image_icon)
     } else {
         loadImage(imageUrl)
-    }
-}
-
-fun LottieAnimationView.setInfiniteLoop() {
-    repeatCount = LottieDrawable.INFINITE
-}
-
-fun LottieAnimationView.onAnimateListener(isLoading: Boolean) {
-    visibility = if (!isLoading) {
-        if (isAnimating) {
-            cancelAnimation()
-        }
-        View.GONE
-    } else {
-        if (!isAnimating) {
-            playAnimation()
-        }
-        View.VISIBLE
     }
 }
 

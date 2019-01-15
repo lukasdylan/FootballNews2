@@ -39,17 +39,16 @@ dependencies {
     api "com.google.android.material:material:1.0.0"
     api 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
     api "org.koin:koin-androidx-viewmodel:1.0.2"
-    api 'com.squareup.moshi:moshi-kotlin:1.8.0'
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.0.1'
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1'
     api 'ru.gildor.coroutines:kotlin-coroutines-retrofit:1.0.0'
     api "org.jetbrains.anko:anko-commons:0.10.8"
-    api 'com.airbnb.android:lottie:2.8.0'
     api 'com.facebook.shimmer:shimmer:0.4.0'
     api "org.jetbrains.anko:anko-sdk27:0.10.8"
     api("org.jetbrains.anko:anko-sdk27-coroutines:0.10.8") {
         exclude group: "org.jetbrains.kotlinx", module: "atomicfu-common"
     }
+    implementation 'com.squareup.moshi:moshi-kotlin:1.8.0'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     kapt 'com.github.bumptech.glide:compiler:4.8.0'
     implementation "com.squareup.retrofit2:converter-moshi:2.5.0"

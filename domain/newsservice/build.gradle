@@ -34,6 +34,7 @@ androidExtensions {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':core')
+    implementation 'com.squareup.moshi:moshi-kotlin:1.8.0'
 }
 repositories {
     mavenCentral()
