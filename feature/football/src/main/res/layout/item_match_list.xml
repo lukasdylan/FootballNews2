@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="match"
+                type="com.lukasdylan.footballservice.data.entity.DetailMatch"/>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/root_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:background="?attr/selectableItemBackground">
+
+        <TextView
+                android:id="@+id/tv_date_time_match"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fira_sans_italic"
+                android:singleLine="true"
+                android:ellipsize="end"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="Rabu, 28 Juni 2018 18.00"/>
+
+        <View
+                android:id="@+id/view_separator"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/transparent"
+                app:layout_constraintTop_toBottomOf="@id/tv_date_time_match"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fira_sans"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                app:asyncText='@{"VS"}'
+                app:layout_constraintTop_toTopOf="@id/view_separator"
+                app:layout_constraintBottom_toBottomOf="@id/view_separator"
+                app:layout_constraintStart_toEndOf="@id/view_separator"
+                app:layout_constraintEnd_toStartOf="@id/view_separator"
+                tools:text="VS"/>
+
+        <ImageView
+                android:id="@+id/iv_home_team_icon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_date_time_match"
+                app:layout_constraintEnd_toStartOf="@id/tv_home_team_name"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+                android:id="@+id/tv_home_team_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/fira_sans"
+                android:layout_marginEnd="16dp"
+                android:gravity="center"
+                android:maxLines="2"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                app:asyncText="@{match.homeTeamName}"
+                app:layout_constraintTop_toTopOf="@id/iv_home_team_icon"
+                app:layout_constraintStart_toEndOf="@id/iv_home_team_icon"
+                app:layout_constraintBottom_toBottomOf="@id/iv_home_team_icon"
+                app:layout_constraintEnd_toStartOf="@id/tv_home_team_score"
+                tools:text="Manchester United"/>
+
+        <TextView
+                android:id="@+id/tv_home_team_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/fira_sans"
+                android:layout_marginEnd="16dp"
+                android:gravity="center"
+                android:maxLines="2"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:asyncText="@{match.homeTeamScore}"
+                app:layout_constraintTop_toTopOf="@id/tv_home_team_name"
+                app:layout_constraintStart_toEndOf="@id/tv_home_team_name"
+                app:layout_constraintBottom_toBottomOf="@id/tv_home_team_name"
+                app:layout_constraintEnd_toStartOf="@id/view_separator"
+                tools:text="3"/>
+
+        <ImageView
+                android:id="@+id/iv_away_team_icon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_date_time_match"
+                app:layout_constraintStart_toEndOf="@id/tv_away_team_name"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+                android:id="@+id/tv_away_team_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/fira_sans"
+                android:layout_marginStart="16dp"
+                android:gravity="center"
+                android:maxLines="2"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                app:asyncText="@{match.awayTeamName}"
+                app:layout_constraintTop_toTopOf="@id/iv_away_team_icon"
+                app:layout_constraintStart_toEndOf="@id/tv_away_team_score"
+                app:layout_constraintBottom_toBottomOf="@id/iv_away_team_icon"
+                app:layout_constraintEnd_toStartOf="@id/iv_away_team_icon"
+                tools:text="Manchester United"/>
+
+        <TextView
+                android:id="@+id/tv_away_team_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/fira_sans"
+                android:layout_marginStart="16dp"
+                android:gravity="center"
+                android:maxLines="2"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:asyncText="@{match.awayTeamScore}"
+                app:layout_constraintTop_toTopOf="@id/tv_away_team_name"
+                app:layout_constraintStart_toEndOf="@id/view_separator"
+                app:layout_constraintBottom_toBottomOf="@id/tv_away_team_name"
+                app:layout_constraintEnd_toStartOf="@id/tv_away_team_name"
+                tools:text="3"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

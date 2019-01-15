@@ -1,0 +1,61 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">#c5c5c5</item>
+        <item name="colorControlActivated">@color/colorPrimaryDark</item>
+        <item name="colorControlHighlight">@color/colorPrimaryHighlight</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="windowActionBarOverlay">true</item>
+    </style>
+
+    <style name="TransparentStatusBar" parent="AppTheme.NoActionBar"/>
+
+    <style name="AppTheme.ThemeOverlay.Dark.ActionBar.Primary" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="colorControlHighlight">@color/colorPrimaryHighlight</item>
+        <item name="android:fontFamily">@font/fira_sans_medium</item>
+    </style>
+
+    <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/white_top_rounded_background</item>
+    </style>
+
+    <style name="BaseBottomSheetDialog" parent="@style/Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
+        <item name="bottomSheetStyle">@style/BottomSheet</item>
+    </style>
+
+    <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog" >
+        <item name="colorControlHighlight">@color/colorPrimaryHighlight</item>
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_up_bottomsheet</item>
+        <item name="android:windowExitAnimation">@anim/slide_down_bottomsheet</item>
+    </style>
+    
+    <style name="TextAppearance.AppCompat.Black.Normal" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/fira_sans</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="TextAppearance.AppCompat.Black.Medium" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/fira_sans_medium</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="SwitchCompatColorStyle">
+        <item name="colorControlActivated">@android:color/holo_green_light</item>
+    </style>
+
+</resources>

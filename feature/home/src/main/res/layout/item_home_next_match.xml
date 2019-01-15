@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="match"
+                type="com.lukasdylan.footballservice.data.entity.DetailMatch"/>
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_next_match"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="8dp"
+            app:strokeColor="@android:color/black"
+            app:strokeWidth="0.5dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/root_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:padding="16dp">
+
+            <TextView
+                    android:id="@+id/tv_date_time_match"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/fira_sans_italic"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="Rabu, 28 Juni 2018 18.00"/>
+
+            <View
+                    android:id="@+id/view_separator"
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:background="@android:color/transparent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_date_time_match"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/fira_sans"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    app:asyncText='@{"VS"}'
+                    app:layout_constraintTop_toTopOf="@id/view_separator"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/view_separator"
+                    app:layout_constraintEnd_toStartOf="@id/view_separator"/>
+
+            <ImageView
+                    android:id="@+id/iv_home_team_icon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/view_separator"
+                    app:layout_constraintEnd_toStartOf="@id/view_separator"
+                    app:layout_constraintBottom_toTopOf="@id/tv_home_team_name"/>
+
+            <TextView
+                    android:id="@+id/tv_home_team_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/fira_sans"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    app:asyncText="@{match.homeTeamName}"
+                    app:layout_constraintTop_toBottomOf="@id/iv_home_team_icon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/view_separator"
+                    tools:text="AC Milan"/>
+
+            <ImageView
+                    android:id="@+id/iv_away_team_icon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toEndOf="@id/view_separator"
+                    app:layout_constraintTop_toTopOf="@id/view_separator"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/tv_away_team_name"/>
+
+            <TextView
+                    android:id="@+id/tv_away_team_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/fira_sans"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="16dp"
+                    android:maxLines="1"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    app:asyncText="@{match.awayTeamName}"
+                    app:layout_constraintTop_toBottomOf="@id/iv_away_team_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/view_separator"
+                    tools:text="Juventus"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

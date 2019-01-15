@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="vm"
+                type="com.lukasdylan.home.ui.nextmatch.NextMatchViewModel"/>
+
+        <variable
+                name="match"
+                type="com.lukasdylan.footballservice.data.entity.DetailMatch"/>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:fitsSystemWindows="true"
+            android:animateLayoutChanges="true">
+
+        <TextView
+                android:id="@+id/title_next_match"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Next Match"
+                android:textColor="@android:color/black"
+                android:fontFamily="@font/fira_sans_medium"
+                android:textSize="20sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/iv_close"
+                app:layout_constraintEnd_toStartOf="@id/iv_close"/>
+
+        <ImageView
+                android:id="@+id/iv_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_close"
+                android:tint="@android:color/black"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/title_next_match"
+                app:layout_constraintBottom_toBottomOf="@id/title_next_match"/>
+
+        <androidx.core.widget.NestedScrollView
+                android:id="@+id/nested_scroll_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:layout_marginTop="16dp"
+                android:fitsSystemWindows="true"
+                app:layout_constraintTop_toBottomOf="@id/title_next_match"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <View
+                        android:id="@+id/view_separator"
+                        android:layout_width="1dp"
+                        android:layout_height="0dp"
+                        android:background="@android:color/transparent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/view_separator_2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/fira_sans"
+                        android:text="VS"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp"
+                        app:layout_constraintTop_toTopOf="@id/view_separator"
+                        app:layout_constraintBottom_toBottomOf="@id/view_separator"
+                        app:layout_constraintStart_toEndOf="@id/view_separator"
+                        app:layout_constraintEnd_toStartOf="@id/view_separator"/>
+
+                <ImageView
+                        android:id="@+id/iv_home_team_icon"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/view_separator"
+                        app:layout_constraintBottom_toTopOf="@id/tv_home_team_name"/>
+
+                <TextView
+                        android:id="@+id/tv_home_team_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/fira_sans"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:text="@{vm.homeTeamName}"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp"
+                        app:layout_constraintTop_toBottomOf="@id/iv_home_team_icon"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/view_separator_2"
+                        app:layout_constraintEnd_toStartOf="@id/view_separator"
+                        tools:text="AC Milan"/>
+
+                <ImageView
+                        android:id="@+id/iv_away_team_icon"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintStart_toEndOf="@id/view_separator"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/tv_away_team_name"/>
+
+                <TextView
+                        android:id="@+id/tv_away_team_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginStart="16dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/fira_sans"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:text="@{vm.awayTeamName}"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp"
+                        app:layout_constraintTop_toBottomOf="@id/iv_away_team_icon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/view_separator_2"
+                        app:layout_constraintStart_toEndOf="@id/view_separator"
+                        tools:text="Juventus"/>
+
+                <View
+                        android:id="@+id/view_separator_2"
+                        android:layout_width="0dp"
+                        android:layout_height="0.7dp"
+                        android:background="@android:color/darker_gray"
+                        app:layout_constraintBottom_toTopOf="@id/tv_subtitle_add_reminder"
+                        app:layout_constraintTop_toBottomOf="@id/view_separator"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                <TextView
+                        android:id="@+id/tv_subtitle_add_reminder"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/fira_sans"
+                        android:text="Add reminder to your calendar"
+                        android:textSize="18sp"
+                        android:gravity="center|start"
+                        android:lines="2"
+                        app:layout_constraintBottom_toTopOf="@id/tv_reminder_status"
+                        app:layout_constraintTop_toBottomOf="@id/view_separator_2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/switch_reminder"/>
+
+                <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/switch_reminder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="@{vm.switchChecked}"
+                        android:theme="@style/SwitchCompatColorStyle"
+                        app:layout_constraintTop_toBottomOf="@id/tv_subtitle_add_reminder"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tv_subtitle_add_reminder"
+                        app:layout_constraintBottom_toTopOf="@id/view_separator_2"
+                        tools:checked="true"/>
+
+                <TextView
+                        android:id="@+id/tv_reminder_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/fira_sans_italic"
+                        android:text="This match has been added to your calendar"
+                        android:textColor="@android:color/holo_green_dark"
+                        android:visibility="@{vm.reminderStatusVisibility}"
+                        app:layout_constraintBottom_toTopOf="@id/view_separator_3"
+                        app:layout_constraintTop_toBottomOf="@id/tv_subtitle_add_reminder"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        tools:visibility="visible"/>
+
+                <View
+                        android:id="@+id/view_separator_3"
+                        android:layout_width="0dp"
+                        android:layout_height="0.7dp"
+                        android:background="@android:color/darker_gray"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintBottom_toTopOf="@id/layout_match_name"
+                        app:layout_constraintTop_toBottomOf="@id/tv_reminder_status"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                <TextView
+                        android:id="@+id/tv_subtitle_match_info"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/fira_sans_medium"
+                        android:text="Match Information"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toTopOf="@id/layout_match_name"
+                        app:layout_constraintTop_toBottomOf="@id/view_separator_3"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_match_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:hint="Match Name"
+                        app:hintAnimationEnabled="false"
+                        app:layout_constraintBottom_toTopOf="@id/layout_league_name"
+                        app:layout_constraintTop_toBottomOf="@id/tv_subtitle_match_info"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_match_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:fontFamily="@font/fira_sans"
+                            android:minHeight="40dp"
+                            android:focusable="false"
+                            android:enabled="false"
+                            android:text="@{vm.matchName}"
+                            android:textColor="@android:color/black"
+                            tools:text="AC Milan vs Juventus"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_league_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:hint="League Name"
+                        app:hintAnimationEnabled="false"
+                        app:layout_constraintTop_toBottomOf="@id/layout_match_name"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_league_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:fontFamily="@font/fira_sans"
+                            android:minHeight="40dp"
+                            android:focusable="false"
+                            android:enabled="false"
+                            android:text="@{vm.leagueName}"
+                            android:textColor="@android:color/black"
+                            tools:text="English Premier League"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_event_datetime"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:hint="Match Date &amp; Time"
+                        app:hintAnimationEnabled="false"
+                        app:layout_constraintTop_toBottomOf="@id/layout_league_name"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_event_datetime"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:fontFamily="@font/fira_sans"
+                            android:minHeight="40dp"
+                            android:focusable="false"
+                            android:enabled="false"
+                            android:text="@{vm.matchDateTime}"
+                            android:textColor="@android:color/black"
+                            tools:text="Rabu, 20 Januari 2019 18.00"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

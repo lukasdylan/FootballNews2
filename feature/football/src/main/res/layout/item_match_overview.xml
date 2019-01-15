@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable name="label" type="String"/>
+
+        <variable name="value" type="String"/>
+
+    </data>
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:hint="@{label}"
+            android:focusableInTouchMode="false"
+            android:focusable="false"
+            app:hintAnimationEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/fira_sans"
+                android:paddingTop="8dp"
+                android:minHeight="32dp"
+                android:focusableInTouchMode="false"
+                android:focusable="false"
+                android:enabled="false"
+                android:clickable="false"
+                android:text="@{value}"
+                android:textColor="@android:color/black"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+</layout>

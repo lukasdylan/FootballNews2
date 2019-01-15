@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="16dp"
+            app:cardCornerRadius="8dp"
+            app:strokeColor="@android:color/black"
+            app:strokeWidth="0.5dp">
+
+        <TextView
+                android:id="@+id/cv_see_all_news"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="16dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:background="?attr/selectableItemBackground"
+                android:text="See All News"
+                android:textSize="18sp"
+                android:fontFamily="@font/fira_sans_medium"
+                android:textColor="@android:color/black"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

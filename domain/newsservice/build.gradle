@@ -1,0 +1,40 @@
+apply plugin: 'com.android.library'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "NEWS_BASE_URL", "\"https://newsapi.org/v2/\""
+        buildConfigField "String", "NEWS_API_KEY", "\"e07a0d96115447d18f2fac1dfd05502e\""
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+androidExtensions {
+    experimental = true
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':core')
+}
+repositories {
+    mavenCentral()
+}

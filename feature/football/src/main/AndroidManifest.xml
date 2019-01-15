@@ -1,0 +1,54 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.lukasdylan.football">
+
+    <application>
+
+        <activity android:name=".ui.standings.StandingsActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data
+                        android:host="@string/deep_link_standings"
+                        android:scheme="@string/scheme"/>
+            </intent-filter>
+
+        </activity>
+        <activity android:name=".ui.previousmatch.PreviousMatchActivity"
+                  android:theme="@style/TransparentStatusBar"
+                  android:windowSoftInputMode="stateHidden|adjustPan">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data
+                        android:host="@string/deep_link_detail_previous_match"
+                        android:scheme="@string/scheme"/>
+            </intent-filter>
+
+        </activity>
+
+        <activity android:name=".ui.matchlist.MatchListActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data
+                        android:host="@string/deep_link_match_list"
+                        android:scheme="@string/scheme"/>
+            </intent-filter>
+
+        </activity>
+
+    </application>
+
+</manifest>

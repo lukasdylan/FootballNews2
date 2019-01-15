@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Football Service</string>
+    <string name="scheme">football</string>
+    <string name="deep_link_detail_previous_match">detail_previous_match</string>
+    <string name="deep_link_standings">standings</string>
+    <string name="deep_link_match_list">match_list</string>
+</resources>

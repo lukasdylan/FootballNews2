@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">core</string>
+    <string name="msg_no_internet_connection">No Internet Connection</string>
+    <string name="msg_failed_to_load">Failed to Load Data</string>
+</resources>

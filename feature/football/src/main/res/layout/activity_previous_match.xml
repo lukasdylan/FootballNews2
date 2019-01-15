@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable name="vm"
+                  type="com.lukasdylan.football.ui.previousmatch.PreviousMatchViewModel"/>
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/root_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/app_bar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="256dp"
+                    android:fitsSystemWindows="true"
+                    app:contentScrim="@color/colorPrimary"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                    app:titleEnabled="false">
+
+                <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/background_arena"
+                        android:scaleType="centerCrop"
+                        android:fitsSystemWindows="true"
+                        app:layout_collapseMode="parallax"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/blackTransparent"
+                        android:fitsSystemWindows="true"
+                        app:layout_collapseMode="parallax"
+                        app:layout_collapseParallaxMultiplier="0.7">
+
+                    <TextView
+                            android:id="@+id/tv_score"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/fira_sans_semibold"
+                            android:layout_marginTop="16dp"
+                            android:text="@{vm.matchScore}"
+                            android:textColor="@android:color/white"
+                            android:textSize="30sp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="parent"
+                            app:layout_constraintEnd_toStartOf="parent"/>
+
+                    <ImageView
+                            android:id="@+id/iv_home_team_icon"
+                            android:layout_width="84dp"
+                            android:layout_height="84dp"
+                            android:layout_marginTop="16dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/tv_score"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <ImageView
+                            android:id="@+id/iv_away_team_icon"
+                            android:layout_width="84dp"
+                            android:layout_height="84dp"
+                            android:layout_marginTop="16dp"
+                            app:layout_constraintStart_toEndOf="@id/tv_score"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:theme="@style/AppTheme.ThemeOverlay.Dark.ActionBar.Primary"
+                        app:navigationIcon="@drawable/vector_arrow_back"
+                        app:layout_collapseMode="pin"/>
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+            <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_marginTop="-12dp"
+                    android:background="@drawable/white_top_rounded_background"
+                    app:tabIndicatorColor="@android:color/holo_orange_dark"
+                    app:tabSelectedTextColor="@android:color/holo_green_dark"
+            app:tabRippleColor="@android:color/transparent"/>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.viewpager.widget.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable name="title" type="String"/>
+
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:padding="16dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:animateLayoutChanges="true">
+
+            <TextView
+                    android:id="@+id/title_match_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/fira_sans_medium"
+                    android:gravity="center|start"
+                    android:text="@{title}"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/rv_match_information"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_match_information"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:layout_marginTop="16dp"
+                    android:descendantFocusability="beforeDescendants"
+                    app:layout_constraintTop_toBottomOf="@id/title_match_info"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

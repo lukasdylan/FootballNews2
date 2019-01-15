@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable name="title" type="String"/>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:animateLayoutChanges="true">
+
+        <TextView
+                android:id="@+id/title_trending_news"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fira_sans_medium"
+                android:gravity="center|start"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:asyncText="@{title}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_trending_news"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:padding="16dp"
+                app:layout_constraintTop_toBottomOf="@id/title_trending_news"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="24dp"
+                app:shimmer_duration="1250"
+                app:shimmer_repeat_delay="200"
+                app:shimmer_colored="true"
+                app:shimmer_base_color="@android:color/darker_gray"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        app:cardCornerRadius="8dp"
+                        android:layout_marginBottom="16dp"
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="@android:color/darker_gray"/>
+
+                <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="@android:color/darker_gray"/>
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

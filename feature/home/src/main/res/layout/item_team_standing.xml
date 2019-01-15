@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="position"
+                type="Integer"/>
+
+        <variable
+                name="standings"
+                type="com.lukasdylan.footballservice.data.response.Standings"/>
+
+    </data>
+
+    <LinearLayout
+            android:id="@+id/root_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|start"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:weightSum="1">
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="0.1"
+                android:fontFamily="@font/fira_sans"
+                android:gravity="center"
+                android:textSize="16sp"
+                app:asyncText="@{String.valueOf(position)}"
+                tools:text="1"/>
+
+        <ImageView
+                android:id="@+id/iv_club_icon"
+                android:layout_width="36dp"
+                android:layout_height="36dp"/>
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_weight="0.4"
+                android:ellipsize="end"
+                android:fontFamily="@font/fira_sans_medium"
+                android:maxLines="1"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                app:asyncText="@{standings.name}"
+                tools:text="AC Milan"/>
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:fontFamily="@font/fira_sans"
+                android:gravity="center"
+                android:textSize="16sp"
+                app:asyncText="@{String.valueOf(standings.played)}"
+                tools:text="4"/>
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:fontFamily="@font/fira_sans"
+                android:gravity="center"
+                android:textSize="16sp"
+                app:asyncText="@{String.valueOf(standings.win)}"
+                tools:text="3"/>
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:fontFamily="@font/fira_sans"
+                android:gravity="center"
+                android:textSize="16sp"
+                app:asyncText="@{String.valueOf(standings.draw)}"
+                tools:text="1"/>
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:fontFamily="@font/fira_sans"
+                android:gravity="center"
+                android:textSize="16sp"
+                app:asyncText="@{String.valueOf(standings.loss)}"
+                tools:text="0"/>
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:fontFamily="@font/fira_sans_medium"
+                android:gravity="center"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                app:asyncText="@{String.valueOf(standings.total)}"
+                tools:text="10"/>
+
+    </LinearLayout>
+
+</layout>
