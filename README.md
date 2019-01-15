@@ -10,4 +10,8 @@ Library that I used for this project:
 5. [Anko](https://github.com/Kotlin/anko) for some class extension (only used [Common](https://github.com/Kotlin/anko#anko-commons))
 6. Fully used AndroidX
 
-This project using MVVM pattern with DataBinding, and already modularize
+This project using MVVM pattern with DataBinding, and already modularize.
+
+Development tools:
+Android Studio 3.4 Canary 10
+Postman
