@@ -53,7 +53,7 @@
                 android:layout_height="72dp"
                 android:scaleType="centerCrop"
                 android:background="@color/lighter_gray"
-                android:layout_marginLeft="24dp"
+                android:layout_marginStart="24dp"
                 app:layout_anchor="@id/rv_team_information"
                 app:layout_anchorGravity="top|start"/>
 
