@@ -45,7 +45,7 @@ class PreviousMatchViewModel(
     private val _normalSnackBarEvent = SingleLiveEvent<String>()
     val normalSnackBarEvent: LiveData<String> = _normalSnackBarEvent
 
-    private val onFailedListener = { errorWrapper: ErrorWrapper -> _errorSnackBarEvent.postValue(errorWrapper) }
+    private val onFailedListener = { errorWrapper: ErrorWrapper -> setErrorSnackBar(errorWrapper) }
 
     fun loadData(bundle: Bundle) {
         with(bundle) {

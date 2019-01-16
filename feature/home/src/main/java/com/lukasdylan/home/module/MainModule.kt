@@ -16,4 +16,4 @@ private val viewModelModule = module {
     viewModel { NextMatchViewModel(get()) }
 }
 
-val mainModules = listOf(useCaseModule, viewModelModule)
+val homeModules = listOf(useCaseModule, viewModelModule)

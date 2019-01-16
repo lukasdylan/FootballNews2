@@ -37,9 +37,7 @@ data class DetailTeam(
     @Json(name = "strTeamFanart3")
     val teamFanArt3: String? = null,
     @Json(name = "strTeamFanart4")
-    val teamFanArt4: String? = null,
-    @Json(name = "strTeamBanner")
-    val teamBanner: String? = null
+    val teamFanArt4: String? = null
 ) : Parcelable
 
 data class DetailTeamResponse(

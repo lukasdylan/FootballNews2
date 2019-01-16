@@ -34,7 +34,7 @@ class StandingsViewModel(dispatcherProviders: DispatcherProviders) : BaseViewMod
     fun onSelectedTeam(teamId: String) {
         val detailTeam = _leagueTeamDetailList.value?.find { it.idTeam == teamId }
         val params = arrayOf<Pair<String, Any?>>("detail_team" to detailTeam)
-        _navigationScreenEvent.value = NavigationScreen(0, params)
+        setNavigationScreen(NavigationScreen(0, params))
     }
 
 }

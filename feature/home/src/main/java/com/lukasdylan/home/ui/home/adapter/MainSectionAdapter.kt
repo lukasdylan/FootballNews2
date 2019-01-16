@@ -222,7 +222,7 @@ class MainSectionAdapter(layoutMaxWidth: Int, private val listener: (NavigationS
                     val navigationScreen = NavigationScreen(NAVIGATE_ALL_PREVIOUS_MATCH_SCREEN)
                     listener(navigationScreen)
                 }
-                this.title = "Previous Match"
+                this.title = itemView.resources.getString(R.string.title_previous_match_home)
             }
         }
 
@@ -259,7 +259,7 @@ class MainSectionAdapter(layoutMaxWidth: Int, private val listener: (NavigationS
                     val navigationScreen = NavigationScreen(NAVIGATE_ALL_NEXT_MATCH_SCREEN)
                     listener(navigationScreen)
                 }
-                this.title = "Next Match"
+                this.title = itemView.resources.getString(R.string.title_next_match_home)
             }
         }
 
@@ -297,7 +297,7 @@ class MainSectionAdapter(layoutMaxWidth: Int, private val listener: (NavigationS
 
         fun bind(data: List<Article>, isLoading: Boolean) {
             with(binding) {
-                this.title = "News on $leagueName"
+                this.title = itemView.resources.getString(R.string.title_news_home, leagueName)
                 shimmerLayout.onAnimateListener(isLoading)
                 titleTrendingNews.visibility = if (data.isEmpty()) View.INVISIBLE else View.VISIBLE
                 rvTrendingNews.adapter = trendingNewsSectionAdapter
@@ -315,6 +315,7 @@ class MainSectionAdapter(layoutMaxWidth: Int, private val listener: (NavigationS
         add(HomeSectionType.PREV_MATCH.ordinal, HomeSection(HomeSectionType.PREV_MATCH, emptyList<DetailMatch>(), true))
         add(HomeSectionType.NEXT_MATCH.ordinal, HomeSection(HomeSectionType.NEXT_MATCH, emptyList<DetailMatch>(), true))
         add(HomeSectionType.STANDINGS.ordinal, HomeSection(HomeSectionType.STANDINGS, emptyList<Standings>(), true))
+        toList()
         notifyItemRangeInserted(0, size)
     }
 

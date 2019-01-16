@@ -43,41 +43,11 @@ class MainTeamInfoAdapter(
     }
 
     private fun MutableList<TeamInfoDataModel>.initialize() {
-        add(
-            TeamInfoDataModel(
-                TeamInfoType.TEAM_INFO,
-                emptyList<DetailTeam>(),
-                true
-            )
-        )
-        add(
-            TeamInfoDataModel(
-                TeamInfoType.STADIUM_INFO,
-                emptyList<DetailTeam>(),
-                true
-            )
-        )
-        add(
-            TeamInfoDataModel(
-                TeamInfoType.PLAYER_INFO,
-                emptyList<Player>(),
-                true
-            )
-        )
-        add(
-            TeamInfoDataModel(
-                TeamInfoType.MANAGER_INFO,
-                emptyList<String>(),
-                true
-            )
-        )
-        add(
-            TeamInfoDataModel(
-                TeamInfoType.NEWS_INFO,
-                emptyList<Article>(),
-                true
-            )
-        )
+        add(TeamInfoDataModel(TeamInfoType.TEAM_INFO, emptyList<DetailTeam>(), true))
+        add(TeamInfoDataModel(TeamInfoType.STADIUM_INFO, emptyList<DetailTeam>(), true))
+        add(TeamInfoDataModel(TeamInfoType.PLAYER_INFO, emptyList<Player>(), true))
+        add(TeamInfoDataModel(TeamInfoType.MANAGER_INFO, emptyList<String>(), true))
+        add(TeamInfoDataModel(TeamInfoType.NEWS_INFO, emptyList<Article>(), true))
         notifyItemRangeInserted(0, size)
     }
 }

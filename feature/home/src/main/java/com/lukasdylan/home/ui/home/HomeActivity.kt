@@ -35,7 +35,7 @@ class HomeActivity : AppCompatActivity() {
     private val adapterListener = { navigationScreen: NavigationScreen ->
         when (navigationScreen.navigationId) {
             NAVIGATE_DETAIL_NEXT_MATCH_SCREEN -> {
-                showBottomSheetFragment(NextMatchFragment(), bundleOf(*navigationScreen.params.orEmpty()))
+                showBottomSheetFragment(NextMatchFragment(), navigationScreen.params)
             }
             NAVIGATE_DETAIL_PREVIOUS_MATCH_SCREEN -> {
                 val scheme = resources.getString(R2.string.scheme)

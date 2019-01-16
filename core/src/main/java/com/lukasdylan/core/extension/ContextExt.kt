@@ -11,6 +11,7 @@ import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.checkSelfPermission
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.lukasdylan.core.widget.RoundedBottomSheetFragment
 
@@ -35,10 +36,12 @@ inline fun Fragment.checkPermissions(
     }
 }
 
-fun AppCompatActivity.showBottomSheetFragment(fragment: RoundedBottomSheetFragment, bundle: Bundle = Bundle.EMPTY) {
-    fragment.also {
-        it.arguments = bundle
-    }.show(supportFragmentManager, fragment::class.java.simpleName)
+fun AppCompatActivity.showBottomSheetFragment(
+    fragment: RoundedBottomSheetFragment,
+    params: Array<Pair<String, Any?>>? = null
+) {
+    fragment.also { it.arguments = bundleOf(*params.orEmpty()) }
+        .show(supportFragmentManager, fragment::class.java.simpleName)
 }
 
 fun Context.openDeepLinkActivity(
