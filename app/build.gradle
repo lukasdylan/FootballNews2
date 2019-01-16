@@ -49,5 +49,4 @@ dependencies {
     implementation project(':feature:news')
     implementation project(':domain:footballservice')
     implementation project(':domain:newsservice')
-    implementation 'androidx.test.espresso:espresso-idling-resource:3.1.1'
 }

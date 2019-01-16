@@ -35,6 +35,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':core')
     implementation 'com.squareup.moshi:moshi-kotlin:1.8.0'
+    implementation 'androidx.test.espresso:espresso-idling-resource:3.1.1'
 }
 repositories {
     mavenCentral()

@@ -49,4 +49,5 @@ dependencies {
     kapt "androidx.lifecycle:lifecycle-compiler:2.0.0"
     implementation "androidx.databinding:databinding-adapters:3.4.0-alpha10"
     kapt "androidx.databinding:databinding-compiler:3.4.0-alpha10"
+    implementation 'androidx.test.espresso:espresso-idling-resource:3.1.1'
 }

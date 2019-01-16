@@ -49,7 +49,9 @@
 
         </activity>
 
-        <activity android:name=".ui.team.DetailTeamActivity">
+        <activity android:name=".ui.team.DetailTeamActivity"
+                  android:theme="@style/TransparentStatusBar"
+                  android:windowSoftInputMode="stateHidden|adjustPan">
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>

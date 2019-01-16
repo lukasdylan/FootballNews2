@@ -3,7 +3,9 @@ package com.lukasdylan.home.ui.home.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.RecyclerView
+import androidx.databinding.ViewDataBinding
+import com.lukasdylan.core.base.BaseAdapter
+import com.lukasdylan.core.base.BaseViewHolder
 import com.lukasdylan.core.extension.loadImageByUrl
 import com.lukasdylan.home.R
 import com.lukasdylan.home.asyncText
@@ -12,48 +14,36 @@ import com.lukasdylan.newsservice.data.Article
 import org.jetbrains.anko.sdk27.coroutines.onClick
 
 class TrendingNewsSectionAdapter(private val articleListener: (Array<Pair<String, Any?>>) -> Unit) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    BaseAdapter<Article, TrendingNewsSectionAdapter.TrendingNewsViewHolder>() {
 
-    private var trendingNewsList = listOf<Article>()
-
-    fun addData(data: List<Article>) {
-        trendingNewsList = data
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding = DataBindingUtil.inflate<ItemTrendingNewsBinding>(
-            LayoutInflater.from(parent.context),
+    override fun getViewDataBinding(inflater: LayoutInflater, parent: ViewGroup): ViewDataBinding {
+        return DataBindingUtil.inflate<ItemTrendingNewsBinding>(
+            inflater,
             R.layout.item_trending_news,
             parent,
             false
         )
-        return TrendingNewsViewHolder(binding, articleListener)
     }
 
-    override fun getItemCount(): Int = trendingNewsList.size
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is TrendingNewsViewHolder && position <= (trendingNewsList.size - 1)) {
-            holder.bind(trendingNewsList[position])
-        }
+    override fun setViewHolder(binding: ViewDataBinding): TrendingNewsViewHolder {
+        return TrendingNewsViewHolder(binding as ItemTrendingNewsBinding, articleListener)
     }
 
     class TrendingNewsViewHolder(
         private val binding: ItemTrendingNewsBinding,
         private val listener: (Array<Pair<String, Any?>>) -> Unit
-    ) : RecyclerView.ViewHolder(binding.root) {
+    ) : BaseViewHolder<Article>(binding) {
 
-        fun bind(article: Article) {
+        override fun bind(item: Article, imageMap: Map<String, String>?) {
             with(binding) {
-                tvNewsTitle.asyncText(article.title)
-                ivNewsImage.loadImageByUrl(article.urlToImage)
+                tvNewsTitle.asyncText(item.title)
+                ivNewsImage.loadImageByUrl(item.urlToImage)
                 cvTrendingNews.onClick {
-                    val params = arrayOf<Pair<String, Any?>>("news_url" to article.url, "news_title" to article.title)
+                    val params = arrayOf<Pair<String, Any?>>("news_url" to item.url, "news_title" to item.title)
                     listener(params)
                 }
                 executePendingBindings()
             }
         }
     }
-
 }

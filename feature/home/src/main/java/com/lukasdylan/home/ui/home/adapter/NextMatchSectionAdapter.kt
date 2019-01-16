@@ -3,11 +3,13 @@ package com.lukasdylan.home.ui.home.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.RecyclerView
+import androidx.databinding.ViewDataBinding
+import com.lukasdylan.core.base.BaseAdapter
+import com.lukasdylan.core.base.BaseViewHolder
 import com.lukasdylan.core.extension.loadImageByUrl
 import com.lukasdylan.core.utility.StringUtils
-import com.lukasdylan.home.R
 import com.lukasdylan.footballservice.data.entity.DetailMatch
+import com.lukasdylan.home.R
 import com.lukasdylan.home.asyncText
 import com.lukasdylan.home.databinding.ItemHomeNextMatchBinding
 import org.jetbrains.anko.sdk27.coroutines.onClick
@@ -15,56 +17,40 @@ import org.jetbrains.anko.sdk27.coroutines.onClick
 class NextMatchSectionAdapter(
     private val layoutMaxWidth: Int,
     private val listener: (Array<Pair<String, Any?>>) -> Unit
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : BaseAdapter<DetailMatch, NextMatchSectionAdapter.NextMatchViewHolder>() {
 
-    private var prevMatchList = listOf<DetailMatch>()
-    private var imageTeamData: Map<String, String> = HashMap()
-
-    fun addData(data: List<DetailMatch>) {
-        prevMatchList = data
-    }
-
-    fun addImageData(data: Map<String, String>) {
-        imageTeamData = data
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding = DataBindingUtil.inflate<ItemHomeNextMatchBinding>(
+    override fun getViewDataBinding(inflater: LayoutInflater, parent: ViewGroup): ViewDataBinding {
+        return DataBindingUtil.inflate<ItemHomeNextMatchBinding>(
             LayoutInflater.from(parent.context),
             R.layout.item_home_next_match,
             parent,
             false
-        )
-        binding.cvNextMatch.layoutParams.width = layoutMaxWidth
-        return NextMatchViewHolder(binding, listener)
+        ).also {
+            it?.cvNextMatch?.layoutParams?.width = layoutMaxWidth
+        }
     }
 
-    override fun getItemCount(): Int = prevMatchList.size
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is NextMatchViewHolder) {
-            val match = prevMatchList[position]
-            val homeImageUrl = imageTeamData[match.homeTeamId]
-            val awayImageUrl = imageTeamData[match.awayTeamId]
-            holder.bind(match, homeImageUrl, awayImageUrl)
-        }
+    override fun setViewHolder(binding: ViewDataBinding): NextMatchViewHolder {
+        return NextMatchViewHolder(binding as ItemHomeNextMatchBinding, listener)
     }
 
     class NextMatchViewHolder(
         private val binding: ItemHomeNextMatchBinding,
         private val listener: (Array<Pair<String, Any?>>) -> Unit
-    ) : RecyclerView.ViewHolder(binding.root) {
+    ) : BaseViewHolder<DetailMatch>(binding) {
 
-        fun bind(detailMatch: DetailMatch, homeImageUrl: String?, awayImageUrl: String?) {
+        override fun bind(item: DetailMatch, imageMap: Map<String, String>?) {
             with(binding) {
-                this.match = detailMatch
+                this.match = item
+                val homeImageUrl = imageMap?.get(item.homeTeamId).orEmpty()
+                val awayImageUrl = imageMap?.get(item.awayTeamId).orEmpty()
                 ivHomeTeamIcon.loadImageByUrl(homeImageUrl)
                 ivAwayTeamIcon.loadImageByUrl(awayImageUrl)
-                val calendar = StringUtils.calendarFromString(detailMatch.date.orEmpty(), detailMatch.time.orEmpty())
+                val calendar = StringUtils.calendarFromString(item.date.orEmpty(), item.time.orEmpty())
                 tvDateTimeMatch.asyncText(StringUtils.formatAsDate(calendar.time))
                 rootLayout.onClick {
-                    val params = arrayOf(
-                        "detail_match" to detailMatch,
+                    val params = arrayOf<Pair<String, Any?>>(
+                        "detail_match" to item,
                         "home_image_url" to homeImageUrl,
                         "away_image_url" to awayImageUrl
                     )
@@ -74,5 +60,4 @@ class NextMatchSectionAdapter(
             }
         }
     }
-
 }

@@ -14,7 +14,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="200dp">
+                android:minHeight="175dp">
 
             <ImageView
                     android:id="@+id/iv_news_image"

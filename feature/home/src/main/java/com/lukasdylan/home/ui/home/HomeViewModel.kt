@@ -14,7 +14,6 @@ import com.lukasdylan.footballservice.data.model.League
 import com.lukasdylan.footballservice.data.response.DetailTeam
 import com.lukasdylan.footballservice.data.response.Standings
 import com.lukasdylan.home.ui.home.adapter.NAVIGATE_ALL_PREVIOUS_MATCH_SCREEN
-import com.lukasdylan.home.ui.home.adapter.NAVIGATE_DETAIL_NEWS_SCREEN
 import com.lukasdylan.home.ui.home.adapter.NAVIGATE_DETAIL_TEAM_SCREEN
 import com.lukasdylan.home.ui.home.adapter.NAVIGATE_STANDINGS_SCREEN
 import com.lukasdylan.newsservice.data.Article
@@ -72,6 +71,11 @@ class HomeViewModel(private val useCase: HomeUseCase, dispatcherProviders: Dispa
         if (_selectedLeague.value != league) {
             coroutineContext.cancelChildren()
             useCase.setDefaultLeague(league)
+            _leagueTrendingNewsList.value = null
+            _standingsList.value = null
+            _previousMatchList.value = null
+            _nextMatchList.value = null
+            _leagueTeamDetailList.value = null
             _reloadHomeAdapterEvent.call()
         }
     }
@@ -82,7 +86,7 @@ class HomeViewModel(private val useCase: HomeUseCase, dispatcherProviders: Dispa
             "league_teams" to _leagueTeamDetailList.value,
             "standings" to _standingsList.value
         )
-        _navigationScreenEvent.value = NavigationScreen(NAVIGATE_STANDINGS_SCREEN, params)
+        setNavigationScreen(NavigationScreen(NAVIGATE_STANDINGS_SCREEN, params))
     }
 
     fun openAllMatchListScreen(type: Int = 0) {
@@ -92,13 +96,13 @@ class HomeViewModel(private val useCase: HomeUseCase, dispatcherProviders: Dispa
             "match_list" to _previousMatchList.value,
             "match_type" to type
         )
-        _navigationScreenEvent.value = NavigationScreen(NAVIGATE_ALL_PREVIOUS_MATCH_SCREEN, params)
+        setNavigationScreen(NavigationScreen(NAVIGATE_ALL_PREVIOUS_MATCH_SCREEN, params))
     }
 
     fun openDetailTeamScreen(teamId: String) {
         val team = _leagueTeamDetailList.value?.firstOrNull { it.idTeam == teamId }
-        val params = arrayOf<Pair<String, Any?>>("team" to team)
-        _navigationScreenEvent.value = NavigationScreen(NAVIGATE_DETAIL_TEAM_SCREEN, params)
+        val params = arrayOf<Pair<String, Any?>>("detail_team" to team)
+        setNavigationScreen(NavigationScreen(NAVIGATE_DETAIL_TEAM_SCREEN, params))
     }
 
     private fun loadLeagueTeamsData() {
@@ -115,7 +119,7 @@ class HomeViewModel(private val useCase: HomeUseCase, dispatcherProviders: Dispa
                     loadPreviousMatch(leagueId)
                 }
                 .onFailed {
-                    _errorSnackBarEvent.value = it
+                    setErrorSnackBar(it)
                 }
         }
     }
@@ -130,7 +134,7 @@ class HomeViewModel(private val useCase: HomeUseCase, dispatcherProviders: Dispa
                     _standingsList.value = it.standingList
                 }
                 .onFailed {
-                    _errorSnackBarEvent.value = it
+                    setErrorSnackBar(it)
                 }
         }
     }
@@ -145,7 +149,7 @@ class HomeViewModel(private val useCase: HomeUseCase, dispatcherProviders: Dispa
                     _previousMatchList.value = it.listEvent
                 }
                 .onFailed {
-                    _errorSnackBarEvent.value = it
+                    setErrorSnackBar(it)
                 }
         }
     }
@@ -160,7 +164,7 @@ class HomeViewModel(private val useCase: HomeUseCase, dispatcherProviders: Dispa
                     _nextMatchList.value = it.listEvent
                 }
                 .onFailed {
-                    _errorSnackBarEvent.value = it
+                    setErrorSnackBar(it)
                 }
         }
     }
@@ -175,7 +179,7 @@ class HomeViewModel(private val useCase: HomeUseCase, dispatcherProviders: Dispa
                     _leagueTrendingNewsList.value = it.articles
                 }
                 .onFailed {
-                    _errorSnackBarEvent.value = it
+                    setErrorSnackBar(it)
                 }
         }
     }

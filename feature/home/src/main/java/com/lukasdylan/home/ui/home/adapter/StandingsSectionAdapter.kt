@@ -3,7 +3,9 @@ package com.lukasdylan.home.ui.home.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.RecyclerView
+import androidx.databinding.ViewDataBinding
+import com.lukasdylan.core.base.BaseAdapter
+import com.lukasdylan.core.base.BaseViewHolder
 import com.lukasdylan.core.extension.loadImageByUrl
 import com.lukasdylan.footballservice.data.response.Standings
 import com.lukasdylan.home.R
@@ -11,51 +13,33 @@ import com.lukasdylan.home.databinding.ItemTeamStandingBinding
 import org.jetbrains.anko.sdk27.coroutines.onClick
 
 class StandingsSectionAdapter(private val listener: (String) -> Unit) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    BaseAdapter<Standings, StandingsSectionAdapter.StandingViewHolder>() {
 
-    private var standingList = listOf<Standings>()
-    private var imageTeamData: Map<String, String> = HashMap()
-
-    fun addData(data: List<Standings>) {
-        standingList = data
-    }
-
-    fun addImageData(data: Map<String, String>) {
-        imageTeamData = data
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding = DataBindingUtil.inflate<ItemTeamStandingBinding>(
+    override fun getViewDataBinding(inflater: LayoutInflater, parent: ViewGroup): ViewDataBinding {
+        return DataBindingUtil.inflate<ItemTeamStandingBinding>(
             LayoutInflater.from(parent.context),
             R.layout.item_team_standing,
             parent,
             false
         )
-        return StandingViewHolder(binding, listener)
     }
 
-    override fun getItemCount(): Int = standingList.size
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is StandingViewHolder) {
-            val standings = standingList[position]
-            val imageUrl = imageTeamData[standings.teamId]
-            holder.bind(standings, imageUrl)
-        }
+    override fun setViewHolder(binding: ViewDataBinding): StandingViewHolder {
+        return StandingViewHolder(binding as ItemTeamStandingBinding, listener)
     }
 
     class StandingViewHolder(
         private val binding: ItemTeamStandingBinding,
         private val listener: (String) -> Unit
-    ) : RecyclerView.ViewHolder(binding.root) {
+    ) : BaseViewHolder<Standings>(binding) {
 
-        fun bind(standings: Standings, imageUrl: String?) {
+        override fun bind(item: Standings, imageMap: Map<String, String>?) {
             with(binding) {
-                this.standings = standings
-                ivClubIcon.loadImageByUrl(imageUrl)
+                this.standings = item
+                ivClubIcon.loadImageByUrl(imageMap?.get(item.teamId).orEmpty())
                 position = adapterPosition + 1
                 rootLayout.onClick {
-                    listener(standings.teamId.orEmpty())
+                    listener(item.teamId.orEmpty())
                 }
                 executePendingBindings()
             }

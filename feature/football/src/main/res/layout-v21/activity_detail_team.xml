@@ -87,7 +87,8 @@
                     app:lottie_rawRes="@raw/favorite"
                     android:visibility="gone"
                     android:layout_centerInParent="true"
-                    app:elevation="6dp"/>
+                    app:elevation="6dp"
+                    android:elevation="6dp"/>
 
         </RelativeLayout>
 

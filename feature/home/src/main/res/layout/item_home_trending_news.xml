@@ -64,14 +64,14 @@
                 <com.google.android.material.card.MaterialCardView
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        app:cardCornerRadius="8dp"
                         android:layout_marginBottom="16dp"
+                        app:cardCornerRadius="8dp"
                         app:cardElevation="0dp"
                         app:cardBackgroundColor="@android:color/darker_gray"/>
 
                 <com.google.android.material.card.MaterialCardView
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
+                        android:layout_height="175dp"
                         app:cardCornerRadius="8dp"
                         app:cardElevation="0dp"
                         app:cardBackgroundColor="@android:color/darker_gray"/>

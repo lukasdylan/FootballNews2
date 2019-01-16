@@ -35,6 +35,6 @@ class MatchListViewModel(dispatcherProviders: DispatcherProviders) : BaseViewMod
     }
 
     fun onSelectedMatch(params: Array<Pair<String, Any?>>) {
-        _navigationScreenEvent.value = NavigationScreen(matchType, params)
+        setNavigationScreen(NavigationScreen(matchType, params))
     }
 }

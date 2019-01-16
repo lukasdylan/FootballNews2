@@ -7,14 +7,25 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.lukasdylan.core.extension.observeValue
 import com.lukasdylan.core.extension.titleTextView
 import com.lukasdylan.football.R
 import com.lukasdylan.football.databinding.ActivityDetailTeamBinding
+import com.lukasdylan.football.ui.team.adapter.TeamBannerAdapter
 import org.jetbrains.anko.sdk27.coroutines.onClick
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailTeamActivity : AppCompatActivity() {
+
+    private val viewModel by viewModel<DetailTeamViewModel>()
+
+    private val bannerAdapter by lazy {
+        TeamBannerAdapter()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,11 +53,23 @@ class DetailTeamActivity : AppCompatActivity() {
                 }
 
             })
+            rvTeamBanner.apply {
+                setHasFixedSize(true)
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                val snapHelper = PagerSnapHelper()
+                snapHelper.attachToRecyclerView(this)
+                adapter = bannerAdapter
+            }
             fabFavorite.onClick {
                 fabFavorite.setImageResource(0)
                 lottieAnimationView.visibility = View.VISIBLE
                 lottieAnimationView.playAnimation()
             }
+        }
+        with(viewModel) {
+            observeValue(toolbarTitle) { supportActionBar?.title = it }
+            observeValue(bannerList) { bannerAdapter.addData(it) }
+            intent?.extras?.let { return@with loadData(it) }
         }
     }
 

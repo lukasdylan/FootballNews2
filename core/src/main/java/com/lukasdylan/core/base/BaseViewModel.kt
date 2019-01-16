@@ -25,15 +25,15 @@ open class BaseViewModel(protected val dispatcherProviders: DispatcherProviders)
             AnkoLogger("Football News 2").error { "${throwable.message} ${throwable.getStackTraceString()}" }
         }
 
-    protected val _errorSnackBarEvent = SingleLiveEvent<ErrorWrapper>()
+    private val _errorSnackBarEvent = SingleLiveEvent<ErrorWrapper>()
     val errorSnackBarEvent: LiveData<ErrorWrapper> = _errorSnackBarEvent
 
-    protected val _loadingVisibility = MutableLiveData<Boolean>()
+    private val _loadingVisibility = MutableLiveData<Boolean>()
     val loadingVisibility: LiveData<Int> = Transformations.map(_loadingVisibility) {
         if (it == null || it == false) View.GONE else View.VISIBLE
     }
 
-    protected val _navigationScreenEvent = SingleLiveEvent<NavigationScreen>()
+    private val _navigationScreenEvent = SingleLiveEvent<NavigationScreen>()
     val navigationScreenEvent: LiveData<NavigationScreen> = _navigationScreenEvent
 
     override fun onCleared() {
@@ -41,4 +41,15 @@ open class BaseViewModel(protected val dispatcherProviders: DispatcherProviders)
         super.onCleared()
     }
 
+    fun setLoading(isLoading: Boolean) {
+        _loadingVisibility.value = isLoading
+    }
+
+    fun setNavigationScreen(navigationScreen: NavigationScreen) {
+        _navigationScreenEvent.value = navigationScreen
+    }
+
+    fun setErrorSnackBar(errorWrapper: ErrorWrapper) {
+        _errorSnackBarEvent.postValue(errorWrapper)
+    }
 }
