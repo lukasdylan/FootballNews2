@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -20,7 +20,7 @@
 
     <style name="TransparentStatusBar" parent="AppTheme.NoActionBar"/>
 
-    <style name="AppTheme.ThemeOverlay.Dark.ActionBar.Primary" parent="ThemeOverlay.AppCompat.Light">
+    <style name="AppTheme.ThemeOverlay.Dark.ActionBar.Primary" parent="ThemeOverlay.MaterialComponents.Light">
         <item name="colorControlNormal">@color/colorPrimary</item>
         <item name="colorControlHighlight">@color/colorPrimaryHighlight</item>
         <item name="android:fontFamily">@font/fira_sans_medium</item>

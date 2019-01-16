@@ -44,9 +44,9 @@ androidExtensions {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':core')
-    implementation project(':feature:football')
-    implementation project(':feature:home')
-    implementation project(':feature:news')
+    implementation project(':presentation:football')
+    implementation project(':presentation:home')
+    implementation project(':presentation:news')
     implementation project(':domain:footballservice')
     implementation project(':domain:newsservice')
 }

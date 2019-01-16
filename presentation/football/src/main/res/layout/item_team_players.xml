@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="8dp"
+            android:layout_marginTop="16dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:animateLayoutChanges="true">
+
+            <TextView
+                    android:id="@+id/title_players"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/fira_sans_medium"
+                    android:gravity="center|start"
+                    android:layout_marginStart="16dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:text="Players"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tv_see_all_player"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_see_all_player"/>
+
+            <TextView
+                    android:id="@+id/tv_see_all_player"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:fontFamily="@font/fira_sans"
+                    android:layout_marginEnd="16dp"
+                    android:padding="4dp"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/black"
+                    app:asyncText='@{"See All"}'
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/title_players"
+                    app:layout_constraintBottom_toBottomOf="@id/title_players"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_players"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    app:layout_constraintTop_toBottomOf="@id/title_players"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_margin="16dp"
+                    app:shimmer_duration="1250"
+                    app:shimmer_repeat_delay="200"
+                    app:shimmer_colored="true"
+                    app:shimmer_base_color="@android:color/darker_gray"
+                    app:layout_constraintTop_toBottomOf="@id/title_players"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="@android:color/darker_gray"/>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

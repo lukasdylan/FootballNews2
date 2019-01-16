@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="8dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true">
+
+            <ImageView
+                    android:id="@+id/iv_team_icon"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/view_separator"/>
+
+            <TextView
+                    android:id="@+id/tv_team_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/fira_sans_medium"
+                    android:textColor="@android:color/black"
+                    app:layout_constraintTop_toTopOf="@id/iv_team_icon"
+                    app:layout_constraintStart_toEndOf="@id/iv_team_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/tv_league_name"/>
+
+            <TextView
+                    android:id="@+id/tv_league_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="8dp"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/fira_sans"
+                    app:layout_constraintTop_toBottomOf="@id/tv_team_name"
+                    app:layout_constraintStart_toEndOf="@id/iv_team_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_team_icon"/>
+
+            <View
+                    android:id="@+id/view_separator"
+                    android:layout_width="0dp"
+                    android:layout_height="0.75dp"
+                    android:background="@android:color/darker_gray"
+                    app:layout_constraintTop_toBottomOf="@id/iv_team_icon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_margin="16dp"
+                    app:layout_constraintBottom_toTopOf="@id/tv_official_pages"/>
+
+            <TextView
+                    android:id="@+id/tv_official_pages"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/fira_sans_italic"
+                    android:textSize="12sp"
+                    android:text="Official Pages"
+                    app:layout_constraintTop_toBottomOf="@id/view_separator"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/horizontal_scroll_view"/>
+
+            <HorizontalScrollView
+                    android:id="@+id/horizontal_scroll_view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:scrollbars="none"
+                    android:clipToPadding="false"
+                    app:layout_constraintTop_toBottomOf="@id/tv_official_pages"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                    <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_facebook"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:rippleColor="@android:color/holo_green_light"
+                            app:chipStrokeColor="@android:color/darker_gray"
+                            app:chipStrokeWidth="1dp"
+                            app:chipBackgroundColor="@android:color/white"
+                            app:chipIcon="@drawable/icon_facebook"
+                            android:fontFamily="@font/fira_sans"
+                            android:textSize="14sp"
+                            android:text="Facebook"/>
+
+                    <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_instagram"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            app:rippleColor="@android:color/holo_green_light"
+                            app:chipStrokeColor="@android:color/darker_gray"
+                            app:chipStrokeWidth="1dp"
+                            app:chipBackgroundColor="@android:color/white"
+                            app:chipIcon="@drawable/icon_instagram"
+                            android:fontFamily="@font/fira_sans"
+                            android:textSize="14sp"
+                            android:text="Instagram"/>
+
+                    <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_twitter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            app:rippleColor="@android:color/holo_green_light"
+                            app:chipStrokeColor="@android:color/darker_gray"
+                            app:chipStrokeWidth="1dp"
+                            app:chipBackgroundColor="@android:color/white"
+                            app:chipIcon="@drawable/icon_twitter"
+                            android:fontFamily="@font/fira_sans"
+                            android:textSize="14sp"
+                            android:text="Twitter"/>
+
+                    <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_official_website"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            app:rippleColor="@android:color/holo_green_light"
+                            app:chipStrokeColor="@android:color/darker_gray"
+                            app:chipStrokeWidth="1dp"
+                            app:chipBackgroundColor="@android:color/white"
+                            app:chipIcon="@drawable/icon_web"
+                            android:fontFamily="@font/fira_sans"
+                            android:textSize="14sp"
+                            android:text="Website"/>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>
