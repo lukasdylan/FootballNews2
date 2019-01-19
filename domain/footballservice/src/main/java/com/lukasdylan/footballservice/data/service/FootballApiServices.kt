@@ -3,6 +3,7 @@ package com.lukasdylan.footballservice.data.service
 import com.lukasdylan.footballservice.BuildConfig
 import com.lukasdylan.footballservice.data.response.DetailMatchResponse
 import com.lukasdylan.footballservice.data.response.DetailTeamResponse
+import com.lukasdylan.footballservice.data.response.PlayerResponse
 import com.lukasdylan.footballservice.data.response.StandingResponse
 import retrofit2.Call
 import retrofit2.http.GET
@@ -30,4 +31,7 @@ interface FootballApiServices {
 
     @GET(BuildConfig.TSDB_API_KEY + LEAGUE_TEAMS_ENDPOINT)
     fun fetchLeagueTeams(@Query("id") id: String): Call<DetailTeamResponse>
+
+    @GET(BuildConfig.TSDB_API_KEY + TEAM_PLAYER_LIST_ENDPOINT)
+    fun fetchPlayersTeam(@Query("id") id: String): Call<PlayerResponse>
 }

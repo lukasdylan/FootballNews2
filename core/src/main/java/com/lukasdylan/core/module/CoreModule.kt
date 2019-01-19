@@ -30,15 +30,15 @@ private fun setupSharedPreferences(application: Application): SharedPreferences 
 private fun setupOkHttpClient(application: Application): OkHttpClient {
     val cache = Cache(application.cacheDir, 30 * 1024 * 1024)
     val logger = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BASIC
+        level = HttpLoggingInterceptor.Level.HEADERS
     }
     return OkHttpClient().newBuilder().apply {
         retryOnConnectionFailure(true)
         cache(cache)
         addInterceptor(logger)
-        connectTimeout(30, TimeUnit.SECONDS)
-        readTimeout(30, TimeUnit.SECONDS)
-        writeTimeout(30, TimeUnit.SECONDS)
+        connectTimeout(15, TimeUnit.SECONDS)
+        readTimeout(15, TimeUnit.SECONDS)
+        writeTimeout(15, TimeUnit.SECONDS)
     }.build()
 }
 

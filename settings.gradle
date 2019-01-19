@@ -1,1 +1,1 @@
-include ':app', ':core', ':domain:newsservice', ':domain:footballservice', ':feature:football', ':feature:home', ':feature:news'
+include ':app', ':core', ':domain:newsservice', ':domain:footballservice', ':presentation:football', ':presentation:home', ':presentation:news'
