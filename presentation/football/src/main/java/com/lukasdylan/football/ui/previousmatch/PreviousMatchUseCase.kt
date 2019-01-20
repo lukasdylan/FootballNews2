@@ -7,15 +7,15 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.error
 
 interface PreviousMatchUseCase {
-    suspend fun checkIsFavoriteMatch(matchId: String): com.lukasdylan.footballservice.data.entity.DetailMatch?
+    suspend fun checkIsFavoriteMatch(matchId: String): DetailMatch?
     suspend fun saveAsFavoriteMatch(
-        detailMatch: com.lukasdylan.footballservice.data.entity.DetailMatch,
+        detailMatch: DetailMatch,
         onSuccess: () -> Unit,
         onFailed: (ErrorWrapper) -> Unit
     )
 
     suspend fun deleteFavoriteMatch(
-        detailMatch: com.lukasdylan.footballservice.data.entity.DetailMatch,
+        detailMatch: DetailMatch,
         onSuccess: () -> Unit,
         onFailed: (ErrorWrapper) -> Unit
     )

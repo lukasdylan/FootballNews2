@@ -64,6 +64,7 @@
                             android:layout_width="84dp"
                             android:layout_height="84dp"
                             android:layout_marginTop="16dp"
+                            app:imageUrl="@{vm.homeTeamImageUrl}"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintEnd_toStartOf="@id/tv_score"
@@ -74,6 +75,7 @@
                             android:layout_width="84dp"
                             android:layout_height="84dp"
                             android:layout_marginTop="16dp"
+                            app:imageUrl="@{vm.awayTeamImageUrl}"
                             app:layout_constraintStart_toEndOf="@id/tv_score"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -99,7 +101,7 @@
                     android:background="@drawable/white_top_rounded_background"
                     app:tabIndicatorColor="@android:color/holo_orange_dark"
                     app:tabSelectedTextColor="@android:color/holo_green_dark"
-            app:tabRippleColor="@android:color/transparent"/>
+                    app:tabRippleColor="@android:color/transparent"/>
 
         </com.google.android.material.appbar.AppBarLayout>
 

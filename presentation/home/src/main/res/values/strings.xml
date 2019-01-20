@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools"
            tools:ignore="ExtraTranslation">
     <string name="app_name">Football News 2</string>
-    <string name="title_news_home">News on %s</string>
+    <string name="title_news_home">Top 10 News on %s</string>
     <string name="title_see_all">See All</string>
     <string name="title_previous_match_home">Match Results</string>
     <string name="title_next_match_home">Next Match Schedules</string>

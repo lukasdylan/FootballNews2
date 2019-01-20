@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.provider.CalendarContract
 import android.view.LayoutInflater
@@ -87,6 +88,13 @@ class NextMatchFragment : RoundedBottomSheetFragment() {
         if (requestCode == CALENDAR_ACCESS_PERMISSION_CODE) {
             if (grantResults.isNotEmpty() && grantResults.any { it == PackageManager.PERMISSION_GRANTED }) {
                 viewModel.checkReminderMatch()
+            } else {
+                val showRationale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    shouldShowRequestPermissionRationale(permissions[0])
+                } else {
+                    false
+                }
+                
             }
         }
     }

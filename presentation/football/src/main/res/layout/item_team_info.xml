@@ -2,6 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable name="team" type="com.lukasdylan.footballservice.data.entity.DetailTeam"/>
+
+    </data>
+
     <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_root"
             android:layout_width="match_parent"
@@ -22,6 +28,7 @@
                     android:gravity="center|start"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
+                    app:asyncText='@{"About " + team.teamStadium}'
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
@@ -32,6 +39,7 @@
                     android:layout_height="0dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
+                    app:imageUrl="@{team.teamStadiumImage}"
                     app:layout_constraintDimensionRatio="4:3"
                     app:layout_constraintTop_toBottomOf="@id/title_info"
                     app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +53,7 @@
                     android:fontFamily="@font/fira_sans"
                     android:maxLines="3"
                     android:ellipsize="end"
-                    android:animateLayoutChanges="true"
+                    app:asyncText="@{team.teamStadiumDesc}"
                     app:layout_constraintTop_toBottomOf="@id/iv_photo"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>

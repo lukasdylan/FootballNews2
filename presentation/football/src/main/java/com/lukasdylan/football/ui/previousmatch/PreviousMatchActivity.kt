@@ -50,8 +50,6 @@ class PreviousMatchActivity : AppCompatActivity() {
         }
         with(viewModel) {
             observeValue(matchName) { supportActionBar?.title = it }
-            observeValue(homeTeamImageUrl) { binding.ivHomeTeamIcon.loadImageByUrl(it) }
-            observeValue(awayTeamImageUrl) { binding.ivAwayTeamIcon.loadImageByUrl(it) }
             observeValue(matchInformationPage) { detailMatch ->
                 val fragmentList = mutableListOf<Pair<String, Fragment>>()
                 fragmentList.add(
@@ -81,6 +79,7 @@ class PreviousMatchActivity : AppCompatActivity() {
                     favoriteIconImageView?.setImageDrawable(notFavoriteIcon)
                 }
             }
+            observeValue(errorSnackBarEvent) { binding.rootLayout.showErrorSnackBar(it.getMessage(this@PreviousMatchActivity))}
             observeValue(successSnackBarEvent) { binding.rootLayout.showSuccessSnackBar(it) }
             observeValue(normalSnackBarEvent) { binding.rootLayout.showNormalSnackBar(it) }
             intent?.extras?.let { return@with loadData(it) }

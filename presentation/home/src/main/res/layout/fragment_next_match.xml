@@ -9,24 +9,19 @@
                 name="vm"
                 type="com.lukasdylan.home.ui.nextmatch.NextMatchViewModel"/>
 
-        <variable
-                name="match"
-                type="com.lukasdylan.footballservice.data.entity.DetailMatch"/>
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:fitsSystemWindows="true"
-            android:animateLayoutChanges="true">
+            android:fitsSystemWindows="true">
 
         <TextView
                 android:id="@+id/title_next_match"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Next Match"
+                android:text="@string/title_next_match_home"
                 android:textColor="@android:color/black"
                 android:fontFamily="@font/fira_sans_medium"
                 android:textSize="20sp"
@@ -216,7 +211,7 @@
                         android:fontFamily="@font/fira_sans_medium"
                         android:text="Match Information"
                         android:textColor="@android:color/black"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         app:layout_constraintBottom_toTopOf="@id/layout_match_name"
                         app:layout_constraintTop_toBottomOf="@id/view_separator_3"
                         app:layout_constraintStart_toStartOf="parent"

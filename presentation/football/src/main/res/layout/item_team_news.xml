@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable name="position" type="Integer"/>
+
+        <variable name="article" type="com.lukasdylan.newsservice.data.Article"/>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/root_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+        <TextView
+                android:id="@+id/tv_news_position"
+                android:layout_width="24dp"
+                android:layout_height="24sp"
+                android:background="@drawable/black_circle_background"
+                android:gravity="center"
+                android:layout_marginTop="4dp"
+                android:textColor="@android:color/white"
+                android:fontFamily="@font/fira_sans_medium"
+                app:asyncText="@{String.valueOf(position)}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="1"/>
+
+        <ImageView
+                android:id="@+id/iv_news_image"
+                android:layout_width="84dp"
+                android:layout_height="84dp"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{article.urlToImage}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+                android:id="@+id/tv_news_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/fira_sans"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:ellipsize="end"
+                android:maxLines="3"
+                app:asyncText="@{article.title}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_news_image"
+                app:layout_constraintStart_toEndOf="@id/tv_news_position"/>
+
+        <TextView
+                android:id="@+id/tv_news_source"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/fira_sans_italic"
+                app:asyncText='@{article.source.name}'
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_news_image"
+                app:layout_constraintStart_toEndOf="@id/tv_news_position"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/fira_sans"
                 android:textColor="@android:color/black"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:asyncText='@{"VS"}'
                 app:layout_constraintTop_toTopOf="@id/view_separator"
                 app:layout_constraintBottom_toBottomOf="@id/view_separator"
@@ -57,8 +57,8 @@
 
         <ImageView
                 android:id="@+id/iv_home_team_icon"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -104,8 +104,8 @@
 
         <ImageView
                 android:id="@+id/iv_away_team_icon"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
                 app:layout_constraintEnd_toEndOf="parent"

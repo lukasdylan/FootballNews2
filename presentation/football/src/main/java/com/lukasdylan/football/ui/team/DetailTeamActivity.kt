@@ -7,17 +7,18 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.appbar.AppBarLayout
-import com.lukasdylan.core.extension.observeValue
-import com.lukasdylan.core.extension.titleTextView
+import com.lukasdylan.core.extension.*
 import com.lukasdylan.football.R
 import com.lukasdylan.football.databinding.ActivityDetailTeamBinding
 import com.lukasdylan.football.ui.team.adapter.MainTeamInfoAdapter
 import com.lukasdylan.football.ui.team.adapter.NAVIGATE_BROWSER
+import com.lukasdylan.football.ui.team.adapter.NAVIGATE_DETAIL_NEWS_SCREEN
 import com.lukasdylan.football.ui.team.adapter.TeamBannerAdapter
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.find
@@ -45,8 +46,11 @@ class DetailTeamActivity : AppCompatActivity(), Animator.AnimatorListener {
                     val url = it.params?.get(0)?.second as? String
                     browse("https://" + url.orEmpty())
                 }
-                else -> {
-
+                NAVIGATE_DETAIL_NEWS_SCREEN -> {
+                    val scheme = "news"
+                    val host = "detail_news"
+                    val bundle = bundleOf(*it.params.orEmpty())
+                    openDeepLinkActivity(scheme, host, bundle)
                 }
             }
         }
@@ -72,9 +76,7 @@ class DetailTeamActivity : AppCompatActivity(), Animator.AnimatorListener {
                 adapter = mainTeamInfoAdapter
             }
             fabFavorite.onClick {
-                fabFavorite.setImageResource(0)
-                lottieAnimationView.visibility = View.VISIBLE
-                lottieAnimationView.playAnimation()
+                viewModel.onFavoriteIconClick()
             }
         }
         with(viewModel) {
@@ -82,6 +84,24 @@ class DetailTeamActivity : AppCompatActivity(), Animator.AnimatorListener {
             observeValue(bannerList) { bannerAdapter.addData(it) }
             observeValue(detailTeam) { mainTeamInfoAdapter.updateTeamInfo(it) }
             observeValue(playerList) { mainTeamInfoAdapter.updateTeamPlayers(it) }
+            observeValue(newsResponse) { mainTeamInfoAdapter.updateTeamNews(it) }
+            observeValue(isFavoriteMatch) {
+                if (it) {
+                    if (binding.fabFavorite.isOrWillBeHidden) {
+                        favoriteAnimationView.playAnimation()
+                    } else {
+                        binding.fabFavorite.setImageResource(0)
+                        binding.lottieAnimationView.visibility = View.VISIBLE
+                        binding.lottieAnimationView.playAnimation()
+                    }
+                } else {
+                    favoriteIconImageView.setImageResource(R.drawable.icon_favorite_no_fill_gray)
+                    binding.fabFavorite.setImageResource(R.drawable.icon_favorite_no_fill_gray)
+                }
+            }
+            observeValue(errorSnackBarEvent) { binding.rootLayout.showErrorSnackBar(it.getMessage(this@DetailTeamActivity)) }
+            observeValue(successSnackBarEvent) { binding.rootLayout.showSuccessSnackBar(it) }
+            observeValue(normalSnackBarEvent) { binding.rootLayout.showNormalSnackBar(it) }
             intent?.extras?.let { return@with loadData(it) }
         }
     }
@@ -99,7 +119,7 @@ class DetailTeamActivity : AppCompatActivity(), Animator.AnimatorListener {
 
             favoriteAnimationView.addAnimatorListener(this@DetailTeamActivity)
         }
-//        viewModel.checkFavoriteMatch()
+        viewModel.checkFavoriteTeam()
         return true
     }
 
@@ -130,9 +150,7 @@ class DetailTeamActivity : AppCompatActivity(), Animator.AnimatorListener {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when {
             item?.itemId == android.R.id.home -> onBackPressed()
-            item?.itemId == R.id.menu_favorites -> {
-                favoriteAnimationView.playAnimation()
-            }
+            item?.itemId == R.id.menu_favorites -> viewModel.onFavoriteIconClick()
         }
         return true
     }
