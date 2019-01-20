@@ -5,7 +5,7 @@ enum class TeamInfoType {
 //    TEAM_DESC,
     STADIUM_INFO,
     PLAYER_INFO,
-    MANAGER_INFO,
+//    MANAGER_INFO,
     NEWS_INFO
 }
 

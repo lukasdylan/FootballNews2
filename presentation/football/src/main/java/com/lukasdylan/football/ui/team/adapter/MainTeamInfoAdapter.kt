@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
@@ -14,17 +15,22 @@ import com.lukasdylan.core.widget.GridSpacingItemDecoration
 import com.lukasdylan.football.R
 import com.lukasdylan.football.databinding.ItemTeamHeaderBinding
 import com.lukasdylan.football.databinding.ItemTeamInfoBinding
+import com.lukasdylan.football.databinding.ItemTeamNewsViewBinding
 import com.lukasdylan.football.databinding.ItemTeamPlayersBinding
 import com.lukasdylan.football.model.TeamInfoDataModel
 import com.lukasdylan.football.model.TeamInfoType
 import com.lukasdylan.football.utility.asyncText
 import com.lukasdylan.footballservice.data.entity.DetailTeam
 import com.lukasdylan.footballservice.data.response.Player
+import com.lukasdylan.newsservice.data.Article
+import com.lukasdylan.newsservice.data.NewsResponse
 import org.jetbrains.anko.sdk27.coroutines.onClick
 
 internal const val NAVIGATE_BROWSER = 0
 internal const val NAVIGATE_DETAIL_PLAYER_SCREEN = 1
 internal const val NAVIGATE_ALL_PLAYER_SCREEN = 2
+internal const val NAVIGATE_DETAIL_NEWS_SCREEN = 3
+internal const val NAVIGATE_ALL_NEWS_SCREEN = 4
 
 class MainTeamInfoAdapter(private val listener: (NavigationScreen) -> Unit) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -38,7 +44,17 @@ class MainTeamInfoAdapter(private val listener: (NavigationScreen) -> Unit) :
         }
     }
 
+    private val teamNewsAdapter by lazy {
+        TeamNewsAdapter {
+            val params = arrayOf<Pair<String, Any?>>("news_url" to it.url, "news_title" to it.title)
+            listener(NavigationScreen(NAVIGATE_DETAIL_NEWS_SCREEN, params))
+        }
+    }
+
+    private var teamName = ""
+
     fun updateTeamInfo(detailTeam: DetailTeam) {
+        teamName = detailTeam.teamName.orEmpty()
         val teamInfo = TeamInfoDataModel(TeamInfoType.TEAM_INFO, listOf(detailTeam), false)
         teamInfoList[TeamInfoType.TEAM_INFO.ordinal] = teamInfo
         notifyItemChanged(TeamInfoType.TEAM_INFO.ordinal)
@@ -52,6 +68,12 @@ class MainTeamInfoAdapter(private val listener: (NavigationScreen) -> Unit) :
         val teamInfo = TeamInfoDataModel(TeamInfoType.PLAYER_INFO, data, false)
         teamInfoList[TeamInfoType.PLAYER_INFO.ordinal] = teamInfo
         notifyItemChanged(TeamInfoType.PLAYER_INFO.ordinal)
+    }
+
+    fun updateTeamNews(newsResponse: NewsResponse) {
+        val newsInfo = TeamInfoDataModel(TeamInfoType.NEWS_INFO, listOf(newsResponse), false)
+        teamInfoList[TeamInfoType.NEWS_INFO.ordinal] = newsInfo
+        notifyItemChanged(TeamInfoType.NEWS_INFO.ordinal)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -83,6 +105,15 @@ class MainTeamInfoAdapter(private val listener: (NavigationScreen) -> Unit) :
                 )
                 TeamInfoViewHolder(binding)
             }
+            TeamInfoType.NEWS_INFO.ordinal -> {
+                val binding = DataBindingUtil.inflate<ItemTeamNewsViewBinding>(
+                    LayoutInflater.from(parent.context),
+                    R.layout.item_team_news_view,
+                    parent,
+                    false
+                )
+                TeamNewsViewHolder(binding, teamNewsAdapter, listener)
+            }
             else -> throw (Throwable("Unknown ViewHolder"))
         }
     }
@@ -107,8 +138,9 @@ class MainTeamInfoAdapter(private val listener: (NavigationScreen) -> Unit) :
                 val data = teamInfo.data as List<DetailTeam>
                 (holder as TeamInfoViewHolder).bind(data[0])
             }
-            else -> {
-
+            TeamInfoType.NEWS_INFO -> {
+                val data = (teamInfo.data as List<NewsResponse>)[0]
+                (holder as TeamNewsViewHolder).bind(data.articles, data.totalResult, teamName, teamInfo.isLoading)
             }
         }
     }
@@ -118,7 +150,7 @@ class MainTeamInfoAdapter(private val listener: (NavigationScreen) -> Unit) :
         add(TeamInfoDataModel(TeamInfoType.STADIUM_INFO, emptyList<DetailTeam>(), true))
         add(TeamInfoDataModel(TeamInfoType.PLAYER_INFO, emptyList<Player>(), true))
 //        add(TeamInfoDataModel(TeamInfoType.MANAGER_INFO, emptyList<String>(), true))
-//        add(TeamInfoDataModel(TeamInfoType.NEWS_INFO, emptyList<Article>(), true))
+        add(TeamInfoDataModel(TeamInfoType.NEWS_INFO, emptyList<NewsResponse>(), true))
         notifyItemRangeInserted(0, size)
         toList()
     }
@@ -173,14 +205,14 @@ class MainTeamInfoAdapter(private val listener: (NavigationScreen) -> Unit) :
         init {
             with(binding) {
                 tvShowMore.onClick {
-                    if(isExpanded) {
+                    TransitionManager.beginDelayedTransition(cvRoot)
+                    if (isExpanded) {
                         tvInfoDesc.maxLines = 3
                         tvShowMore.text = "Show More"
                     } else {
                         tvInfoDesc.maxLines = Integer.MAX_VALUE
                         tvShowMore.text = "Show Less"
                     }
-                    TransitionManager.beginDelayedTransition(cvRoot)
                     isExpanded = !isExpanded
                 }
             }
@@ -188,23 +220,25 @@ class MainTeamInfoAdapter(private val listener: (NavigationScreen) -> Unit) :
 
         fun bind(detailTeam: DetailTeam) {
             with(binding) {
-                titleInfo.asyncText("About ${detailTeam.teamStadium.orEmpty()}")
-                ivPhoto.loadImageByUrl(detailTeam.teamStadiumImage)
-                tvInfoDesc.asyncText(detailTeam.teamStadiumDesc)
+                this.team = detailTeam
                 executePendingBindings()
             }
         }
     }
 
-    class TeamPlayerViewHolder(private val binding: ItemTeamPlayersBinding,
-                               private val teamPlayersAdapter: HorizontalTeamPlayersAdapter,
-                               private val listener: (NavigationScreen) -> Unit) : RecyclerView.ViewHolder(binding.root) {
+    class TeamPlayerViewHolder(
+        private val binding: ItemTeamPlayersBinding,
+        private val teamPlayersAdapter: HorizontalTeamPlayersAdapter,
+        private val listener: (NavigationScreen) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
             with(binding) {
                 rvPlayers.apply {
                     setHasFixedSize(true)
-                    layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                    val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                    linearLayoutManager.initialPrefetchItemCount = 4
+                    layoutManager = linearLayoutManager
                     isNestedScrollingEnabled = false
                     addItemDecoration(GridSpacingItemDecoration(10, 50, true))
                 }
@@ -220,6 +254,41 @@ class MainTeamInfoAdapter(private val listener: (NavigationScreen) -> Unit) :
                 shimmerLayout.onAnimateListener(isLoading)
                 rvPlayers.adapter = teamPlayersAdapter
                 teamPlayersAdapter.addData(data)
+                executePendingBindings()
+            }
+        }
+    }
+
+    class TeamNewsViewHolder(
+        private val binding: ItemTeamNewsViewBinding,
+        private val teamNewsAdapter: TeamNewsAdapter,
+        private val listener: (NavigationScreen) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            with(binding) {
+                rvNews.apply {
+                    setHasFixedSize(true)
+                    val linearLayoutManager = LinearLayoutManager(context)
+                    linearLayoutManager.initialPrefetchItemCount = 5
+                    layoutManager = linearLayoutManager
+                    isNestedScrollingEnabled = false
+                    addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+                }
+                btnBrowseMore.onClick {
+                    listener.invoke(NavigationScreen(NAVIGATE_ALL_NEWS_SCREEN))
+                }
+            }
+        }
+
+        fun bind(data: List<Article>, newsCount: Int? = 0, teamName: String, isLoading: Boolean) {
+            with(binding) {
+                this.newsCount = newsCount
+                this.teamName = teamName
+                shimmerLayout.onAnimateListener(isLoading)
+                rvNews.adapter = teamNewsAdapter
+                teamNewsAdapter.addData(data)
+                btnBrowseMore.visibility = if (data.isNullOrEmpty()) View.GONE else View.VISIBLE
                 executePendingBindings()
             }
         }

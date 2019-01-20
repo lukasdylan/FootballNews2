@@ -176,7 +176,9 @@ class MainSectionAdapter(layoutMaxWidth: Int, private val listener: (NavigationS
             with(binding) {
                 rvStandings.apply {
                     setHasFixedSize(true)
-                    layoutManager = LinearLayoutManager(context)
+                    val linearLayoutManager = LinearLayoutManager(context)
+                    linearLayoutManager.initialPrefetchItemCount = 6
+                    layoutManager = linearLayoutManager
                     addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
                 }
                 tvSeeAllStandings.onClick {
@@ -306,8 +308,8 @@ class MainSectionAdapter(layoutMaxWidth: Int, private val listener: (NavigationS
         add(HomeSectionType.PREV_MATCH.ordinal, HomeSection(HomeSectionType.PREV_MATCH, emptyList<DetailMatch>(), true))
         add(HomeSectionType.NEXT_MATCH.ordinal, HomeSection(HomeSectionType.NEXT_MATCH, emptyList<DetailMatch>(), true))
         add(HomeSectionType.STANDINGS.ordinal, HomeSection(HomeSectionType.STANDINGS, emptyList<Standings>(), true))
-        toList()
         notifyItemRangeInserted(0, size)
+        toList()
     }
 
 }

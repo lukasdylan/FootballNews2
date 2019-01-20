@@ -6,10 +6,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.lukasdylan.core.base.BaseAdapter
 import com.lukasdylan.core.base.BaseViewHolder
-import com.lukasdylan.core.extension.loadImageByUrl
 import com.lukasdylan.football.R
 import com.lukasdylan.football.databinding.ItemPlayerHorizontalListBinding
-import com.lukasdylan.football.utility.asyncText
 import com.lukasdylan.footballservice.data.response.Player
 import org.jetbrains.anko.sdk27.coroutines.onClick
 
@@ -36,8 +34,8 @@ class HorizontalTeamPlayersAdapter(private val listener: (Player) -> Unit) :
 
         override fun bind(item: Player, imageMap: Map<String, String>?) {
             with(binding) {
-                ivPlayerPhoto.loadImageByUrl(item.playerIconUrl)
-                tvPlayerName.asyncText(item.playerName)
+                this.name = item.playerName.orEmpty()
+                this.imageUrl = item.playerIconUrl.orEmpty()
                 rootLayout.onClick {
                     listener(item)
                 }

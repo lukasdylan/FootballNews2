@@ -41,15 +41,15 @@ open class BaseViewModel(protected val dispatcherProviders: DispatcherProviders)
         super.onCleared()
     }
 
-    fun setLoading(isLoading: Boolean) {
+    protected fun setLoading(isLoading: Boolean) {
         _loadingVisibility.value = isLoading
     }
 
-    fun setNavigationScreen(navigationScreen: NavigationScreen) {
+    protected fun setNavigationScreen(navigationScreen: NavigationScreen) {
         _navigationScreenEvent.value = navigationScreen
     }
 
-    fun setErrorSnackBar(errorWrapper: ErrorWrapper) {
+    protected fun setErrorSnackBar(errorWrapper: ErrorWrapper) {
         _errorSnackBarEvent.postValue(errorWrapper)
     }
 }

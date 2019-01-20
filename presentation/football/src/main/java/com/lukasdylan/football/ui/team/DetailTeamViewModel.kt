@@ -8,8 +8,11 @@ import com.lukasdylan.core.base.BaseViewModel
 import com.lukasdylan.core.extension.onFailed
 import com.lukasdylan.core.extension.onSuccess
 import com.lukasdylan.core.utility.DispatcherProviders
+import com.lukasdylan.core.utility.ErrorWrapper
+import com.lukasdylan.core.utility.SingleLiveEvent
 import com.lukasdylan.footballservice.data.entity.DetailTeam
 import com.lukasdylan.footballservice.data.response.Player
+import com.lukasdylan.newsservice.data.NewsResponse
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -37,10 +40,50 @@ class DetailTeamViewModel(
         it?.shuffled()?.take(10)
     }
 
+    private val _newsResponse = MutableLiveData<NewsResponse>()
+    val newsResponse: LiveData<NewsResponse> = _newsResponse
+
+    private val _isFavoriteMatch = MutableLiveData<Boolean>()
+    val isFavoriteMatch: LiveData<Boolean> = _isFavoriteMatch
+
+    private val _successSnackBarEvent = SingleLiveEvent<String>()
+    val successSnackBarEvent: LiveData<String> = _successSnackBarEvent
+
+    private val _normalSnackBarEvent = SingleLiveEvent<String>()
+    val normalSnackBarEvent: LiveData<String> = _normalSnackBarEvent
+
+    private val onFailedListener = { errorWrapper: ErrorWrapper -> setErrorSnackBar(errorWrapper) }
+
     fun loadData(bundle: Bundle) {
-        with(bundle) {
-            _detailTeam.value = getParcelable("detail_team")
-            loadPlayerList()
+        _detailTeam.value = bundle.getParcelable("detail_team")
+        loadPlayerList()
+        loadNewsList()
+    }
+
+    fun checkFavoriteTeam() {
+        launch {
+            val result = withContext(dispatcherProviders.IO) {
+                useCase.checkIsFavoriteTeam(_detailTeam.value?.idTeam.orEmpty())
+            }
+            _isFavoriteMatch.value = result != null
+        }
+    }
+
+    fun onFavoriteIconClick() {
+        launch(dispatcherProviders.IO) {
+            val isFavorite = _isFavoriteMatch.value ?: false
+            val detailTeam = _detailTeam.value ?: return@launch
+            if (!isFavorite) {
+                useCase.saveAsFavoriteTeam(detailTeam, onSuccess = {
+                    _successSnackBarEvent.postValue("Added as Favorite Team")
+                    _isFavoriteMatch.postValue(true)
+                }, onFailed = onFailedListener)
+            } else {
+                useCase.deleteFavoriteTeam(detailTeam, onSuccess = {
+                    _normalSnackBarEvent.postValue("Removed from Favorite Team")
+                    _isFavoriteMatch.postValue(false)
+                }, onFailed = onFailedListener)
+            }
         }
     }
 
@@ -52,6 +95,21 @@ class DetailTeamViewModel(
             playersResult
                 .onSuccess {
                     _playerList.value = it.playerList
+                }
+                .onFailed {
+                    setErrorSnackBar(it)
+                }
+        }
+    }
+
+    private fun loadNewsList() {
+        launch {
+            val newsResult = withContext(dispatcherProviders.IO) {
+                useCase.getNewsByTeamName(_detailTeam.value?.teamName.orEmpty())
+            }
+            newsResult
+                .onSuccess {
+                    _newsResponse.value = it
                 }
                 .onFailed {
                     setErrorSnackBar(it)

@@ -13,7 +13,7 @@ import org.koin.dsl.module.module
 
 private val useCaseModule = module {
     single<PreviousMatchUseCase> { PreviousMatchUseCaseImpl(get()) }
-    single<DetailTeamUseCase> { DetailTeamUseCaseImpl(get()) }
+    single<DetailTeamUseCase> { DetailTeamUseCaseImpl(get(), get(), get()) }
 }
 
 private val viewModelModule = module {
