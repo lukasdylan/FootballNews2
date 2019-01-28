@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.TransitionManager
 import com.lukasdylan.core.extension.*
 import com.lukasdylan.core.utility.NavigationScreen
 import com.lukasdylan.footballservice.data.model.LA_LIGA_ID
@@ -20,6 +21,7 @@ import com.lukasdylan.home.ui.nextmatch.NextMatchFragment
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.lukasdylan.footballservice.R as R2
+import com.lukasdylan.newsservice.R as R3
 
 class HomeActivity : AppCompatActivity() {
 
@@ -32,31 +34,31 @@ class HomeActivity : AppCompatActivity() {
         return@lazy displayMetrics.widthPixels * 3 / 4
     }
 
-    private val adapterListener = { navigationScreen: NavigationScreen ->
-        when (navigationScreen.navigationId) {
+    private val adapterListener: (NavigationScreen) -> Unit = {
+        when (it.navigationId) {
             NAVIGATE_DETAIL_NEXT_MATCH_SCREEN -> {
-                showBottomSheetFragment(NextMatchFragment(), navigationScreen.params)
+                showBottomSheetFragment(NextMatchFragment(), it.params)
             }
             NAVIGATE_DETAIL_PREVIOUS_MATCH_SCREEN -> {
                 val scheme = resources.getString(R2.string.scheme)
                 val host = resources.getString(R2.string.deep_link_detail_previous_match)
-                val bundle = bundleOf(*navigationScreen.params.orEmpty())
+                val bundle = bundleOf(*it.params.orEmpty())
                 openDeepLinkActivity(scheme, host, bundle)
             }
             NAVIGATE_STANDINGS_SCREEN -> {
                 homeViewModel.openStandingsScreen()
             }
             NAVIGATE_DETAIL_NEWS_SCREEN -> {
-                val scheme = "news"
-                val host = "detail_news"
-                val bundle = bundleOf(*navigationScreen.params.orEmpty())
+                val scheme = resources.getString(R3.string.scheme)
+                val host = resources.getString(R3.string.deep_link_detail_news)
+                val bundle = bundleOf(*it.params.orEmpty())
                 openDeepLinkActivity(scheme, host, bundle)
             }
             NAVIGATE_ALL_PREVIOUS_MATCH_SCREEN -> {
                 homeViewModel.openAllMatchListScreen(0)
             }
             NAVIGATE_DETAIL_TEAM_SCREEN -> {
-                val teamId = navigationScreen.params?.get(0)?.second as? String
+                val teamId = it.params?.get(0)?.second as? String
                 homeViewModel.openDetailTeamScreen(teamId.orEmpty())
             }
         }
@@ -90,6 +92,7 @@ class HomeActivity : AppCompatActivity() {
             observeValue(nextMatchList) { mainSectionAdapter?.nextMatchListUpdate(it) }
             observeValue(leagueTrendingNewsList) { mainSectionAdapter?.trendingNewsListUpdate(it) }
             observeValue(selectedLeague) {
+                TransitionManager.beginDelayedTransition(binding.cvLeagueSelection)
                 binding.ivLeagueIcon.loadImage(
                     when (it.leagueId) {
                         PREMIER_LEAGUE_ID.toString() -> R.drawable.icon_premier_league

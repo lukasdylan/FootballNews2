@@ -10,7 +10,6 @@ import com.lukasdylan.footballservice.data.response.StandingResponse
 import com.lukasdylan.footballservice.data.service.FootballApiServices
 import com.lukasdylan.newsservice.data.NewsApiServices
 import com.lukasdylan.newsservice.data.NewsResponse
-import retrofit2.Call
 import ru.gildor.coroutines.retrofit.Result
 import ru.gildor.coroutines.retrofit.awaitResult
 
@@ -30,7 +29,7 @@ class HomeUseCaseImpl(
 ) : HomeUseCase {
 
     override suspend fun getTrendingNewsByLeagueName(leagueName: String): Result<NewsResponse> {
-        return newsService.fetchNewsByLeague(leagueName = leagueName).awaitResult()
+        return newsService.fetchNewsByQuery(query = leagueName).awaitResult()
     }
 
     override fun setDefaultLeague(league: League) {
@@ -46,7 +45,11 @@ class HomeUseCaseImpl(
     }
 
     override suspend fun getMatchesDataByType(matchType: Int, leagueId: String): Result<DetailMatchResponse> {
-        return getServiceByType(matchType, leagueId).awaitResult()
+        return if (matchType == PREVIOUS_MATCH_TYPE) {
+            service.fetchPreviousLeagueMatch(leagueId).awaitResult()
+        } else {
+            service.fetchNextLeagueMatch(leagueId).awaitResult()
+        }
     }
 
     override suspend fun getStandingsData(leagueId: String): Result<StandingResponse> {
@@ -55,13 +58,4 @@ class HomeUseCaseImpl(
         header["l"] = leagueId
         return service.fetchLeagueStandings(header).awaitResult()
     }
-
-    private fun getServiceByType(matchType: Int, leagueId: String): Call<DetailMatchResponse> {
-        return if (matchType == PREVIOUS_MATCH_TYPE) {
-            service.fetchPreviousLeagueMatch(leagueId)
-        } else {
-            service.fetchNextLeagueMatch(leagueId)
-        }
-    }
-
 }

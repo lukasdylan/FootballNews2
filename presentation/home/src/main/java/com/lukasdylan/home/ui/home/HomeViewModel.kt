@@ -44,7 +44,7 @@ class HomeViewModel(private val useCase: HomeUseCase, dispatcherProviders: Dispa
 
     private val _leagueTeamDetailList = MutableLiveData<List<DetailTeam>>()
     val imageTeamMap: LiveData<Map<String, String>> = Transformations.map(_leagueTeamDetailList) { list ->
-        list?.map { it.idTeam.orEmpty() to it.teamBadge.orEmpty() }?.toMap()
+        list?.map { it.idTeam to it.teamBadge.orEmpty() }?.toMap()
     }
 
     private val _leagueTrendingNewsList = MutableLiveData<List<Article>>()

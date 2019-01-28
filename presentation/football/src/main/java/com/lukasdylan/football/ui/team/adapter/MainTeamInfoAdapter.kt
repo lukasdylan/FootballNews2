@@ -22,7 +22,6 @@ import com.lukasdylan.football.model.TeamInfoType
 import com.lukasdylan.football.utility.asyncText
 import com.lukasdylan.footballservice.data.entity.DetailTeam
 import com.lukasdylan.footballservice.data.response.Player
-import com.lukasdylan.newsservice.data.Article
 import com.lukasdylan.newsservice.data.NewsResponse
 import org.jetbrains.anko.sdk27.coroutines.onClick
 
@@ -139,8 +138,8 @@ class MainTeamInfoAdapter(private val listener: (NavigationScreen) -> Unit) :
                 (holder as TeamInfoViewHolder).bind(data[0])
             }
             TeamInfoType.NEWS_INFO -> {
-                val data = (teamInfo.data as List<NewsResponse>)[0]
-                (holder as TeamNewsViewHolder).bind(data.articles, data.totalResult, teamName, teamInfo.isLoading)
+                val listNews = (teamInfo.data as List<NewsResponse>)
+                (holder as TeamNewsViewHolder).bind(listNews, teamName, teamInfo.isLoading)
             }
         }
     }
@@ -281,14 +280,15 @@ class MainTeamInfoAdapter(private val listener: (NavigationScreen) -> Unit) :
             }
         }
 
-        fun bind(data: List<Article>, newsCount: Int? = 0, teamName: String, isLoading: Boolean) {
+        fun bind(response: List<NewsResponse>, teamName: String, isLoading: Boolean) {
             with(binding) {
-                this.newsCount = newsCount
+                this.newsCount = if (response.isNotEmpty()) response[0].totalResult ?: 0 else 0
                 this.teamName = teamName
                 shimmerLayout.onAnimateListener(isLoading)
                 rvNews.adapter = teamNewsAdapter
-                teamNewsAdapter.addData(data)
-                btnBrowseMore.visibility = if (data.isNullOrEmpty()) View.GONE else View.VISIBLE
+                teamNewsAdapter.addData(if (response.isNotEmpty()) response[0].articles else emptyList())
+                btnBrowseMore.visibility =
+                    if (response.isNullOrEmpty() || response[0].articles.isNullOrEmpty()) View.GONE else View.VISIBLE
                 executePendingBindings()
             }
         }

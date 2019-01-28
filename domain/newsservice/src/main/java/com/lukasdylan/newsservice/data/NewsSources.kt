@@ -8,4 +8,8 @@ object NewsSources {
     const val THE_SPORT_BIBLE = "the-sport-bible"
 
     val defaultSources = listOf(BBC_SPORT, ESPN, FOUR_FOUR_TWO, FOX_SPORTS, THE_SPORT_BIBLE).joinToString(",")
+
+    const val SORT_BY_POPULARITY = "popularity"
+    const val SORT_BY_PUBLISH_TIME = "publishedAt"
+    const val SORT_BY_RELEVANCY = "relevancy"
 }

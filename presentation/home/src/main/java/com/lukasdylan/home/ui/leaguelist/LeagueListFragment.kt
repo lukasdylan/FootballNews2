@@ -39,11 +39,11 @@ class LeagueListFragment : RoundedBottomSheetFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val leagueList = League.leagueList
-        val leagueListAdapter = LeagueListAdapter(leagueList) {
+        val leagueListAdapter = LeagueListAdapter {
             dismiss()
             homeViewModel.onSelectedLeague(it)
         }
+        leagueListAdapter.addData(League.leagueList)
         binding.rvLeagueList.adapter = leagueListAdapter
     }
 }

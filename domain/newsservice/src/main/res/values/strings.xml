@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">News Service</string>
+    <string name="scheme">news</string>
+    <string name="deep_link_detail_news">detail_news</string>
+    <string name="deep_link_list_news">list_news</string>
 </resources>
