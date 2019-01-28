@@ -16,14 +16,12 @@ import com.google.android.material.appbar.AppBarLayout
 import com.lukasdylan.core.extension.*
 import com.lukasdylan.football.R
 import com.lukasdylan.football.databinding.ActivityDetailTeamBinding
-import com.lukasdylan.football.ui.team.adapter.MainTeamInfoAdapter
-import com.lukasdylan.football.ui.team.adapter.NAVIGATE_BROWSER
-import com.lukasdylan.football.ui.team.adapter.NAVIGATE_DETAIL_NEWS_SCREEN
-import com.lukasdylan.football.ui.team.adapter.TeamBannerAdapter
+import com.lukasdylan.football.ui.team.adapter.*
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.find
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.lukasdylan.newsservice.R as R2
 
 class DetailTeamActivity : AppCompatActivity(), Animator.AnimatorListener {
 
@@ -47,10 +45,13 @@ class DetailTeamActivity : AppCompatActivity(), Animator.AnimatorListener {
                     browse("https://" + url.orEmpty())
                 }
                 NAVIGATE_DETAIL_NEWS_SCREEN -> {
-                    val scheme = "news"
-                    val host = "detail_news"
+                    val scheme = resources.getString(R2.string.scheme)
+                    val host = resources.getString(R2.string.deep_link_detail_news)
                     val bundle = bundleOf(*it.params.orEmpty())
                     openDeepLinkActivity(scheme, host, bundle)
+                }
+                NAVIGATE_ALL_NEWS_SCREEN -> {
+                    viewModel.openListNewsScreen()
                 }
             }
         }
@@ -99,6 +100,16 @@ class DetailTeamActivity : AppCompatActivity(), Animator.AnimatorListener {
                     binding.fabFavorite.setImageResource(R.drawable.icon_favorite_no_fill_gray)
                 }
             }
+            observeValue(navigationScreenEvent) {
+                when (it.navigationId) {
+                    NAVIGATE_ALL_NEWS_SCREEN -> {
+                        val scheme = resources.getString(R2.string.scheme)
+                        val host = resources.getString(R2.string.deep_link_list_news)
+                        val bundle = bundleOf(*it.params.orEmpty())
+                        openDeepLinkActivity(scheme, host, bundle)
+                    }
+                }
+            }
             observeValue(errorSnackBarEvent) { binding.rootLayout.showErrorSnackBar(it.getMessage(this@DetailTeamActivity)) }
             observeValue(successSnackBarEvent) { binding.rootLayout.showSuccessSnackBar(it) }
             observeValue(normalSnackBarEvent) { binding.rootLayout.showNormalSnackBar(it) }
@@ -121,30 +132,6 @@ class DetailTeamActivity : AppCompatActivity(), Animator.AnimatorListener {
         }
         viewModel.checkFavoriteTeam()
         return true
-    }
-
-    private fun initTextViewToolbar() {
-        val toolbarTextView = binding.toolbar.titleTextView()
-        toolbarTextView?.alpha = 0f
-
-        binding.appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
-            val alpha =
-                Math.abs(verticalOffset).toFloat() / (binding.appBarLayout.measuredHeight - binding.toolbar.measuredHeight)
-            if (alpha <= 0.5f) {
-                toolbarTextView?.alpha = alpha
-            } else if (alpha <= 0.7) {
-                if (binding.fabFavorite.isOrWillBeHidden) {
-                    binding.fabFavorite.show()
-                    menuFavorite?.isVisible = false
-                }
-            } else {
-                toolbarTextView?.alpha = 1.0f
-                if (binding.fabFavorite.isOrWillBeShown) {
-                    binding.fabFavorite.hide()
-                    menuFavorite?.isVisible = true
-                }
-            }
-        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -174,5 +161,29 @@ class DetailTeamActivity : AppCompatActivity(), Animator.AnimatorListener {
     override fun onAnimationStart(animation: Animator?) {
         favoriteAnimationView.visibility = View.VISIBLE
         favoriteIconImageView.visibility = View.GONE
+    }
+
+    private fun initTextViewToolbar() {
+        val toolbarTextView = binding.toolbar.titleTextView()
+        toolbarTextView?.alpha = 0f
+
+        binding.appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
+            val alpha =
+                Math.abs(verticalOffset).toFloat() / (binding.appBarLayout.measuredHeight - binding.toolbar.measuredHeight)
+            if (alpha <= 0.5f) {
+                toolbarTextView?.alpha = alpha
+            } else if (alpha <= 0.75) {
+                if (binding.fabFavorite.isOrWillBeHidden) {
+                    binding.fabFavorite.show()
+                    menuFavorite?.isVisible = false
+                }
+            } else {
+                toolbarTextView?.alpha = 1.0f
+                if (binding.fabFavorite.isOrWillBeShown) {
+                    binding.fabFavorite.hide()
+                    menuFavorite?.isVisible = true
+                }
+            }
+        })
     }
 }

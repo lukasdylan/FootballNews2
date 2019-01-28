@@ -25,7 +25,7 @@ inline fun <T : Any> Result<T>.onError(crossinline handler: (errorWrapper: Error
     (this as? Result.Error)?.let {
         val errorMessage = it.response.message() ?: it.exception.message()
         if (!errorMessage.isNullOrBlank()) {
-            handler(ErrorWrapper.invoke(errorMessage))
+            handler(ErrorWrapper.invoke(errorMessage.capitalize()))
         } else {
             handler(ErrorWrapper.invoke(R.string.msg_failed_to_load))
         }

@@ -3,7 +3,7 @@
 
     <application>
 
-        <activity android:name=".DetailNewsActivity">
+        <activity android:name=".ui.detailnews.DetailNewsActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
@@ -12,8 +12,23 @@
                 <category android:name="android.intent.category.DEFAULT"/>
 
                 <data
-                        android:host="detail_news"
-                        android:scheme="news"/>
+                        android:host="@string/deep_link_detail_news"
+                        android:scheme="@string/scheme"/>
+            </intent-filter>
+
+        </activity>
+
+        <activity android:name=".ui.listnews.ListNewsActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data
+                        android:host="@string/deep_link_list_news"
+                        android:scheme="@string/scheme"/>
             </intent-filter>
 
         </activity>

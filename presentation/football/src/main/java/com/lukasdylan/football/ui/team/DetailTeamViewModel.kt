@@ -9,7 +9,9 @@ import com.lukasdylan.core.extension.onFailed
 import com.lukasdylan.core.extension.onSuccess
 import com.lukasdylan.core.utility.DispatcherProviders
 import com.lukasdylan.core.utility.ErrorWrapper
+import com.lukasdylan.core.utility.NavigationScreen
 import com.lukasdylan.core.utility.SingleLiveEvent
+import com.lukasdylan.football.ui.team.adapter.NAVIGATE_ALL_NEWS_SCREEN
 import com.lukasdylan.footballservice.data.entity.DetailTeam
 import com.lukasdylan.footballservice.data.response.Player
 import com.lukasdylan.newsservice.data.NewsResponse
@@ -87,6 +89,15 @@ class DetailTeamViewModel(
         }
     }
 
+    fun openListNewsScreen() {
+        val detailTeam = _detailTeam.value ?: return
+        val params = arrayOf<Pair<String, Any?>>(
+            "team_name" to detailTeam.teamName.orEmpty(),
+            "query" to "${detailTeam.teamName.orEmpty()} ${detailTeam.leagueName.orEmpty()}"
+        )
+        setNavigationScreen(NavigationScreen(NAVIGATE_ALL_NEWS_SCREEN, params))
+    }
+
     private fun loadPlayerList() {
         launch {
             val playersResult = withContext(dispatcherProviders.IO) {
@@ -104,8 +115,9 @@ class DetailTeamViewModel(
 
     private fun loadNewsList() {
         launch {
+            val detailTeam = _detailTeam.value ?: return@launch
             val newsResult = withContext(dispatcherProviders.IO) {
-                useCase.getNewsByTeamName(_detailTeam.value?.teamName.orEmpty())
+                useCase.getNewsByQuery("${detailTeam.teamName.orEmpty()} ${detailTeam.leagueName.orEmpty()}")
             }
             newsResult
                 .onSuccess {

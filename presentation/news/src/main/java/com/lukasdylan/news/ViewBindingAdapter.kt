@@ -1,4 +1,4 @@
-package com.lukasdylan.football.utility
+package com.lukasdylan.news
 
 import android.widget.ImageView
 import android.widget.TextView
@@ -16,7 +16,7 @@ internal fun TextView.asyncText(text: String?) {
     }
 }
 
-@BindingAdapter("imageUrl","isRounded", requireAll = true)
-internal fun ImageView.imageUrl(url: String?, isRounded: Boolean) {
-    loadImageByUrl(url, isRounded)
+@BindingAdapter("imageUrl")
+internal fun ImageView.imageUrl(url: String?) {
+    loadImageByUrl(url, true)
 }

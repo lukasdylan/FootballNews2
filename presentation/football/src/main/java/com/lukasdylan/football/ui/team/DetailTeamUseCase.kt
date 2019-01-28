@@ -17,7 +17,7 @@ interface DetailTeamUseCase {
     suspend fun checkIsFavoriteTeam(teamId: String): DetailTeam?
     suspend fun saveAsFavoriteTeam(detailTeam: DetailTeam, onSuccess: () -> Unit, onFailed: (ErrorWrapper) -> Unit)
     suspend fun deleteFavoriteTeam(detailTeam: DetailTeam, onSuccess: () -> Unit, onFailed: (ErrorWrapper) -> Unit)
-    suspend fun getNewsByTeamName(teamName: String): Result<NewsResponse>
+    suspend fun getNewsByQuery(query: String): Result<NewsResponse>
 }
 
 class DetailTeamUseCaseImpl(
@@ -26,8 +26,8 @@ class DetailTeamUseCaseImpl(
     private val detailTeamDao: DetailTeamDao
 ) : DetailTeamUseCase {
 
-    override suspend fun getNewsByTeamName(teamName: String): Result<NewsResponse> {
-        return newsApiServices.fetchNewsByLeague(leagueName = teamName, pageSize = 5).awaitResult()
+    override suspend fun getNewsByQuery(query: String): Result<NewsResponse> {
+        return newsApiServices.fetchNewsByQuery(query = query, pageSize = 5).awaitResult()
     }
 
     override suspend fun checkIsFavoriteTeam(teamId: String): DetailTeam? {

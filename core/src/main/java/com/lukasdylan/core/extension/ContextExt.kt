@@ -40,7 +40,8 @@ fun AppCompatActivity.showBottomSheetFragment(
     fragment: RoundedBottomSheetFragment,
     params: Array<Pair<String, Any?>>? = null
 ) {
-    fragment.also { it.arguments = bundleOf(*params.orEmpty()) }
+    fragment
+        .also { it.arguments = bundleOf(*params.orEmpty()) }
         .show(supportFragmentManager, fragment::class.java.simpleName)
 }
 
