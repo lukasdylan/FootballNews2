@@ -8,6 +8,7 @@ import androidx.databinding.ViewDataBinding
 import com.lukasdylan.core.base.BaseAdapter
 import com.lukasdylan.core.base.BaseViewHolder
 import com.lukasdylan.news.R
+import com.lukasdylan.news.asyncText
 import com.lukasdylan.news.databinding.ItemNewsSortBinding
 import com.lukasdylan.newsservice.data.NewsSources
 import org.jetbrains.anko.sdk27.coroutines.onClick
@@ -33,7 +34,7 @@ class NewsSortAdapter(
 
         override fun bind(item: String, imageMap: Map<String, String>?) {
             with(binding) {
-                tvSortName.text = item
+                tvSortName.asyncText(item)
                 ivCheck.visibility =
                     if (adapterPosition == 0 && selectedSort.equals(NewsSources.SORT_BY_PUBLISH_TIME, true)) {
                         View.VISIBLE

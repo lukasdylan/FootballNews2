@@ -23,7 +23,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -38,7 +38,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':core')
     implementation 'com.squareup.moshi:moshi-kotlin:1.8.0'
-    implementation "androidx.room:room-runtime:2.1.0-alpha03"
-    kapt "androidx.room:room-compiler:2.1.0-alpha03"
+    implementation "androidx.room:room-runtime:2.1.0-alpha04"
+    kapt "androidx.room:room-compiler:2.1.0-alpha04"
     implementation 'androidx.test.espresso:espresso-idling-resource:3.1.1'
 }

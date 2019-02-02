@@ -16,6 +16,7 @@ import kotlinx.coroutines.withContext
 
 internal const val NAVIGATE_SORT_DIALOG = 100
 internal const val NAVIGATE_FILTER_DIALOG = 101
+
 class ListNewsViewModel(private val useCase: ListNewsUseCase, dispatcherProviders: DispatcherProviders) :
     BaseViewModel(dispatcherProviders) {
 
@@ -26,7 +27,11 @@ class ListNewsViewModel(private val useCase: ListNewsUseCase, dispatcherProvider
 
     private val _newsList = MutableLiveData<MutableList<Article>>()
     val newsList: LiveData<List<Article>> = Transformations.map(_newsList) {
-        return@map it.toList()
+        return@map if (it.isNullOrEmpty()) {
+            emptyList()
+        } else {
+            it.toList()
+        }
     }
 
     private val _toolbarTitle = MutableLiveData<String>()
@@ -46,7 +51,7 @@ class ListNewsViewModel(private val useCase: ListNewsUseCase, dispatcherProvider
         with(bundle) {
             _toolbarTitle.value = getString("team_name").orEmpty()
             query = getString("query").orEmpty()
-            loadNewsList()
+            return@with loadNewsList()
         }
     }
 
@@ -102,7 +107,12 @@ class ListNewsViewModel(private val useCase: ListNewsUseCase, dispatcherProvider
         if (currentNewsCount < maxNewsCount) {
             launch {
                 val result = withContext(dispatcherProviders.IO) {
-                    useCase.getNewsList(query = query, sources = sources, page = currentPage, sortBy = _selectedSort.value.orEmpty())
+                    useCase.getNewsList(
+                        query = query,
+                        sources = sources,
+                        page = currentPage,
+                        sortBy = _selectedSort.value.orEmpty()
+                    )
                 }
                 result
                     .onSuccess {

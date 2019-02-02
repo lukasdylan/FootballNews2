@@ -5,14 +5,16 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/root_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingTop="12sp"
+            android:paddingBottom="12sp">
 
         <TextView
                 android:id="@+id/tv_sort_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:fontFamily="@font/fira_sans"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
