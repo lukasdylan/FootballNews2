@@ -1,7 +1,7 @@
 # FootballNews2
 Personal Android project for Football daily updates
 
-This is an improvement project of Dicoding Kotlin Android Developer Expert class, with a new feature "News". </br></br>
+This is an improvement project of Dicoding Kotlin Android Developer Expert class, with a new feature "News". <br/><br/>
 Library that I used for this project:
 1. [KOIN](https://github.com/InsertKoinIO/koin) for Dependency Injection (later for Unit Testing)
 2. [Moshi](https://github.com/square/moshi) for JSON parser (from Kotlin object to JSON and vice versa)
@@ -12,8 +12,8 @@ Library that I used for this project:
 
 This project using MVVM pattern with DataBinding, and already modularize.
 
-Development tools:</br>
-- Android Studio 3.4 Canary 10 </br>
+Development tools:
+- Android Studio 3.4 Canary 10 <br/>
 - Postman
 
 <b>UPDATE 2 February 2019</b>
