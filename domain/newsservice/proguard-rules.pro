@@ -14,8 +14,17 @@
 
 # Uncomment this to preserve the line number information for
 # debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+-keepattributes SourceFile,LineNumberTable
 
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
-#-renamesourcefileattribute SourceFile
+-renamesourcefileattribute SourceFile
+
+## Moshi
+-dontwarn org.jetbrains.annotations.**
+-keep class kotlin.Metadata { *; }
+-dontwarn kotlin.reflect.jvm.internal.**
+-keepclassmembers class kotlin.Metadata {
+    public <methods>;
+}
+-keep class com.lukasdylan.newsservice.data.** { *; }

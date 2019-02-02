@@ -22,9 +22,9 @@ class NewsAdapter(private val listener: (Article) -> Unit) : BaseAdapter<Article
     }
 
     fun update(data: List<Article>) {
-        val currentSize = itemCount
         addData(data)
-        notifyItemRangeInserted(currentSize, data.size - 1)
+//        notifyItemRangeInserted(currentSize, data.size - 1)
+        notifyDataSetChanged()
     }
 
     class NewsViewHolder(
