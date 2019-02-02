@@ -21,3 +21,20 @@ Development tools:
 
 <b>UPDATE 28 January 2019</b>
 - Feature News released
+
+<b>Apps Preview</b> 
+<br/>
+<br/>
+<img src="home_screen.gif" width="324" height="576">
+<br/>
+<i>Home Screen</i>
+<br/>
+<br/>
+<img src="detail_match.gif" width="324" height="576">
+<br/>
+<i>Detail Match</i>
+<br/>
+<br/>
+<img src="detail_club.gif" width="324" height="576">
+<br/>
+<i>Detail Club</i>
