@@ -8,13 +8,17 @@ Library that I used for this project:
 3. [Kotlin Coroutines for Retrofit](https://github.com/gildor/kotlin-coroutines-retrofit) for Retrofit 2's Coroutines extension helper
 4. [Glide](https://github.com/bumptech/glide) for image loader
 5. [Anko](https://github.com/Kotlin/anko) for some class extension (only used [Common](https://github.com/Kotlin/anko#anko-commons))
-6. Fully used AndroidX
+6. [Lottie](https://github.com/airbnb/lottie-android) for image animation (ex: Favorite Icon)
+7. Fully used AndroidX, including Android Architecture Components (ex: Lifecycle, ViewModel, Room, BindingAdapter)
 
-This project using MVVM pattern with DataBinding, and already modularize.
+This project uses the MVVM pattern with DataBinding, and is modular by applying Clean Architecture approach.
 
 Development tools:
 - Android Studio 3.4 Canary 10 <br/>
 - Postman
+
+<h2>UPDATE LIST!!</h2>
+<br/>
 
 <b>UPDATE 2 February 2019</b>
 - Proguard Rules added for every modules (Production Ready!)
@@ -22,9 +26,14 @@ Development tools:
 <b>UPDATE 28 January 2019</b>
 - Feature News released
 
-<b>Apps Preview</b> 
-<br/>
-<br/>
+<h2>What's Next?</h2>
+
+- "Favorite Match, Club, and Player List" feature
+- "Team and Match Search" feature
+- Unit Testing for every Use Case and View Model
+
+<h2>Apps Preview</h2> 
+
 <img src="home_screen.gif" width="324" height="576">
 <br/>
 <i>Home Screen</i>
