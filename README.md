@@ -12,6 +12,12 @@ Library that I used for this project:
 
 This project using MVVM pattern with DataBinding, and already modularize.
 
-Development tools:
-Android Studio 3.4 Canary 10
-Postman
+Development tools:</br>
+- Android Studio 3.4 Canary 10 </br>
+- Postman
+
+<b>UPDATE 2 February 2019</b>
+- Proguard Rules added for every modules (Production Ready!)
+
+<b>UPDATE 28 January 2019</b>
+- Feature News released
