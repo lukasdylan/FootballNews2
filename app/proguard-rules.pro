@@ -18,7 +18,91 @@
 
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
-#-renamesourcefileattribute SourceFile
+-renamesourcefileattribute SourceFile
+
+## Android architecture components: Lifecycle
+-keepclassmembers class * implements androidx.lifecycle.LifecycleObserver {
+    <init>(...);
+}
+-keepclassmembers class * extends androidx.lifecycle.ViewModel {
+    <init>(...);
+}
+-keepclassmembers class androidx.lifecycle.Lifecycle$State { *; }
+-keepclassmembers class androidx.lifecycle.Lifecycle$Event { *; }
+-keepclassmembers class * {
+    @androidx.lifecycle.OnLifecycleEvent *;
+}
+-keepclassmembers class * implements androidx.lifecycle.LifecycleObserver {
+    <init>(...);
+}
+-keep class * implements androidx.lifecycle.LifecycleObserver {
+    <init>(...);
+}
+-keepclassmembers class androidx.lifecycle.** { *; }
+-keep class androidx.lifecycle.* { *; }
+-dontwarn androidx.lifecycle.*
+-keep class * implements androidx.lifecycle.GeneratedAdapter {<init>(...);}
+
+## KOIN
+-keep class org.koin.** { *; }
+
+## Retrofit 2
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+-keepattributes Signature
+-keepattributes Exceptions
+-keepattributes *Annotation*
+-keepattributes RuntimeVisibleAnnotations
+-keepattributes RuntimeInvisibleAnnotations
+-keepattributes RuntimeVisibleParameterAnnotations
+-keepattributes RuntimeInvisibleParameterAnnotations
+-keepattributes EnclosingMethod
+-keepclasseswithmembers class * {
+    @retrofit2.* <methods>;
+}
+-keepclasseswithmembers interface * {
+    @retrofit2.* <methods>;
+}
+-keepclasseswithmembers class * {
+    @retrofit2.http.* <methods>;
+}
+-dontnote retrofit2.Platform
+-dontnote retrofit2.Platform$IOS$MainThreadExecutor
+-dontwarn retrofit2.Platform$Java8
+
+## OKIO
+-keep class sun.misc.Unsafe { *; }
+-dontwarn java.nio.file.*
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+-dontwarn okio.**
+
+## OkHttp
+-keepattributes Signature
+-keepattributes *Annotation*
+-keep class okhttp3.** { *; }
+-keep interface okhttp3.** { *; }
+-dontwarn okhttp3.**
+-keep class okhttp3.logging.** { *; }
+
+## Glide
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+    **[] $VALUES;
+    public *;
+}
+
+## DataBinding
+-keepclassmembers class * extends androidx.databinding.ViewDataBinding {
+    <init>(...);
+}
+-keepclassmembers class *.R$ {
+    public static <fields>;
+}
+-keepclassmembers class androidx.databinding.** { *; }
+-keep class androidx.databinding.* { *; }
+-dontwarn androidx.databinding.*
+
+## Moshi
 -dontwarn org.jetbrains.annotations.**
 -keep class kotlin.Metadata { *; }
 -dontwarn kotlin.reflect.jvm.internal.**
@@ -27,3 +111,29 @@
 }
 -keep interface kotlin.reflect.jvm.internal.impl.builtins.BuiltInsLoader
 -keep class kotlin.reflect.jvm.internal.impl.serialization.deserialization.builtins.BuiltInsLoaderImpl
+
+## Kotlin Coroutines
+-keepnames class kotlinx.coroutines.internal.MainDispatcherFactory {}
+-keepnames class kotlinx.coroutines.CoroutineExceptionHandler {}
+-keepclassmembernames class kotlinx.** {
+    volatile <fields>;
+}
+
+## Toolbar Field
+-keepclassmembers class androidx.appcompat.widget.Toolbar {
+    private android.widget.TextView mTitleTextView;
+}
+
+## Enum Classes
+-keepclassmembers enum * {
+ public static **[] values();
+ public static ** valueOf(java.lang.String);
+}
+
+-keep class * implements android.os.Parcelable {
+ public static final android.os.Parcelable$Creator *;
+}
+
+-keepclassmembers class **.R$* {
+ public static <fields>;
+}

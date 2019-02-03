@@ -17,7 +17,7 @@ class MatchListViewModel(dispatcherProviders: DispatcherProviders) : BaseViewMod
 
     private val _leagueTeamDetailList = MutableLiveData<List<DetailTeam>>()
     val imageTeamMap: LiveData<Map<String, String>> = Transformations.map(_leagueTeamDetailList) { list ->
-        list?.map { it.idTeam.orEmpty() to it.teamBadge.orEmpty() }?.toMap()
+        list?.map { it.idTeam to it.teamBadge.orEmpty() }?.toMap()
     }
 
     private val _toolbarTitle = MutableLiveData<String>()

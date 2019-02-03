@@ -45,7 +45,7 @@ class PreviousMatchActivity : AppCompatActivity() {
             setSupportActionBar(toolbar)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             initTextViewToolbar(toolbar = toolbar, appBarLayout = appBarLayout)
-            setLifecycleOwner(this@PreviousMatchActivity)
+            lifecycleOwner = this@PreviousMatchActivity
             vm = viewModel
         }
         with(viewModel) {
