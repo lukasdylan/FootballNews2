@@ -18,7 +18,7 @@
 
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
--renamesourcefileattribute SourceFile
+#-renamesourcefileattribute SourceFile
 
 ## Android architecture components: Lifecycle
 -keepclassmembers class * implements androidx.lifecycle.LifecycleObserver {
@@ -53,3 +53,16 @@
 -keepclassmembers class androidx.databinding.** { *; }
 -keep class androidx.databinding.* { *; }
 -dontwarn androidx.databinding.*
+
+-keepclassmembers enum * {
+ public static **[] values();
+ public static ** valueOf(java.lang.String);
+}
+
+-keep class * implements android.os.Parcelable {
+ public static final android.os.Parcelable$Creator *;
+}
+
+-keepclassmembers class **.R$* {
+ public static <fields>;
+}

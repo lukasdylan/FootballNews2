@@ -53,3 +53,16 @@
 -keepclassmembers class androidx.databinding.** { *; }
 -keep class androidx.databinding.* { *; }
 -dontwarn androidx.databinding.*
+
+-keepclassmembers enum * {
+ public static **[] values();
+ public static ** valueOf(java.lang.String);
+}
+
+-keep class * implements android.os.Parcelable {
+ public static final android.os.Parcelable$Creator *;
+}
+
+-keepclassmembers class **.R$* {
+ public static <fields>;
+}

@@ -1,9 +1,11 @@
 package com.lukasdylan.newsservice.data
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 
+@Keep
 data class NewsResponse(
     @Json(name = "status")
     val status: String? = null,
@@ -13,6 +15,7 @@ data class NewsResponse(
     val articles: List<Article> = mutableListOf()
 )
 
+@Keep
 @Parcelize
 data class Article(
     @Json(name = "source")
@@ -31,6 +34,7 @@ data class Article(
     val publishedAt: String? = null
 ) : Parcelable
 
+@Keep
 @Parcelize
 data class Source(
     @Json(name = "id")

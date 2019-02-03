@@ -14,7 +14,7 @@ inline fun <T : Any> Result<T>.onSuccess(crossinline handler: (data: T) -> Unit)
 
 inline fun <T : Any> Result<T>.onFailed(crossinline handler: (errorWrapper: ErrorWrapper) -> Unit): Result<T> {
     //combination between onError and onException
-    when(this) {
+    when (this) {
         is Result.Error -> onError(handler)
         is Result.Exception -> onException(handler)
     }
