@@ -1,9 +1,11 @@
 package com.lukasdylan.footballservice.data.response
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 
+@Keep
 @Parcelize
 data class Player(
     @Json(name = "idPlayer")
@@ -30,6 +32,7 @@ data class Player(
     val playerFanArtUrl: String? = null
 ) : Parcelable
 
+@Keep
 data class PlayerResponse(
     @Json(name = "player") val playerList: List<Player> = mutableListOf()
 )

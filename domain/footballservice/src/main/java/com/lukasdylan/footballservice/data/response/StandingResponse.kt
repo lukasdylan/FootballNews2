@@ -1,9 +1,11 @@
 package com.lukasdylan.footballservice.data.response
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 
+@Keep
 @Parcelize
 data class Standings(
     @Json(name = "name") val name: String? = null,
@@ -15,6 +17,7 @@ data class Standings(
     @Json(name = "total") val total: Int = 0
 ) : Parcelable
 
+@Keep
 @Parcelize
 data class StandingResponse(
     @Json(name = "table") val standingList: List<Standings> = mutableListOf()

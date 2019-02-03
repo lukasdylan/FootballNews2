@@ -3,6 +3,7 @@ package com.lukasdylan.core.module
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import com.lukasdylan.core.BuildConfig
 import com.lukasdylan.core.utility.DispatcherProviderImpl
 import com.lukasdylan.core.utility.DispatcherProviders
 import okhttp3.Cache
@@ -30,7 +31,11 @@ private fun setupSharedPreferences(application: Application): SharedPreferences 
 private fun setupOkHttpClient(application: Application): OkHttpClient {
     val cache = Cache(application.cacheDir, 30 * 1024 * 1024)
     val logger = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BASIC
+        level = if (BuildConfig.DEBUG) {
+            HttpLoggingInterceptor.Level.BASIC
+        } else {
+            HttpLoggingInterceptor.Level.NONE
+        }
     }
     return OkHttpClient().newBuilder().apply {
         retryOnConnectionFailure(true)

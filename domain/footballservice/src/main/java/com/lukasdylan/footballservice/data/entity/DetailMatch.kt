@@ -1,12 +1,14 @@
 package com.lukasdylan.footballservice.data.entity
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 
+@Keep
 @Parcelize
 @Entity
 data class DetailMatch(
