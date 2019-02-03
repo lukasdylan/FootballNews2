@@ -35,7 +35,7 @@ class StandingsActivity : AppCompatActivity() {
                 addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
                 adapter = standingsSectionAdapter
             }
-            setLifecycleOwner(this@StandingsActivity)
+            lifecycleOwner = this@StandingsActivity
         }
         with(standingsViewModel) {
             observeValue(toolbarTitle) { supportActionBar?.title = it }

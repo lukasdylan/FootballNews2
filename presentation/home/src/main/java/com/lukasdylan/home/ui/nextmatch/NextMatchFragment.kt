@@ -35,7 +35,7 @@ class NextMatchFragment : RoundedBottomSheetFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_next_match, container, false)
         with(binding) {
-            setLifecycleOwner(this@NextMatchFragment)
+            lifecycleOwner = this@NextMatchFragment
             ivClose.onClick {
                 delay(250)
                 dismiss()

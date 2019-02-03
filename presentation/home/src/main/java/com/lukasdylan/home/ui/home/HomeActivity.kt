@@ -70,7 +70,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<ActivityHomeBinding>(this, R.layout.activity_home)
         with(binding) {
-            setLifecycleOwner(this@HomeActivity)
+            lifecycleOwner = this@HomeActivity
             setSupportActionBar(toolbar)
             supportActionBar?.title = "Football News 2"
             rvMain.apply {
