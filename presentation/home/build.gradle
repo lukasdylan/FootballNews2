@@ -44,8 +44,8 @@ dependencies {
     implementation project(':core')
     implementation project(':domain:footballservice')
     implementation project(':domain:newsservice')
-    implementation "androidx.databinding:databinding-adapters:3.4.0-beta02"
-    kapt "androidx.databinding:databinding-compiler:3.4.0-beta02"
+    implementation "androidx.databinding:databinding-adapters:3.4.0-beta03"
+    kapt "androidx.databinding:databinding-compiler:3.4.0-beta03"
     implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
     kapt "androidx.lifecycle:lifecycle-compiler:2.0.0"
     implementation 'androidx.test.espresso:espresso-idling-resource:3.1.1'
