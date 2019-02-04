@@ -7,15 +7,15 @@ import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.snackbar.Snackbar
 import com.lukasdylan.core.R
+import com.lukasdylan.core.module.GlideApp
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.error
 import org.jetbrains.anko.findOptional
@@ -23,7 +23,7 @@ import org.jetbrains.anko.findOptional
 fun ViewGroup.showErrorSnackBar(errorMessage: String?) {
     errorMessage?.let {
         val snackbar = Snackbar.make(this, it, Snackbar.LENGTH_LONG)
-        snackbar.view.setBackgroundColor(ContextCompat.getColor(context, android.R.color.holo_red_light))
+        snackbar.view.setBackgroundColor(ContextCompat.getColor(context, android.R.color.holo_red_dark))
         val textView = snackbar.view.findOptional(com.google.android.material.R.id.snackbar_text) as? TextView
         textView?.setTextColor(ContextCompat.getColor(context, android.R.color.white))
         snackbar.show()
@@ -72,14 +72,15 @@ fun ShimmerFrameLayout.onAnimateListener(isLoading: Boolean) {
 
 fun ImageView.loadImage(any: Any) {
     if (any is String || any is @DrawableRes Int) {
-        Glide.with(context)
+        val drawableCrossFadeFactory = DrawableCrossFadeFactory.Builder()
+        drawableCrossFadeFactory.setCrossFadeEnabled(true)
+        GlideApp.with(context)
             .load(any)
-            .apply(RequestOptions().apply {
-                apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.RESOURCE))
-                apply(RequestOptions.priorityOf(Priority.IMMEDIATE))
-                apply(RequestOptions.errorOf(R.drawable.no_image_icon))
-            })
-            .transition(DrawableTransitionOptions.withCrossFade())
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+            .priority(Priority.IMMEDIATE)
+            .error(R.drawable.no_image_icon)
+            .placeholder(R.color.lighter_gray)
+            .transition(DrawableTransitionOptions.with(drawableCrossFadeFactory.build()))
             .into(this)
     }
 }
@@ -97,15 +98,16 @@ fun Toolbar.titleTextView(): TextView? {
 
 fun ImageView.loadRoundedCornerImage(any: Any) {
     if (any is String || any is @DrawableRes Int) {
-        Glide.with(context)
+        val drawableCrossFadeFactory = DrawableCrossFadeFactory.Builder()
+        drawableCrossFadeFactory.setCrossFadeEnabled(true)
+        GlideApp.with(context)
             .load(any)
-            .apply(RequestOptions().apply {
-                apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.RESOURCE))
-                apply(RequestOptions.priorityOf(Priority.IMMEDIATE))
-                apply(RequestOptions.errorOf(R.drawable.no_image_icon))
-                apply(RequestOptions.bitmapTransform(RoundedCorners(16)))
-            })
-            .transition(DrawableTransitionOptions.withCrossFade())
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+            .priority(Priority.IMMEDIATE)
+            .error(R.drawable.no_image_icon)
+            .placeholder(R.color.lighter_gray)
+            .transform(RoundedCorners(16))
+            .transition(DrawableTransitionOptions.with(drawableCrossFadeFactory.build()))
             .into(this)
     }
 }
