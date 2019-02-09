@@ -90,7 +90,7 @@ class NextMatchFragment : RoundedBottomSheetFragment() {
                 viewModel.checkReminderMatch()
             } else {
                 val showRationale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    shouldShowRequestPermissionRationale(permissions[0])
+                    shouldShowRequestPermissionRationale(Manifest.permission.WRITE_CALENDAR)
                 } else {
                     false
                 }

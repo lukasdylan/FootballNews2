@@ -16,10 +16,12 @@ import com.google.android.material.appbar.AppBarLayout
 import com.lukasdylan.core.extension.*
 import com.lukasdylan.football.R
 import com.lukasdylan.football.databinding.ActivityDetailTeamBinding
+import com.lukasdylan.football.ui.playerlist.PlayerListActivity
 import com.lukasdylan.football.ui.team.adapter.*
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.find
 import org.jetbrains.anko.sdk27.coroutines.onClick
+import org.jetbrains.anko.startActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.lukasdylan.newsservice.R as R2
 
@@ -52,6 +54,9 @@ class DetailTeamActivity : AppCompatActivity(), Animator.AnimatorListener {
                 }
                 NAVIGATE_ALL_NEWS_SCREEN -> {
                     viewModel.openListNewsScreen()
+                }
+                NAVIGATE_ALL_PLAYER_SCREEN -> {
+                    viewModel.openListPlayerScreen()
                 }
             }
         }
@@ -107,6 +112,9 @@ class DetailTeamActivity : AppCompatActivity(), Animator.AnimatorListener {
                         val host = resources.getString(R2.string.deep_link_list_news)
                         val bundle = bundleOf(*it.params.orEmpty())
                         openDeepLinkActivity(scheme, host, bundle)
+                    }
+                    NAVIGATE_ALL_PLAYER_SCREEN -> {
+                        startActivity<PlayerListActivity>(*it.params.orEmpty())
                     }
                 }
             }

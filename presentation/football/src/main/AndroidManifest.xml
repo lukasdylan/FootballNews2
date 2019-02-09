@@ -66,6 +66,8 @@
 
         </activity>
 
+        <activity android:name=".ui.playerlist.PlayerListActivity"/>
+
     </application>
 
 </manifest>

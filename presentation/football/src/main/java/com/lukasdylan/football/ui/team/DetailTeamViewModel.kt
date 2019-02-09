@@ -12,6 +12,7 @@ import com.lukasdylan.core.utility.ErrorWrapper
 import com.lukasdylan.core.utility.NavigationScreen
 import com.lukasdylan.core.utility.SingleLiveEvent
 import com.lukasdylan.football.ui.team.adapter.NAVIGATE_ALL_NEWS_SCREEN
+import com.lukasdylan.football.ui.team.adapter.NAVIGATE_ALL_PLAYER_SCREEN
 import com.lukasdylan.footballservice.data.entity.DetailTeam
 import com.lukasdylan.footballservice.data.response.Player
 import com.lukasdylan.newsservice.data.NewsResponse
@@ -98,10 +99,20 @@ class DetailTeamViewModel(
         setNavigationScreen(NavigationScreen(NAVIGATE_ALL_NEWS_SCREEN, params))
     }
 
+    fun openListPlayerScreen() {
+        val detailTeam = _detailTeam.value ?: return
+        val params = arrayOf(
+            "team_name" to detailTeam.teamName.orEmpty(),
+            "players" to _playerList.value
+        )
+        setNavigationScreen(NavigationScreen(NAVIGATE_ALL_PLAYER_SCREEN, params))
+    }
+
     private fun loadPlayerList() {
         launch {
+            val detailTeam = _detailTeam.value ?: return@launch
             val playersResult = withContext(dispatcherProviders.IO) {
-                useCase.getPlayerList(_detailTeam.value?.idTeam.orEmpty())
+                useCase.getPlayerList(detailTeam.idTeam)
             }
             playersResult
                 .onSuccess {

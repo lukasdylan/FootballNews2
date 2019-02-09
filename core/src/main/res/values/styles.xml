@@ -30,7 +30,7 @@
         <item name="android:background">@drawable/white_top_rounded_background</item>
     </style>
 
-    <style name="BaseBottomSheetDialog" parent="@style/Theme.Design.Light.BottomSheetDialog">
+    <style name="BaseBottomSheetDialog" parent="@style/Theme.MaterialComponents.BottomSheetDialog">
         <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
         <item name="bottomSheetStyle">@style/BottomSheet</item>
     </style>
@@ -55,6 +55,11 @@
     </style>
 
     <style name="SwitchCompatColorStyle">
+        <item name="colorControlActivated">@android:color/holo_green_light</item>
+    </style>
+
+    <style name="CheckBoxColorStyle" parent="AppTheme">
+        <item name="colorControlNormal">#c5c5c5</item>
         <item name="colorControlActivated">@android:color/holo_green_light</item>
     </style>
 
