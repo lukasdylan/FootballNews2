@@ -98,6 +98,14 @@
                 app:layout_constraintStart_toEndOf="@id/sort_layout"
                 app:layout_constraintEnd_toStartOf="@id/filter_layout"/>
 
+        <View
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                app:layout_constraintBottom_toTopOf="@id/separator"
+                android:background="@drawable/shadow"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

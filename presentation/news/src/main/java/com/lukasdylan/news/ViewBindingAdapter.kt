@@ -6,7 +6,8 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.text.PrecomputedTextCompat
 import androidx.core.widget.TextViewCompat
 import androidx.databinding.BindingAdapter
-import com.lukasdylan.core.extension.loadImageByUrl
+import com.lukasdylan.core.extension.GlideTransformationMode
+import com.lukasdylan.core.extension.loadImagesFromUrl
 
 @BindingAdapter("asyncText")
 internal fun TextView.asyncText(text: String?) {
@@ -16,7 +17,7 @@ internal fun TextView.asyncText(text: String?) {
     }
 }
 
-@BindingAdapter("imageUrl")
-internal fun ImageView.imageUrl(url: String?) {
-    loadImageByUrl(url, true)
+@BindingAdapter("imageUrl", "mode", requireAll = false)
+internal fun ImageView.imageUrl(url: String?, mode: GlideTransformationMode) {
+    loadImagesFromUrl(url, R.color.lighter_gray, mode)
 }

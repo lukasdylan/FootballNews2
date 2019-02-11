@@ -16,6 +16,7 @@ import com.google.android.material.appbar.AppBarLayout
 import com.lukasdylan.core.extension.*
 import com.lukasdylan.football.R
 import com.lukasdylan.football.databinding.ActivityDetailTeamBinding
+import com.lukasdylan.football.ui.playerdetail.DetailPlayerActivity
 import com.lukasdylan.football.ui.playerlist.PlayerListActivity
 import com.lukasdylan.football.ui.team.adapter.*
 import org.jetbrains.anko.browse
@@ -28,8 +29,8 @@ import com.lukasdylan.newsservice.R as R2
 class DetailTeamActivity : AppCompatActivity(), Animator.AnimatorListener {
 
     private var menuFavorite: MenuItem? = null
-    private lateinit var favoriteAnimationView: LottieAnimationView
-    private lateinit var favoriteIconImageView: ImageView
+    private var favoriteAnimationView: LottieAnimationView? = null
+    private var favoriteIconImageView: ImageView? = null
 
     private val viewModel by viewModel<DetailTeamViewModel>()
 
@@ -58,6 +59,9 @@ class DetailTeamActivity : AppCompatActivity(), Animator.AnimatorListener {
                 NAVIGATE_ALL_PLAYER_SCREEN -> {
                     viewModel.openListPlayerScreen()
                 }
+                NAVIGATE_DETAIL_PLAYER_SCREEN -> {
+                    startActivity<DetailPlayerActivity>(*it.params.orEmpty())
+                }
             }
         }
     }
@@ -65,6 +69,7 @@ class DetailTeamActivity : AppCompatActivity(), Animator.AnimatorListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         with(binding) {
+            lifecycleOwner = this@DetailTeamActivity
             setSupportActionBar(toolbar)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             initTextViewToolbar()
@@ -94,14 +99,14 @@ class DetailTeamActivity : AppCompatActivity(), Animator.AnimatorListener {
             observeValue(isFavoriteMatch) {
                 if (it) {
                     if (binding.fabFavorite.isOrWillBeHidden) {
-                        favoriteAnimationView.playAnimation()
+                        favoriteAnimationView?.playAnimation()
                     } else {
                         binding.fabFavorite.setImageResource(0)
                         binding.lottieAnimationView.visibility = View.VISIBLE
                         binding.lottieAnimationView.playAnimation()
                     }
                 } else {
-                    favoriteIconImageView.setImageResource(R.drawable.icon_favorite_no_fill_gray)
+                    favoriteIconImageView?.setImageResource(R.drawable.icon_favorite_no_fill_gray)
                     binding.fabFavorite.setImageResource(R.drawable.icon_favorite_no_fill_gray)
                 }
             }
@@ -136,7 +141,7 @@ class DetailTeamActivity : AppCompatActivity(), Animator.AnimatorListener {
             favoriteAnimationView = find(R.id.lottieAnimationView)
             favoriteIconImageView = find(R.id.favoriteIcon)
 
-            favoriteAnimationView.addAnimatorListener(this@DetailTeamActivity)
+            favoriteAnimationView?.addAnimatorListener(this@DetailTeamActivity)
         }
         viewModel.checkFavoriteTeam()
         return true
@@ -155,9 +160,9 @@ class DetailTeamActivity : AppCompatActivity(), Animator.AnimatorListener {
     }
 
     override fun onAnimationEnd(animation: Animator?) {
-        favoriteAnimationView.visibility = View.GONE
-        favoriteIconImageView.setImageResource(R.drawable.icon_favorite_fill)
-        favoriteIconImageView.visibility = View.VISIBLE
+        favoriteAnimationView?.visibility = View.GONE
+        favoriteIconImageView?.setImageResource(R.drawable.icon_favorite_fill)
+        favoriteIconImageView?.visibility = View.VISIBLE
         binding.lottieAnimationView.visibility = View.GONE
         binding.fabFavorite.setImageResource(R.drawable.icon_favorite_fill)
     }
@@ -167,8 +172,8 @@ class DetailTeamActivity : AppCompatActivity(), Animator.AnimatorListener {
     }
 
     override fun onAnimationStart(animation: Animator?) {
-        favoriteAnimationView.visibility = View.VISIBLE
-        favoriteIconImageView.visibility = View.GONE
+        favoriteAnimationView?.visibility = View.VISIBLE
+        favoriteIconImageView?.visibility = View.GONE
     }
 
     private fun initTextViewToolbar() {

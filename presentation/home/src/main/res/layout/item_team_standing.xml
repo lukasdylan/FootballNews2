@@ -13,6 +13,12 @@
                 name="standings"
                 type="com.lukasdylan.footballservice.data.response.Standings"/>
 
+        <variable name="placeholder" type="Integer"/>
+
+        <variable name="mode" type="com.lukasdylan.core.extension.GlideTransformationMode"/>
+
+        <variable name="imageUrl" type="String"/>
+
     </data>
 
     <LinearLayout
@@ -38,7 +44,10 @@
         <ImageView
                 android:id="@+id/iv_club_icon"
                 android:layout_width="36dp"
-                android:layout_height="36dp"/>
+                android:layout_height="36dp"
+                app:placeholder="@{placeholder}"
+                app:mode="@{mode}"
+                app:imageUrl="@{imageUrl}"/>
 
         <TextView
                 android:layout_width="0dp"

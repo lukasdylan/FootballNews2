@@ -5,4 +5,5 @@
     <string name="deep_link_standings">standings</string>
     <string name="deep_link_match_list">match_list</string>
     <string name="deep_link_detail_team">detail_team</string>
+    <string name="deep_link_detail_player">detail_player</string>
 </resources>

@@ -63,4 +63,9 @@
         <item name="colorControlActivated">@android:color/holo_green_light</item>
     </style>
 
+    <style name="TextAppearance.AppCompat.Snackbar" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/fira_sans</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
 </resources>

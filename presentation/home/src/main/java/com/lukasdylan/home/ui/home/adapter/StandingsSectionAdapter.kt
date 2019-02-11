@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.lukasdylan.core.base.BaseAdapter
 import com.lukasdylan.core.base.BaseViewHolder
-import com.lukasdylan.core.extension.loadImageByUrl
+import com.lukasdylan.core.extension.GlideTransformationMode
 import com.lukasdylan.footballservice.data.response.Standings
 import com.lukasdylan.home.R
 import com.lukasdylan.home.databinding.ItemTeamStandingBinding
@@ -36,7 +36,9 @@ class StandingsSectionAdapter(private val listener: (String) -> Unit) :
         override fun bind(item: Standings, imageMap: Map<String, String>?) {
             with(binding) {
                 this.standings = item
-                ivClubIcon.loadImageByUrl(imageMap?.get(item.teamId).orEmpty())
+                this.placeholder = R.drawable.placeholder_circle_background
+                this.mode = GlideTransformationMode.FULL_IMAGE
+                this.imageUrl = imageMap?.get(item.teamId).orEmpty()
                 position = adapterPosition + 1
                 rootLayout.onClick {
                     listener(item.teamId.orEmpty())

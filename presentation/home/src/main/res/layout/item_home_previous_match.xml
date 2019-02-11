@@ -9,12 +9,23 @@
                 name="match"
                 type="com.lukasdylan.footballservice.data.entity.DetailMatch"/>
 
+        <variable name="placeholder" type="Integer"/>
+
+        <variable name="mode" type="com.lukasdylan.core.extension.GlideTransformationMode"/>
+
+        <variable name="homeImageUrl" type="String"/>
+
+        <variable name="awayImageUrl" type="String"/>
+
+        <variable name="matchDate" type="String"/>
+
     </data>
 
     <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_previous_match"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:cardBackgroundColor="@android:color/transparent"
             app:cardCornerRadius="8dp"
             app:strokeColor="@android:color/black"
             app:strokeWidth="0.5dp">
@@ -33,6 +44,7 @@
                     android:fontFamily="@font/fira_sans_italic"
                     android:singleLine="true"
                     android:ellipsize="end"
+                    app:asyncText="@{matchDate}"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/iv_favorite"
@@ -53,6 +65,9 @@
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_marginTop="16dp"
+                    app:placeholder="@{placeholder}"
+                    app:mode="@{mode}"
+                    app:imageUrl="@{homeImageUrl}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_date_time_match"
                     app:layout_constraintEnd_toStartOf="@id/tv_home_team_name"
@@ -93,6 +108,9 @@
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_marginTop="8dp"
+                    app:placeholder="@{placeholder}"
+                    app:mode="@{mode}"
+                    app:imageUrl="@{awayImageUrl}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/iv_home_team_icon"
                     app:layout_constraintEnd_toStartOf="@id/tv_away_team_name"

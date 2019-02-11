@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.lukasdylan.core.base.BaseAdapter
 import com.lukasdylan.core.base.BaseViewHolder
-import com.lukasdylan.core.extension.loadImage
+import com.lukasdylan.core.extension.loadImagesFromResources
 import com.lukasdylan.footballservice.data.model.LA_LIGA_ID
 import com.lukasdylan.footballservice.data.model.League
 import com.lukasdylan.footballservice.data.model.PREMIER_LEAGUE_ID
@@ -44,7 +44,7 @@ class LeagueListAdapter(private val listener: (League) -> Unit) :
         override fun bind(item: League, imageMap: Map<String, String>?) {
             with(binding) {
                 this.league = item
-                ivLeagueIcon.loadImage(
+                ivLeagueIcon.loadImagesFromResources(
                     when (item.leagueId) {
                         PREMIER_LEAGUE_ID.toString() -> R.drawable.icon_premier_league
                         LA_LIGA_ID.toString() -> R.drawable.icon_la_liga

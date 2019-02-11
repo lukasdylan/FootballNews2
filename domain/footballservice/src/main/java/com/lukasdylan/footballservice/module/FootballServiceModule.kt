@@ -10,7 +10,7 @@ import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module.module
 
 private val networkModule = module {
-    single { initRetrofit<FootballApiServices>(BuildConfig.BASE_URL, get()) }
+    single { initRetrofit<FootballApiServices>(BuildConfig.BASE_URL, get(), get()) }
 }
 
 private val databaseModule = module {

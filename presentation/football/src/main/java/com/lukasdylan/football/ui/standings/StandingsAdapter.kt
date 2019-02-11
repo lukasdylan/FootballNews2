@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.lukasdylan.core.base.BaseAdapter
 import com.lukasdylan.core.base.BaseViewHolder
-import com.lukasdylan.core.extension.loadImageByUrl
+import com.lukasdylan.core.extension.loadImagesFromUrl
 import com.lukasdylan.football.R
 import com.lukasdylan.football.databinding.ItemTeamStandingsBinding
 import com.lukasdylan.footballservice.data.response.Standings
@@ -36,7 +36,7 @@ class StandingsAdapter(private val listener: (String) -> Unit) : BaseAdapter<Sta
             with(binding) {
                 standings = item
                 val imageUrl = imageMap?.get(item.teamId)
-                ivClubIcon.loadImageByUrl(imageUrl)
+                ivClubIcon.loadImagesFromUrl(imageUrl, R.drawable.placeholder_circle_background)
                 position = adapterPosition + 1
                 rootLayout.onClick {
                     listener(item.teamId.orEmpty())

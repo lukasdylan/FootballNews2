@@ -4,6 +4,7 @@ import com.lukasdylan.core.R
 import com.lukasdylan.core.utility.ErrorWrapper
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 import ru.gildor.coroutines.retrofit.Result
 import ru.gildor.coroutines.retrofit.getOrNull
 
@@ -38,11 +39,15 @@ inline fun <T : Any> Result<T>.onException(crossinline handler: (errorWrapper: E
     return this
 }
 
-inline fun <reified T> initRetrofit(baseUrl: String, okHttpClient: OkHttpClient): T {
+inline fun <reified T> initRetrofit(
+    baseUrl: String,
+    okHttpClient: OkHttpClient,
+    moshiConverterFactory: MoshiConverterFactory
+): T {
     val retrofit = Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(okHttpClient)
-        .addConverterFactory(moshiConverterFactory())
+        .addConverterFactory(moshiConverterFactory)
         .build()
     return retrofit.create(T::class.java)
 }

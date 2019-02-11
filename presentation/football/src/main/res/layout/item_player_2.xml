@@ -11,6 +11,10 @@
 
         <variable name="imageUrl" type="String"/>
 
+        <variable name="placeholder" type="Integer"/>
+
+        <variable name="mode" type="com.lukasdylan.core.extension.GlideTransformationMode"/>
+
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -30,7 +34,8 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     app:imageUrl="@{imageUrl}"
-                    app:isRounded="@{false}"
+                    app:mode="@{mode}"
+                    app:placeholder="@{placeholder}"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>

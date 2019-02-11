@@ -6,7 +6,7 @@ import com.lukasdylan.newsservice.data.NewsApiServices
 import org.koin.dsl.module.module
 
 private val networkModule = module {
-    single { initRetrofit<NewsApiServices>(BuildConfig.NEWS_BASE_URL, get()) }
+    single { initRetrofit<NewsApiServices>(BuildConfig.NEWS_BASE_URL, get(), get()) }
 }
 
 val newsServiceModules = listOf(networkModule)

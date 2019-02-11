@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.transition.TransitionManager
 import com.lukasdylan.core.extension.*
 import com.lukasdylan.core.utility.NavigationScreen
 import com.lukasdylan.footballservice.data.model.LA_LIGA_ID
@@ -92,8 +91,7 @@ class HomeActivity : AppCompatActivity() {
             observeValue(nextMatchList) { mainSectionAdapter?.nextMatchListUpdate(it) }
             observeValue(leagueTrendingNewsList) { mainSectionAdapter?.trendingNewsListUpdate(it) }
             observeValue(selectedLeague) {
-                TransitionManager.beginDelayedTransition(binding.cvLeagueSelection)
-                binding.ivLeagueIcon.loadImage(
+                binding.ivLeagueIcon.loadImagesFromResources(
                     when (it.leagueId) {
                         PREMIER_LEAGUE_ID.toString() -> R.drawable.icon_premier_league
                         LA_LIGA_ID.toString() -> R.drawable.icon_la_liga

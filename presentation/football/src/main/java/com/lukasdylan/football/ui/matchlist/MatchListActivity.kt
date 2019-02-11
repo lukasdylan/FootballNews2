@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.lukasdylan.core.extension.observeValue
 import com.lukasdylan.football.R
 import com.lukasdylan.football.databinding.ActivityMatchListBinding
@@ -29,11 +30,17 @@ class MatchListActivity : AppCompatActivity() {
         with(binding) {
             setSupportActionBar(toolbar)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            appBarLayout.setLiftable(true)
             return@with rvMatchList.apply {
                 setHasFixedSize(true)
                 layoutManager = LinearLayoutManager(context)
                 addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
                 adapter = matchListAdapter
+                addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                        appBarLayout.setLifted(recyclerView.canScrollVertically(-1))
+                    }
+                })
             }
         }
         with(matchListViewModel) {

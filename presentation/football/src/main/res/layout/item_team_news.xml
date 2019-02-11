@@ -9,6 +9,10 @@
 
         <variable name="article" type="com.lukasdylan.newsservice.data.Article"/>
 
+        <variable name="placeholder" type="Integer"/>
+
+        <variable name="mode" type="com.lukasdylan.core.extension.GlideTransformationMode"/>
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,7 +41,8 @@
                 android:layout_height="84dp"
                 android:scaleType="centerCrop"
                 app:imageUrl="@{article.urlToImage}"
-                app:isRounded="@{true}"
+                app:mode="@{mode}"
+                app:placeholder="@{placeholder}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>

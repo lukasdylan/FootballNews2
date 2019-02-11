@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.lukasdylan.core.base.BaseAdapter
 import com.lukasdylan.core.base.BaseViewHolder
+import com.lukasdylan.core.extension.GlideTransformationMode
 import com.lukasdylan.football.R
 import com.lukasdylan.football.databinding.ItemPlayerHorizontalListBinding
 import com.lukasdylan.footballservice.data.response.Player
@@ -34,6 +35,8 @@ class HorizontalTeamPlayersAdapter(private val listener: (Player) -> Unit) :
 
         override fun bind(item: Player, imageMap: Map<String, String>?) {
             with(binding) {
+                this.placeholder = R.drawable.placeholder_circle_background
+                this.mode = GlideTransformationMode.FULL_IMAGE
                 this.name = item.playerName.orEmpty()
                 this.imageUrl = item.playerIconUrl.orEmpty()
                 rootLayout.onClick {

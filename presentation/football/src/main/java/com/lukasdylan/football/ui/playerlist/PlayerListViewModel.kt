@@ -35,7 +35,7 @@ class PlayerListViewModel(dispatcherProviders: DispatcherProviders) : BaseViewMo
             _playerList.value = playerList
             playerPositionMap = playerList.distinctBy { it.playerPosition }.map {
                 val currentPosition = it.playerPosition.orEmpty()
-                currentPosition to playerList.count { it.playerPosition == currentPosition }
+                return@map currentPosition to playerList.count { it.playerPosition == currentPosition }
             }.toList()
         }
     }

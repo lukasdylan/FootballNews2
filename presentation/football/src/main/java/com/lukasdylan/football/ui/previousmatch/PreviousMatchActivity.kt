@@ -46,6 +46,8 @@ class PreviousMatchActivity : AppCompatActivity() {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             initTextViewToolbar(toolbar = toolbar, appBarLayout = appBarLayout)
             lifecycleOwner = this@PreviousMatchActivity
+            mode = GlideTransformationMode.FULL_IMAGE
+            placeholder = R.drawable.placeholder_circle_background
             vm = viewModel
         }
         with(viewModel) {
