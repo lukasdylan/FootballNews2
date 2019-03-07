@@ -7,8 +7,4 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 fun moshi(): Moshi = Moshi.Builder().build()
 
-fun moshiKotlinJsonAdapterFactory(): Moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-
-fun moshiConverterFactory(): MoshiConverterFactory = MoshiConverterFactory.create(moshiKotlinJsonAdapterFactory())
-
 inline fun <reified T: Any> moshiAdapter(): JsonAdapter<T> = moshi().adapter(T::class.java)

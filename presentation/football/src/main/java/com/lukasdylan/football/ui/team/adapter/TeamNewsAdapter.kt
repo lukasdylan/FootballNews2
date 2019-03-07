@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.lukasdylan.core.base.BaseAdapter
 import com.lukasdylan.core.base.BaseViewHolder
+import com.lukasdylan.core.extension.GlideTransformationMode
 import com.lukasdylan.football.R
 import com.lukasdylan.football.databinding.ItemTeamNewsBinding
 import com.lukasdylan.newsservice.data.Article
@@ -29,6 +30,8 @@ class TeamNewsAdapter(private val listener: (Article) -> Unit) :
 
         override fun bind(item: Article, imageMap: Map<String, String>?) {
             with(binding) {
+                this.placeholder = R.color.lighter_gray
+                this.mode = GlideTransformationMode.ROUNDED_CENTER_CROP_IMAGE
                 this.article = item
                 this.position = adapterPosition + 1
                 rootLayout.onClick {

@@ -158,6 +158,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/fira_sans"
                         android:text="Add reminder to your calendar"
+                        android:textColor="@android:color/darker_gray"
                         android:textSize="18sp"
                         android:gravity="center|start"
                         android:lines="2"
@@ -166,7 +167,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/switch_reminder"/>
 
-                <androidx.appcompat.widget.SwitchCompat
+                <Switch
                         android:id="@+id/switch_reminder"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -176,7 +177,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/tv_subtitle_add_reminder"
                         app:layout_constraintBottom_toTopOf="@id/view_separator_2"
-                        tools:checked="true"/>
+                        tools:checked="false"/>
 
                 <TextView
                         android:id="@+id/tv_reminder_status"
@@ -224,7 +225,9 @@
                         android:layout_marginTop="16dp"
                         android:paddingTop="4dp"
                         android:paddingBottom="4dp"
+                        android:background="@android:color/white"
                         android:hint="Match Name"
+                        android:textColorHint="@android:color/darker_gray"
                         app:hintAnimationEnabled="false"
                         app:layout_constraintBottom_toTopOf="@id/layout_league_name"
                         app:layout_constraintTop_toBottomOf="@id/tv_subtitle_match_info"
@@ -253,7 +256,9 @@
                         android:layout_marginTop="16dp"
                         android:paddingTop="4dp"
                         android:paddingBottom="4dp"
+                        android:background="@android:color/white"
                         android:hint="League Name"
+                        android:textColorHint="@android:color/darker_gray"
                         app:hintAnimationEnabled="false"
                         app:layout_constraintTop_toBottomOf="@id/layout_match_name"
                         app:layout_constraintStart_toStartOf="parent"
@@ -281,7 +286,9 @@
                         android:layout_marginTop="16dp"
                         android:paddingTop="4dp"
                         android:paddingBottom="4dp"
+                        android:background="@android:color/white"
                         android:hint="Match Date &amp; Time"
+                        android:textColorHint="@android:color/darker_gray"
                         app:hintAnimationEnabled="false"
                         app:layout_constraintTop_toBottomOf="@id/layout_league_name"
                         app:layout_constraintStart_toStartOf="parent"

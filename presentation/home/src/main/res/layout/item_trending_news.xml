@@ -3,48 +3,51 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cv_trending_news"
+    <data>
+
+        <variable name="article" type="com.lukasdylan.newsservice.data.Article"/>
+
+        <variable name="placeholder" type="Integer"/>
+
+        <variable name="mode" type="com.lukasdylan.core.extension.GlideTransformationMode"/>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/root_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardBackgroundColor="@android:color/transparent"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="0dp">
+            android:layout_height="175dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
+        <ImageView
+                android:id="@+id/iv_news_image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:placeholder="@{placeholder}"
+                app:mode="@{mode}"
+                app:imageUrl="@{article.urlToImage}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:src="@tools:sample/avatars"/>
+
+        <TextView
+                android:id="@+id/tv_news_title"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:minHeight="175dp">
+                android:padding="8dp"
+                android:fontFamily="@font/fira_sans_medium"
+                android:background="@drawable/black_transparent_bottom_rounded_background"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:maxLines="2"
+                android:ellipsize="end"
+                app:asyncText="@{article.title}"
+                tools:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-            <ImageView
-                    android:id="@+id/iv_news_image"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    tools:src="@tools:sample/avatars"/>
-
-            <TextView
-                    android:id="@+id/tv_news_title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:fontFamily="@font/fira_sans_medium"
-                    android:background="@color/blackTransparent"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    tools:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

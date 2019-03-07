@@ -7,6 +7,10 @@
         <variable name="vm"
                   type="com.lukasdylan.football.ui.previousmatch.PreviousMatchViewModel"/>
 
+        <variable name="placeholder" type="Integer"/>
+
+        <variable name="mode" type="com.lukasdylan.core.extension.GlideTransformationMode"/>
+
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -65,7 +69,8 @@
                             android:layout_height="84dp"
                             android:layout_marginTop="16dp"
                             app:imageUrl="@{vm.homeTeamImageUrl}"
-                            app:isRounded="@{false}"
+                            app:mode="@{mode}"
+                            app:placeholder="@{placeholder}"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintEnd_toStartOf="@id/tv_score"
@@ -77,7 +82,8 @@
                             android:layout_height="84dp"
                             android:layout_marginTop="16dp"
                             app:imageUrl="@{vm.awayTeamImageUrl}"
-                            app:isRounded="@{false}"
+                            app:mode="@{mode}"
+                            app:placeholder="@{placeholder}"
                             app:layout_constraintStart_toEndOf="@id/tv_score"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"

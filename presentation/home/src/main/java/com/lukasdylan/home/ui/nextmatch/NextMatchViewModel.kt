@@ -82,13 +82,13 @@ class NextMatchViewModel(dispatcherProvider: DispatcherProviders) : BaseViewMode
                 _selectedDetailMatch.value?.date.orEmpty(),
                 _selectedDetailMatch.value?.time.orEmpty()
             )
-            val endTime = beginTime.clone() as? Calendar
-            endTime?.add(Calendar.MINUTE, 90)
+            val endTime = beginTime.clone() as Calendar
+            endTime.add(Calendar.MINUTE, 90)
 
             val intent = Intent(Intent.ACTION_INSERT)
                 .setData(CalendarContract.Events.CONTENT_URI)
                 .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.timeInMillis)
-                .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime?.timeInMillis)
+                .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.timeInMillis)
                 .putExtra(CalendarContract.Events.CAL_SYNC1, _selectedDetailMatch.value?.idEvent.orEmpty())
                 .putExtra(CalendarContract.Events.TITLE, _selectedDetailMatch.value?.matchName.orEmpty())
                 .putExtra(CalendarContract.Events.DESCRIPTION, _selectedDetailMatch.value?.matchDescription.orEmpty())

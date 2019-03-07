@@ -66,6 +66,25 @@
 
         </activity>
 
+        <activity android:name=".ui.playerlist.PlayerListActivity"/>
+
+        <activity android:name=".ui.playerdetail.DetailPlayerActivity"
+                  android:theme="@style/TransparentStatusBar"
+                  android:windowSoftInputMode="stateHidden|adjustPan">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data
+                        android:host="@string/deep_link_detail_player"
+                        android:scheme="@string/scheme"/>
+            </intent-filter>
+
+        </activity>
+
     </application>
 
 </manifest>

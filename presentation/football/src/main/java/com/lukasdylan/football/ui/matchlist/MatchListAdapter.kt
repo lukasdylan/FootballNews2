@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.lukasdylan.core.base.BaseAdapter
 import com.lukasdylan.core.base.BaseViewHolder
-import com.lukasdylan.core.extension.loadImageByUrl
+import com.lukasdylan.core.extension.loadImagesFromUrl
 import com.lukasdylan.core.utility.StringUtils
 import com.lukasdylan.football.R
 import com.lukasdylan.football.databinding.ItemMatchListBinding
@@ -40,8 +40,8 @@ class MatchListAdapter(private val listener: (Array<Pair<String, Any?>>) -> Unit
                 this.match = item
                 val homeImageUrl = imageMap?.get(item.homeTeamId).orEmpty()
                 val awayImageUrl = imageMap?.get(item.awayTeamId).orEmpty()
-                ivHomeTeamIcon.loadImageByUrl(homeImageUrl)
-                ivAwayTeamIcon.loadImageByUrl(awayImageUrl)
+                ivHomeTeamIcon.loadImagesFromUrl(homeImageUrl, R.drawable.placeholder_circle_background)
+                ivAwayTeamIcon.loadImagesFromUrl(awayImageUrl, R.drawable.placeholder_circle_background)
                 val calendar = StringUtils.calendarFromString(item.date.orEmpty(), item.time.orEmpty())
                 tvDateTimeMatch.asyncText(StringUtils.formatAsDate(calendar.time))
                 rootLayout.onClick {

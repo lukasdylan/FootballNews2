@@ -37,11 +37,11 @@ class LinePagerIndicatorDecoration : RecyclerView.ItemDecoration() {
      */
     private val mInterpolator = AccelerateDecelerateInterpolator()
 
-    private val mPaint = Paint().also {
-        it.strokeCap = Paint.Cap.ROUND
-        it.strokeWidth = mIndicatorStrokeWidth
-        it.style = Paint.Style.STROKE
-        it.isAntiAlias = true
+    private val mPaint = Paint().apply {
+        strokeCap = Paint.Cap.ROUND
+        strokeWidth = mIndicatorStrokeWidth
+        style = Paint.Style.STROKE
+        isAntiAlias = true
     }
 
     override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
@@ -146,7 +146,7 @@ class LinePagerIndicatorDecoration : RecyclerView.ItemDecoration() {
 
             // draw the highlight overlapping to the next item as well
             if (highlightPosition < itemCount - 1) {
-                highlightStart += itemWidth
+                highlightStart += mIndicatorItemLength
                 c.drawLine(
                     highlightStart, indicatorPosY, highlightStart + partialLength, indicatorPosY, mPaint
                 )

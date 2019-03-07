@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
-import com.lukasdylan.core.extension.loadImageByUrl
+import com.lukasdylan.core.extension.GlideTransformationMode
+import com.lukasdylan.core.extension.loadImagesFromUrl
 import com.lukasdylan.core.extension.onAnimateListener
 import com.lukasdylan.core.utility.NavigationScreen
 import com.lukasdylan.core.widget.GridSpacingItemDecoration
@@ -38,7 +39,7 @@ class MainTeamInfoAdapter(private val listener: (NavigationScreen) -> Unit) :
 
     private val teamPlayersAdapter by lazy {
         HorizontalTeamPlayersAdapter {
-            val params = arrayOf<Pair<String, Any?>>("detail_player" to it)
+            val params = arrayOf<Pair<String, Any?>>("player_data" to it)
             listener(NavigationScreen(NAVIGATE_DETAIL_PLAYER_SCREEN, params))
         }
     }
@@ -161,7 +162,7 @@ class MainTeamInfoAdapter(private val listener: (NavigationScreen) -> Unit) :
 
         fun bind(detailTeam: DetailTeam) {
             with(binding) {
-                ivTeamIcon.loadImageByUrl(detailTeam.teamBadge)
+                ivTeamIcon.loadImagesFromUrl(detailTeam.teamBadge, R.drawable.placeholder_circle_background)
                 tvTeamName.asyncText(detailTeam.teamName)
                 tvLeagueName.asyncText(detailTeam.leagueName)
                 chipFacebook.apply {
@@ -219,6 +220,8 @@ class MainTeamInfoAdapter(private val listener: (NavigationScreen) -> Unit) :
 
         fun bind(detailTeam: DetailTeam) {
             with(binding) {
+                this.mode = GlideTransformationMode.ROUNDED_FIT_CENTER_IMAGE
+                this.placeholder = R.color.lighter_gray
                 this.team = detailTeam
                 executePendingBindings()
             }

@@ -6,9 +6,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.lukasdylan.core.base.BaseAdapter
 import com.lukasdylan.core.base.BaseViewHolder
-import com.lukasdylan.core.extension.loadImageByUrl
+import com.lukasdylan.core.extension.GlideTransformationMode
 import com.lukasdylan.home.R
-import com.lukasdylan.home.asyncText
 import com.lukasdylan.home.databinding.ItemTrendingNewsBinding
 import com.lukasdylan.newsservice.data.Article
 import org.jetbrains.anko.sdk27.coroutines.onClick
@@ -36,9 +35,10 @@ class TrendingNewsSectionAdapter(private val articleListener: (Array<Pair<String
 
         override fun bind(item: Article, imageMap: Map<String, String>?) {
             with(binding) {
-                tvNewsTitle.asyncText(item.title)
-                ivNewsImage.loadImageByUrl(item.urlToImage)
-                cvTrendingNews.onClick {
+                this.placeholder = R.color.lighter_gray
+                this.mode = GlideTransformationMode.ROUNDED_CENTER_CROP_IMAGE
+                this.article = item
+                rootLayout.onClick {
                     val params = arrayOf<Pair<String, Any?>>("news_url" to item.url, "news_title" to item.title)
                     listener(params)
                 }

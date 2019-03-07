@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable name="name" type="String"/>
+
+        <variable name="position" type="String"/>
+
+        <variable name="imageUrl" type="String"/>
+
+        <variable name="placeholder" type="Integer"/>
+
+        <variable name="mode" type="com.lukasdylan.core.extension.GlideTransformationMode"/>
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+            android:id="@+id/root_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            app:cardCornerRadius="8dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp">
+
+            <ImageView
+                    android:id="@+id/iv_player_photo"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:imageUrl="@{imageUrl}"
+                    app:mode="@{mode}"
+                    app:placeholder="@{placeholder}"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                    android:id="@+id/tv_player_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:maxLines="2"
+                    android:lines="2"
+                    android:gravity="center|start"
+                    android:ellipsize="end"
+                    android:textColor="@android:color/black"
+                    android:fontFamily="@font/fira_sans_medium"
+                    android:textSize="16sp"
+                    app:asyncText="@{name}"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iv_player_photo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/tv_player_position"
+                    tools:text="David Beckham"/>
+
+            <TextView
+                    android:id="@+id/tv_player_position"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/fira_sans"
+                    android:maxLines="2"
+                    android:lines="2"
+                    android:gravity="center|start"
+                    app:asyncText="@{position}"
+                    app:layout_constraintTop_toBottomOf="@id/tv_player_name"
+                    app:layout_constraintStart_toEndOf="@id/iv_player_photo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:text="Midfielder"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

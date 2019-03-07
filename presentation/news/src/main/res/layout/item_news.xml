@@ -9,6 +9,8 @@
 
         <variable name="article" type="com.lukasdylan.newsservice.data.Article"/>
 
+        <variable name="mode" type="com.lukasdylan.core.extension.GlideTransformationMode"/>
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +37,7 @@
                 android:id="@+id/iv_news_image"
                 android:layout_width="84dp"
                 android:layout_height="84dp"
-                android:scaleType="centerCrop"
+                app:mode="@{mode}"
                 app:imageUrl="@{article.urlToImage}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+>
+
+    <CheckBox
+            android:id="@+id/cb_position"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:theme="@style/CheckBoxColorStyle"
+            android:fontFamily="@font/fira_sans"
+            android:textSize="16sp"
+            android:padding="8dp"
+            tools:text="Midfielder"
+            tools:checked="true"/>
+
+</layout>

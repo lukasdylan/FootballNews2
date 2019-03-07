@@ -12,12 +12,13 @@ object StringUtils {
         timeCalendar.time = timeFormatter.parse(timeStr)
         val dateFormatter = SimpleDateFormat("dd/MM/yy", defaultLocale)
         val dateCalendar = timeCalendar.clone() as Calendar
-        dateCalendar.time = dateFormatter.parse(dateStr)
-        dateCalendar.set(Calendar.HOUR_OF_DAY, timeCalendar.get(Calendar.HOUR_OF_DAY))
-        dateCalendar.set(Calendar.MINUTE, timeCalendar.get(Calendar.MINUTE))
-        dateCalendar.set(Calendar.SECOND, timeCalendar.get(Calendar.SECOND))
-
-        return dateCalendar
+        with(dateCalendar) {
+            time = dateFormatter.parse(dateStr)
+            set(Calendar.HOUR_OF_DAY, timeCalendar.get(Calendar.HOUR_OF_DAY))
+            set(Calendar.MINUTE, timeCalendar.get(Calendar.MINUTE))
+            set(Calendar.SECOND, timeCalendar.get(Calendar.SECOND))
+            return this
+        }
     }
 
     fun formatAsDate(date: Date): String {

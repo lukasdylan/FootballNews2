@@ -6,11 +6,14 @@ import android.content.SharedPreferences
 import com.lukasdylan.core.BuildConfig
 import com.lukasdylan.core.utility.DispatcherProviderImpl
 import com.lukasdylan.core.utility.DispatcherProviders
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module.module
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
 private val dispatcherModule = module {
@@ -23,6 +26,10 @@ private val baseNetworkModule = module {
 
 private val preferencesModule = module {
     single { setupSharedPreferences(androidApplication()) }
+}
+
+private val moshiConverterFactoryModule = module {
+    single { moshiConverterFactory() }
 }
 
 private fun setupSharedPreferences(application: Application): SharedPreferences =
@@ -47,4 +54,9 @@ private fun setupOkHttpClient(application: Application): OkHttpClient {
     }.build()
 }
 
-val coreModules = listOf(baseNetworkModule, preferencesModule, dispatcherModule)
+private fun moshiConverterFactory(): MoshiConverterFactory {
+    val moshiKotlinJsonAdapterFactory = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+    return MoshiConverterFactory.create(moshiKotlinJsonAdapterFactory)
+}
+
+val coreModules = listOf(baseNetworkModule, preferencesModule, moshiConverterFactoryModule, dispatcherModule)

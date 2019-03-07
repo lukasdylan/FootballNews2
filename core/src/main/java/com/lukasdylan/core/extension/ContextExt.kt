@@ -51,11 +51,10 @@ fun Context.openDeepLinkActivity(
     bundle: Bundle = Bundle.EMPTY,
     intentNotFoundHandler: (() -> Unit)? = null
 ) {
-    val intent = getDeepLinkIntent("$scheme://$host")
-    if (intent != null) {
-        intent.putExtras(bundle)
-        startActivity(intent)
-    } else {
+    getDeepLinkIntent("$scheme://$host")?.run {
+        putExtras(bundle)
+        startActivity(this)
+    } ?: kotlin.run {
         intentNotFoundHandler?.invoke()
     }
 }

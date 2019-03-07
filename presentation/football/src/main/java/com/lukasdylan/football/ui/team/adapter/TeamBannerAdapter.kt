@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.lukasdylan.core.base.BaseAdapter
 import com.lukasdylan.core.base.BaseViewHolder
-import com.lukasdylan.core.extension.loadImageByUrl
+import com.lukasdylan.core.extension.loadImagesFromUrl
 import com.lukasdylan.football.R
 import com.lukasdylan.football.databinding.ItemTeamBannerBinding
 
@@ -28,7 +28,7 @@ class TeamBannerAdapter : BaseAdapter<String, TeamBannerAdapter.BannerViewHolder
     class BannerViewHolder(private val binding: ItemTeamBannerBinding) : BaseViewHolder<String>(binding) {
         override fun bind(item: String, imageMap: Map<String, String>?) {
             with(binding) {
-                ivBanner.loadImageByUrl(item)
+                ivBanner.loadImagesFromUrl(item, R.color.lighter_gray)
                 executePendingBindings()
             }
         }

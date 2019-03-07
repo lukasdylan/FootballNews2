@@ -6,11 +6,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.lukasdylan.core.base.BaseAdapter
 import com.lukasdylan.core.base.BaseViewHolder
-import com.lukasdylan.core.extension.loadImageByUrl
+import com.lukasdylan.core.extension.GlideTransformationMode
 import com.lukasdylan.core.utility.StringUtils
 import com.lukasdylan.footballservice.data.entity.DetailMatch
 import com.lukasdylan.home.R
-import com.lukasdylan.home.asyncText
 import com.lukasdylan.home.databinding.ItemHomePreviousMatchBinding
 import org.jetbrains.anko.sdk27.coroutines.onClick
 
@@ -41,13 +40,16 @@ class PreviousMatchSectionAdapter(
 
         override fun bind(item: DetailMatch, imageMap: Map<String, String>?) {
             with(binding) {
-                this.match = item
                 val homeImageUrl = imageMap?.get(item.homeTeamId).orEmpty()
                 val awayImageUrl = imageMap?.get(item.awayTeamId).orEmpty()
-                ivHomeTeamIcon.loadImageByUrl(homeImageUrl)
-                ivAwayTeamIcon.loadImageByUrl(awayImageUrl)
                 val calendar = StringUtils.calendarFromString(item.date.orEmpty(), item.time.orEmpty())
-                tvDateTimeMatch.asyncText(StringUtils.formatAsDate(calendar.time))
+
+                this.match = item
+                this.placeholder = R.drawable.placeholder_circle_background
+                this.mode = GlideTransformationMode.FULL_IMAGE
+                this.homeImageUrl = homeImageUrl
+                this.awayImageUrl = awayImageUrl
+                this.matchDate = StringUtils.formatAsDate(calendar.time)
                 rootLayout.onClick {
                     val params = arrayOf<Pair<String, Any?>>(
                         "detail_match" to item,

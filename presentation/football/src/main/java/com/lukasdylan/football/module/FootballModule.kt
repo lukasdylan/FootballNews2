@@ -1,6 +1,8 @@
 package com.lukasdylan.football.module
 
 import com.lukasdylan.football.ui.matchlist.MatchListViewModel
+import com.lukasdylan.football.ui.playerdetail.DetailPlayerViewModel
+import com.lukasdylan.football.ui.playerlist.PlayerListViewModel
 import com.lukasdylan.football.ui.previousmatch.PreviousMatchUseCase
 import com.lukasdylan.football.ui.previousmatch.PreviousMatchUseCaseImpl
 import com.lukasdylan.football.ui.previousmatch.PreviousMatchViewModel
@@ -21,6 +23,8 @@ private val viewModelModule = module {
     viewModel { PreviousMatchViewModel(get(), get()) }
     viewModel { MatchListViewModel(get()) }
     viewModel { DetailTeamViewModel(get(), get()) }
+    viewModel { PlayerListViewModel(get()) }
+    viewModel { DetailPlayerViewModel() }
 }
 
 val footballModules = listOf(useCaseModule, viewModelModule)

@@ -11,13 +11,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import com.lukasdylan.core.extension.checkPermissions
-import com.lukasdylan.core.extension.loadImageByUrl
-import com.lukasdylan.core.extension.observeValue
+import com.lukasdylan.core.extension.*
 import com.lukasdylan.core.widget.RoundedBottomSheetFragment
 import com.lukasdylan.home.R
 import com.lukasdylan.home.databinding.FragmentNextMatchBinding
 import kotlinx.coroutines.delay
+import org.jetbrains.anko.sdk27.coroutines.onCheckedChange
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -40,13 +39,25 @@ class NextMatchFragment : RoundedBottomSheetFragment() {
                 delay(250)
                 dismiss()
             }
-            switchReminder.onClick {
+            switchReminder.onCheckedChange { _, _ ->
                 viewModel.onReminderSwitchClick()
             }
 
-            vm = viewModel.also { it ->
-                observeValue(it.homeTeamImageUrl) { ivHomeTeamIcon.loadImageByUrl(it) }
-                observeValue(it.awayTeamImageUrl) { ivAwayTeamIcon.loadImageByUrl(it) }
+            vm = viewModel.also {
+                observeValue(it.homeTeamImageUrl) {
+                    ivHomeTeamIcon.loadImagesFromUrl(
+                        it,
+                        R.drawable.placeholder_circle_background,
+                        GlideTransformationMode.FULL_IMAGE
+                    )
+                }
+                observeValue(it.awayTeamImageUrl) {
+                    ivAwayTeamIcon.loadImagesFromUrl(
+                        it,
+                        R.drawable.placeholder_circle_background,
+                        GlideTransformationMode.FULL_IMAGE
+                    )
+                }
                 observeValue(it.checkReminderStatusEvent) { title ->
                     checkPermissions(
                         arrayOf(Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR),
@@ -90,11 +101,10 @@ class NextMatchFragment : RoundedBottomSheetFragment() {
                 viewModel.checkReminderMatch()
             } else {
                 val showRationale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    shouldShowRequestPermissionRationale(permissions[0])
+                    shouldShowRequestPermissionRationale(Manifest.permission.WRITE_CALENDAR)
                 } else {
                     false
                 }
-                
             }
         }
     }

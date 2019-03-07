@@ -6,7 +6,9 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.text.PrecomputedTextCompat
 import androidx.core.widget.TextViewCompat
 import androidx.databinding.BindingAdapter
-import com.lukasdylan.core.extension.loadImageByUrl
+import com.lukasdylan.core.extension.GlideTransformationMode
+import com.lukasdylan.core.extension.loadImagesFromUrl
+import com.lukasdylan.football.R
 
 @BindingAdapter("asyncText")
 internal fun TextView.asyncText(text: String?) {
@@ -16,7 +18,12 @@ internal fun TextView.asyncText(text: String?) {
     }
 }
 
-@BindingAdapter("imageUrl","isRounded", requireAll = true)
-internal fun ImageView.imageUrl(url: String?, isRounded: Boolean) {
-    loadImageByUrl(url, isRounded)
+@BindingAdapter("imageUrl", "placeholder", "mode", requireAll = false)
+internal fun ImageView.imageUrl(url: String?, placeholder: Int, mode: GlideTransformationMode) {
+    loadImagesFromUrl(url, placeholder, mode)
+}
+
+@BindingAdapter("circleImageUrl")
+internal fun ImageView.circleImageUrl(url: String?) {
+    loadImagesFromUrl(url, R.drawable.placeholder_circle_background, GlideTransformationMode.CIRCLE_IMAGE)
 }

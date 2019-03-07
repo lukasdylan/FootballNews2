@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.lukasdylan.core.base.BaseAdapter
 import com.lukasdylan.core.base.BaseViewHolder
+import com.lukasdylan.core.extension.GlideTransformationMode
 import com.lukasdylan.news.R
 import com.lukasdylan.news.databinding.ItemNewsBinding
 import com.lukasdylan.newsservice.data.Article
@@ -36,6 +37,7 @@ class NewsAdapter(private val listener: (Article) -> Unit) : BaseAdapter<Article
             with(binding) {
                 this.article = item
                 this.position = adapterPosition + 1
+                this.mode = GlideTransformationMode.ROUNDED_CENTER_CROP_IMAGE
                 rootLayout.onClick {
                     listener(item)
                 }
