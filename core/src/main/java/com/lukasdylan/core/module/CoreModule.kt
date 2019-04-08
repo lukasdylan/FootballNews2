@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import com.lukasdylan.core.BuildConfig
+import com.lukasdylan.core.utility.ConnectionAwareLiveData
 import com.lukasdylan.core.utility.DispatcherProviderImpl
 import com.lukasdylan.core.utility.DispatcherProviders
 import com.squareup.moshi.Moshi
@@ -12,7 +13,7 @@ import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
-import org.koin.dsl.module.module
+import org.koin.dsl.module
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
@@ -30,6 +31,10 @@ private val preferencesModule = module {
 
 private val moshiConverterFactoryModule = module {
     single { moshiConverterFactory() }
+}
+
+private val connectionLiveDataModule = module {
+    single { setupConnectionLiveData(androidApplication()) }
 }
 
 private fun setupSharedPreferences(application: Application): SharedPreferences =
@@ -59,4 +64,12 @@ private fun moshiConverterFactory(): MoshiConverterFactory {
     return MoshiConverterFactory.create(moshiKotlinJsonAdapterFactory)
 }
 
-val coreModules = listOf(baseNetworkModule, preferencesModule, moshiConverterFactoryModule, dispatcherModule)
+private fun setupConnectionLiveData(application: Application): ConnectionAwareLiveData = ConnectionAwareLiveData(application)
+
+val coreModules = listOf(
+    baseNetworkModule,
+    preferencesModule,
+    moshiConverterFactoryModule,
+    dispatcherModule,
+    connectionLiveDataModule
+)

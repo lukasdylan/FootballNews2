@@ -7,7 +7,7 @@ import com.lukasdylan.footballservice.data.database.createDetailTeamDao
 import com.lukasdylan.footballservice.data.database.initDatabase
 import com.lukasdylan.footballservice.data.service.FootballApiServices
 import org.koin.android.ext.koin.androidApplication
-import org.koin.dsl.module.module
+import org.koin.dsl.module
 
 private val networkModule = module {
     single { initRetrofit<FootballApiServices>(BuildConfig.BASE_URL, get(), get()) }

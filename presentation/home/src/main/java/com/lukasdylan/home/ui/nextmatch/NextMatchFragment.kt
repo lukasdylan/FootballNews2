@@ -11,12 +11,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import com.lukasdylan.core.extension.*
+import com.lukasdylan.core.extension.GlideTransformationMode
+import com.lukasdylan.core.extension.checkPermissions
+import com.lukasdylan.core.extension.loadImagesFromUrl
+import com.lukasdylan.core.extension.observeValue
 import com.lukasdylan.core.widget.RoundedBottomSheetFragment
 import com.lukasdylan.home.R
 import com.lukasdylan.home.databinding.FragmentNextMatchBinding
 import kotlinx.coroutines.delay
-import org.jetbrains.anko.sdk27.coroutines.onCheckedChange
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -39,7 +41,7 @@ class NextMatchFragment : RoundedBottomSheetFragment() {
                 delay(250)
                 dismiss()
             }
-            switchReminder.onCheckedChange { _, _ ->
+            switchReminder.onClick {
                 viewModel.onReminderSwitchClick()
             }
 

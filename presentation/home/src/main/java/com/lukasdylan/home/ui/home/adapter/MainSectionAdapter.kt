@@ -299,17 +299,17 @@ class MainSectionAdapter(layoutMaxWidth: Int, private val listener: (NavigationS
             }
         }
     }
+}
 
-    private fun MutableList<HomeSection>.initialize() {
-        add(
-            HomeSectionType.TRENDING_LEAGUE_NEWS.ordinal,
-            HomeSection(HomeSectionType.TRENDING_LEAGUE_NEWS, emptyList<Article>(), true)
-        )
-        add(HomeSectionType.PREV_MATCH.ordinal, HomeSection(HomeSectionType.PREV_MATCH, emptyList<DetailMatch>(), true))
-        add(HomeSectionType.NEXT_MATCH.ordinal, HomeSection(HomeSectionType.NEXT_MATCH, emptyList<DetailMatch>(), true))
-        add(HomeSectionType.STANDINGS.ordinal, HomeSection(HomeSectionType.STANDINGS, emptyList<Standings>(), true))
-        notifyItemRangeInserted(0, size)
-        toList()
+private fun MutableList<HomeSection>.initialize() {
+    HomeSectionType.values().forEach {
+        add(it.ordinal, HomeSection(it, emptyList<Any>(), true))
     }
-
+//        add(
+//            HomeSectionType.TRENDING_LEAGUE_NEWS.ordinal,
+//            HomeSection(HomeSectionType.TRENDING_LEAGUE_NEWS, emptyList<Article>(), true)
+//        )
+//        add(HomeSectionType.PREV_MATCH.ordinal, HomeSection(HomeSectionType.PREV_MATCH, emptyList<DetailMatch>(), true))
+//        add(HomeSectionType.NEXT_MATCH.ordinal, HomeSection(HomeSectionType.NEXT_MATCH, emptyList<DetailMatch>(), true))
+//        add(HomeSectionType.STANDINGS.ordinal, HomeSection(HomeSectionType.STANDINGS, emptyList<Standings>(), true))
 }

@@ -18,24 +18,12 @@ data class League(
     val leagueName: String
 ) : Parcelable {
     companion object {
-        val defaultLeague = League(
-            PREMIER_LEAGUE_ID.toString(),
-            PREMIER_LEAGUE_NAME
-        )
+        val defaultLeague = League(PREMIER_LEAGUE_ID.toString(), PREMIER_LEAGUE_NAME)
 
         val leagueList = listOf(
-            League(
-                PREMIER_LEAGUE_ID.toString(),
-                PREMIER_LEAGUE_NAME
-            ),
-            League(
-                SERIE_A_ID.toString(),
-                SERIE_A_NAME
-            ),
-            League(
-                LA_LIGA_ID.toString(),
-                LA_LIGA_NAME
-            )
+            League(PREMIER_LEAGUE_ID.toString(), PREMIER_LEAGUE_NAME),
+            League(SERIE_A_ID.toString(), SERIE_A_NAME),
+            League(LA_LIGA_ID.toString(), LA_LIGA_NAME)
         )
     }
 }
