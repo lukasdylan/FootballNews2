@@ -7,11 +7,13 @@ import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.widget.TextViewCompat
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Priority
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 import com.facebook.shimmer.ShimmerFrameLayout
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import com.lukasdylan.core.R
 import com.lukasdylan.core.module.GlideApp
@@ -109,4 +111,13 @@ fun ImageView.loadImagesFromResources(
         .transforms(*transformation)
         .transition(DrawableTransitionOptions.with(drawableCrossFadeFactory.build()))
         .into(this)
+}
+
+fun AppBarLayout.liftableWithRecyclerView(recyclerView: RecyclerView) {
+    setLiftable(true)
+    recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            setLifted(recyclerView.canScrollVertically(-1))
+        }
+    })
 }

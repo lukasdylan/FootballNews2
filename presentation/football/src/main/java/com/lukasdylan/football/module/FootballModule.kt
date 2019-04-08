@@ -10,8 +10,8 @@ import com.lukasdylan.football.ui.standings.StandingsViewModel
 import com.lukasdylan.football.ui.team.DetailTeamUseCase
 import com.lukasdylan.football.ui.team.DetailTeamUseCaseImpl
 import com.lukasdylan.football.ui.team.DetailTeamViewModel
-import org.koin.androidx.viewmodel.ext.koin.viewModel
-import org.koin.dsl.module.module
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
 private val useCaseModule = module {
     single<PreviousMatchUseCase> { PreviousMatchUseCaseImpl(get()) }

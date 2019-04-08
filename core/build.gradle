@@ -42,7 +42,7 @@ dependencies {
     api 'androidx.core:core-ktx:1.0.1'
     api "com.google.android.material:material:1.0.0"
     api 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
-    api "org.koin:koin-androidx-viewmodel:1.0.2"
+    api "org.koin:koin-androidx-viewmodel:2.0.0-rc-2"
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1'
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1'
     api 'ru.gildor.coroutines:kotlin-coroutines-retrofit:1.1.0'

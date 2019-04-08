@@ -5,7 +5,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.lukasdylan.core.extension.liftableWithRecyclerView
 import com.lukasdylan.core.extension.observeValue
 import com.lukasdylan.core.extension.showBottomSheetFragment
 import com.lukasdylan.core.widget.GridSpacingItemDecoration
@@ -34,17 +34,12 @@ class PlayerListActivity : AppCompatActivity() {
             lifecycleOwner = this@PlayerListActivity
             setSupportActionBar(toolbar)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            appBarLayout.setLiftable(true)
+            appBarLayout.liftableWithRecyclerView(rvPlayerList)
             rvPlayerList.apply {
                 setHasFixedSize(true)
                 layoutManager = GridLayoutManager(context, 2)
                 addItemDecoration(GridSpacingItemDecoration(2, 25, true))
                 adapter = playerListAdapter
-                addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                        appBarLayout.setLifted(recyclerView.canScrollVertically(-1))
-                    }
-                })
             }
             btnFilter.onClick {
                 playerListViewModel.openFilterScreen()
