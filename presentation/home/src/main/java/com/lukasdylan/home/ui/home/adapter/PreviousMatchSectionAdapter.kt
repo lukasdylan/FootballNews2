@@ -20,7 +20,7 @@ class PreviousMatchSectionAdapter(
 
     override fun getViewDataBinding(inflater: LayoutInflater, parent: ViewGroup): ViewDataBinding {
         return DataBindingUtil.inflate<ItemHomePreviousMatchBinding>(
-            LayoutInflater.from(parent.context),
+            inflater,
             R.layout.item_home_previous_match,
             parent,
             false
@@ -38,17 +38,17 @@ class PreviousMatchSectionAdapter(
         private val listener: (Array<Pair<String, Any?>>) -> Unit
     ) : BaseViewHolder<DetailMatch>(binding) {
 
-        override fun bind(item: DetailMatch, imageMap: Map<String, String>?) {
+        override fun bindWithImageMap(item: DetailMatch, imageMap: Map<String, String>) {
+            super.bindWithImageMap(item, imageMap)
             with(binding) {
-                val homeImageUrl = imageMap?.get(item.homeTeamId).orEmpty()
-                val awayImageUrl = imageMap?.get(item.awayTeamId).orEmpty()
-                val calendar = StringUtils.calendarFromString(item.date.orEmpty(), item.time.orEmpty())
-
-                this.match = item
+                val homeImageUrl = imageMap[item.homeTeamId].orEmpty()
+                val awayImageUrl = imageMap[item.awayTeamId].orEmpty()
                 this.placeholder = R.drawable.placeholder_circle_background
                 this.mode = GlideTransformationMode.FULL_IMAGE
                 this.homeImageUrl = homeImageUrl
                 this.awayImageUrl = awayImageUrl
+                this.match = item
+                val calendar = StringUtils.calendarFromString(item.date.orEmpty(), item.time.orEmpty())
                 this.matchDate = StringUtils.formatAsDate(calendar.time)
                 rootLayout.onClick {
                     val params = arrayOf<Pair<String, Any?>>(

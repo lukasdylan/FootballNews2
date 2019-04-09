@@ -41,7 +41,7 @@ class FilterPlayerAdapter(
     ) : BaseViewHolder<Pair<String, Int>>(binding) {
 
         @SuppressLint("SetTextI18n")
-        override fun bind(item: Pair<String, Int>, imageMap: Map<String, String>?) {
+        override fun bind(item: Pair<String, Int>) {
             with(binding) {
                 val isFilterPosition = if (selectedFilterPosition.isEmpty()) {
                     false

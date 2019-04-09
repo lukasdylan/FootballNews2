@@ -28,7 +28,7 @@ class PlayerListAdapter(private val listener: (Player) -> Unit) :
         private val listener: (Player) -> Unit
     ) : BaseViewHolder<Player>(binding) {
 
-        override fun bind(item: Player, imageMap: Map<String, String>?) {
+        override fun bind(item: Player) {
             with(binding) {
                 this.mode = GlideTransformationMode.FULL_IMAGE
                 this.placeholder = R.drawable.placeholder_circle_background

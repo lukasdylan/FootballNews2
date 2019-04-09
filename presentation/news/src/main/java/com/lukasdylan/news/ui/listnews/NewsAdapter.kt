@@ -24,7 +24,6 @@ class NewsAdapter(private val listener: (Article) -> Unit) : BaseAdapter<Article
 
     fun update(data: List<Article>) {
         addData(data)
-//        notifyItemRangeInserted(currentSize, data.size - 1)
         notifyDataSetChanged()
     }
 
@@ -33,7 +32,7 @@ class NewsAdapter(private val listener: (Article) -> Unit) : BaseAdapter<Article
         private val listener: (Article) -> Unit
     ) : BaseViewHolder<Article>(binding) {
 
-        override fun bind(item: Article, imageMap: Map<String, String>?) {
+        override fun bind(item: Article) {
             with(binding) {
                 this.article = item
                 this.position = adapterPosition + 1

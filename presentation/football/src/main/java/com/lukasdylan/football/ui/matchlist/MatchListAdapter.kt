@@ -19,7 +19,7 @@ class MatchListAdapter(private val listener: (Array<Pair<String, Any?>>) -> Unit
 
     override fun getViewDataBinding(inflater: LayoutInflater, parent: ViewGroup): ViewDataBinding {
         return DataBindingUtil.inflate<ItemMatchListBinding>(
-            LayoutInflater.from(parent.context),
+            inflater,
             R.layout.item_match_list,
             parent,
             false
@@ -35,15 +35,13 @@ class MatchListAdapter(private val listener: (Array<Pair<String, Any?>>) -> Unit
         private val listener: (Array<Pair<String, Any?>>) -> Unit
     ) : BaseViewHolder<DetailMatch>(binding) {
 
-        override fun bind(item: DetailMatch, imageMap: Map<String, String>?) {
+        override fun bindWithImageMap(item: DetailMatch, imageMap: Map<String, String>) {
+            super.bindWithImageMap(item, imageMap)
             with(binding) {
-                this.match = item
-                val homeImageUrl = imageMap?.get(item.homeTeamId).orEmpty()
-                val awayImageUrl = imageMap?.get(item.awayTeamId).orEmpty()
+                val homeImageUrl = imageMap[item.homeTeamId].orEmpty()
+                val awayImageUrl = imageMap[item.awayTeamId].orEmpty()
                 ivHomeTeamIcon.loadImagesFromUrl(homeImageUrl, R.drawable.placeholder_circle_background)
                 ivAwayTeamIcon.loadImagesFromUrl(awayImageUrl, R.drawable.placeholder_circle_background)
-                val calendar = StringUtils.calendarFromString(item.date.orEmpty(), item.time.orEmpty())
-                tvDateTimeMatch.asyncText(StringUtils.formatAsDate(calendar.time))
                 rootLayout.onClick {
                     val params = arrayOf<Pair<String, Any?>>(
                         "detail_match" to item,
@@ -52,6 +50,9 @@ class MatchListAdapter(private val listener: (Array<Pair<String, Any?>>) -> Unit
                     )
                     listener(params)
                 }
+                this.match = item
+                val calendar = StringUtils.calendarFromString(item.date.orEmpty(), item.time.orEmpty())
+                tvDateTimeMatch.asyncText(StringUtils.formatAsDate(calendar.time))
                 executePendingBindings()
             }
         }

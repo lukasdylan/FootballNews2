@@ -1,7 +1,7 @@
 package com.lukasdylan.home.model
 
 enum class HomeSectionType {
-    TRENDING_LEAGUE_NEWS, PREV_MATCH, NEXT_MATCH, STANDINGS
+    TRENDING_LEAGUE_NEWS, STANDINGS, PREV_MATCH, NEXT_MATCH
 }
 
 data class HomeSection(

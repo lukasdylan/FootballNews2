@@ -33,7 +33,7 @@ class HorizontalTeamPlayersAdapter(private val listener: (Player) -> Unit) :
         private val listener: (Player) -> Unit
     ) : BaseViewHolder<Player>(binding) {
 
-        override fun bind(item: Player, imageMap: Map<String, String>?) {
+        override fun bind(item: Player) {
             with(binding) {
                 this.placeholder = R.drawable.placeholder_circle_background
                 this.mode = GlideTransformationMode.FULL_IMAGE

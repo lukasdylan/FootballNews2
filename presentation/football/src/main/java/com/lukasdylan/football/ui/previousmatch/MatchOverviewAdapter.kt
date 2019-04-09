@@ -13,7 +13,7 @@ class MatchOverviewAdapter : BaseAdapter<Pair<String, String>, MatchOverviewAdap
 
     override fun getViewDataBinding(inflater: LayoutInflater, parent: ViewGroup): ViewDataBinding {
         return DataBindingUtil.inflate<ItemMatchOverviewBinding>(
-            LayoutInflater.from(parent.context),
+            inflater,
             R.layout.item_match_overview,
             parent,
             false
@@ -27,7 +27,7 @@ class MatchOverviewAdapter : BaseAdapter<Pair<String, String>, MatchOverviewAdap
     class MatchOverviewViewHolder(private val binding: ItemMatchOverviewBinding) :
         BaseViewHolder<Pair<String, String>>(binding) {
 
-        override fun bind(item: Pair<String, String>, imageMap: Map<String, String>?) {
+        override fun bind(item: Pair<String, String>) {
             with(binding) {
                 this.label = item.first
                 this.value = item.second

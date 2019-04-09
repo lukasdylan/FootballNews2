@@ -16,7 +16,7 @@ class StandingsAdapter(private val listener: (String) -> Unit) : BaseAdapter<Sta
 
     override fun getViewDataBinding(inflater: LayoutInflater, parent: ViewGroup): ViewDataBinding {
         return DataBindingUtil.inflate<ItemTeamStandingsBinding>(
-            LayoutInflater.from(parent.context),
+            inflater,
             R.layout.item_team_standings,
             parent,
             false
@@ -32,11 +32,11 @@ class StandingsAdapter(private val listener: (String) -> Unit) : BaseAdapter<Sta
         private val listener: (String) -> Unit
     ) : BaseViewHolder<Standings>(binding) {
 
-        override fun bind(item: Standings, imageMap: Map<String, String>?) {
+        override fun bindWithImageMap(item: Standings, imageMap: Map<String, String>) {
+            super.bindWithImageMap(item, imageMap)
             with(binding) {
+                ivClubIcon.loadImagesFromUrl(imageMap[item.teamId], R.drawable.placeholder_circle_background)
                 standings = item
-                val imageUrl = imageMap?.get(item.teamId)
-                ivClubIcon.loadImagesFromUrl(imageUrl, R.drawable.placeholder_circle_background)
                 position = adapterPosition + 1
                 rootLayout.onClick {
                     listener(item.teamId.orEmpty())
