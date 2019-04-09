@@ -25,7 +25,7 @@ class LeagueListAdapter(private val listener: (League) -> Unit) :
 
     override fun getViewDataBinding(inflater: LayoutInflater, parent: ViewGroup): ViewDataBinding {
         return DataBindingUtil.inflate<ItemLeagueBinding>(
-            LayoutInflater.from(parent.context),
+            inflater,
             R.layout.item_league,
             parent,
             false
@@ -41,7 +41,7 @@ class LeagueListAdapter(private val listener: (League) -> Unit) :
         private val listener: (League) -> Unit
     ) : BaseViewHolder<League>(binding) {
 
-        override fun bind(item: League, imageMap: Map<String, String>?) {
+        override fun bind(item: League) {
             with(binding) {
                 this.league = item
                 ivLeagueIcon.loadImagesFromResources(

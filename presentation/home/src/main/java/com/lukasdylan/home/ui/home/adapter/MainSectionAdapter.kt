@@ -159,7 +159,7 @@ class MainSectionAdapter(layoutMaxWidth: Int, private val listener: (NavigationS
                 val nextMatchData = sectionDataModel.data as List<DetailMatch>
                 (holder as NextMatchSectionViewHolder).bind(nextMatchData, sectionDataModel.isLoading)
             }
-            else -> {
+            HomeSectionType.TRENDING_LEAGUE_NEWS -> {
                 val trendingNewsData = sectionDataModel.data as List<Article>
                 (holder as TrendingNewsSectionViewHolder).bind(trendingNewsData, sectionDataModel.isLoading)
             }
@@ -176,9 +176,9 @@ class MainSectionAdapter(layoutMaxWidth: Int, private val listener: (NavigationS
             with(binding) {
                 rvStandings.apply {
                     setHasFixedSize(true)
-                    val linearLayoutManager = LinearLayoutManager(context)
-                    linearLayoutManager.initialPrefetchItemCount = 6
-                    layoutManager = linearLayoutManager
+                    layoutManager = LinearLayoutManager(context).also {
+                        it.initialPrefetchItemCount = 6
+                    }
                     addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
                 }
                 tvSeeAllStandings.onClick {
@@ -212,7 +212,6 @@ class MainSectionAdapter(layoutMaxWidth: Int, private val listener: (NavigationS
                     layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     val snapHelper = LinearSnapHelper()
                     snapHelper.attachToRecyclerView(this)
-                    isNestedScrollingEnabled = false
                     addItemDecoration(GridSpacingItemDecoration(6, 50, true))
                 }
                 tvSeeAllMatch.onClick {
@@ -305,11 +304,4 @@ private fun MutableList<HomeSection>.initialize() {
     HomeSectionType.values().forEach {
         add(it.ordinal, HomeSection(it, emptyList<Any>(), true))
     }
-//        add(
-//            HomeSectionType.TRENDING_LEAGUE_NEWS.ordinal,
-//            HomeSection(HomeSectionType.TRENDING_LEAGUE_NEWS, emptyList<Article>(), true)
-//        )
-//        add(HomeSectionType.PREV_MATCH.ordinal, HomeSection(HomeSectionType.PREV_MATCH, emptyList<DetailMatch>(), true))
-//        add(HomeSectionType.NEXT_MATCH.ordinal, HomeSection(HomeSectionType.NEXT_MATCH, emptyList<DetailMatch>(), true))
-//        add(HomeSectionType.STANDINGS.ordinal, HomeSection(HomeSectionType.STANDINGS, emptyList<Standings>(), true))
 }

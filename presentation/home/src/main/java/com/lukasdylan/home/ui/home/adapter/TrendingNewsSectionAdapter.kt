@@ -33,7 +33,7 @@ class TrendingNewsSectionAdapter(private val articleListener: (Array<Pair<String
         private val listener: (Array<Pair<String, Any?>>) -> Unit
     ) : BaseViewHolder<Article>(binding) {
 
-        override fun bind(item: Article, imageMap: Map<String, String>?) {
+        override fun bind(item: Article) {
             with(binding) {
                 this.placeholder = R.color.lighter_gray
                 this.mode = GlideTransformationMode.ROUNDED_CENTER_CROP_IMAGE

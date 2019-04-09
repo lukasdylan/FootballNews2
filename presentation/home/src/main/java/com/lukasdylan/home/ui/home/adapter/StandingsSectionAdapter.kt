@@ -17,7 +17,7 @@ class StandingsSectionAdapter(private val listener: (String) -> Unit) :
 
     override fun getViewDataBinding(inflater: LayoutInflater, parent: ViewGroup): ViewDataBinding {
         return DataBindingUtil.inflate<ItemTeamStandingBinding>(
-            LayoutInflater.from(parent.context),
+            inflater,
             R.layout.item_team_standing,
             parent,
             false
@@ -33,12 +33,13 @@ class StandingsSectionAdapter(private val listener: (String) -> Unit) :
         private val listener: (String) -> Unit
     ) : BaseViewHolder<Standings>(binding) {
 
-        override fun bind(item: Standings, imageMap: Map<String, String>?) {
+        override fun bindWithImageMap(item: Standings, imageMap: Map<String, String>) {
+            super.bindWithImageMap(item, imageMap)
             with(binding) {
-                this.standings = item
                 this.placeholder = R.drawable.placeholder_circle_background
                 this.mode = GlideTransformationMode.FULL_IMAGE
-                this.imageUrl = imageMap?.get(item.teamId).orEmpty()
+                this.imageUrl = imageMap[item.teamId].orEmpty()
+                this.standings = item
                 position = adapterPosition + 1
                 rootLayout.onClick {
                     listener(item.teamId.orEmpty())

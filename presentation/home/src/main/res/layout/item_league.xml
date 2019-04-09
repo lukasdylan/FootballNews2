@@ -40,8 +40,8 @@
                 android:alpha="0.8"
                 android:text="@{league.leagueName}"
                 android:fontFamily="@font/fira_sans"
-                app:layout_constraintTop_toTopOf="@id/root_layout"
-                app:layout_constraintBottom_toBottomOf="@id/root_layout"
+                app:layout_constraintTop_toTopOf="@id/iv_league_icon"
+                app:layout_constraintBottom_toBottomOf="@id/iv_league_icon"
                 app:layout_constraintEnd_toEndOf="@id/root_layout"
                 app:layout_constraintStart_toEndOf="@id/iv_league_icon"
                 tools:text="English Premier League"/>

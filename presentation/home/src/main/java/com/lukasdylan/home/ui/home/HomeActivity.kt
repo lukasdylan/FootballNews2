@@ -73,9 +73,7 @@ class HomeActivity : AppCompatActivity() {
             setSupportActionBar(toolbar)
             supportActionBar?.title = "Football News 2"
             rvMain.apply {
-                setHasFixedSize(true)
-                isNestedScrollingEnabled = false
-                layoutManager = LinearLayoutManager(this@HomeActivity)
+                layoutManager = LinearLayoutManager(context)
                 mainSectionAdapter = MainSectionAdapter(layoutMaxWidth, adapterListener)
                 adapter = mainSectionAdapter
             }

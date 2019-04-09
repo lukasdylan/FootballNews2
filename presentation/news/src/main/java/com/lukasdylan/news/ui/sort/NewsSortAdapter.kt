@@ -32,7 +32,7 @@ class NewsSortAdapter(
         private val listener: (Int) -> Unit
     ) : BaseViewHolder<String>(binding) {
 
-        override fun bind(item: String, imageMap: Map<String, String>?) {
+        override fun bind(item: String) {
             with(binding) {
                 tvSortName.asyncText(item)
                 ivCheck.visibility =

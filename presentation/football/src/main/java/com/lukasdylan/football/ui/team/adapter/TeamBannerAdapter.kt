@@ -14,7 +14,7 @@ class TeamBannerAdapter : BaseAdapter<String, TeamBannerAdapter.BannerViewHolder
     
     override fun getViewDataBinding(inflater: LayoutInflater, parent: ViewGroup): ViewDataBinding {
         return DataBindingUtil.inflate<ItemTeamBannerBinding>(
-            LayoutInflater.from(parent.context),
+            inflater,
             R.layout.item_team_banner,
             parent,
             false
@@ -26,7 +26,7 @@ class TeamBannerAdapter : BaseAdapter<String, TeamBannerAdapter.BannerViewHolder
     }
 
     class BannerViewHolder(private val binding: ItemTeamBannerBinding) : BaseViewHolder<String>(binding) {
-        override fun bind(item: String, imageMap: Map<String, String>?) {
+        override fun bind(item: String) {
             with(binding) {
                 ivBanner.loadImagesFromUrl(item, R.color.lighter_gray)
                 executePendingBindings()

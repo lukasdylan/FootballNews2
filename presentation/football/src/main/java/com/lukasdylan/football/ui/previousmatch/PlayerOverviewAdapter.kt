@@ -13,7 +13,7 @@ class PlayerOverviewAdapter : BaseAdapter<String, PlayerOverviewAdapter.PlayerOv
 
     override fun getViewDataBinding(inflater: LayoutInflater, parent: ViewGroup): ViewDataBinding {
         return DataBindingUtil.inflate<ItemPlayerOverviewBinding>(
-            LayoutInflater.from(parent.context),
+            inflater,
             R.layout.item_player_overview,
             parent,
             false
@@ -27,7 +27,7 @@ class PlayerOverviewAdapter : BaseAdapter<String, PlayerOverviewAdapter.PlayerOv
     class PlayerOverviewViewHolder(private val binding: ItemPlayerOverviewBinding) :
         BaseViewHolder<String>(binding) {
 
-        override fun bind(item: String, imageMap: Map<String, String>?) {
+        override fun bind(item: String) {
             with(binding) {
                 this.value = item
                 executePendingBindings()
