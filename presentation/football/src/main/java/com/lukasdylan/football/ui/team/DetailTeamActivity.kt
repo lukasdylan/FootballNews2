@@ -7,7 +7,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -50,7 +49,7 @@ class DetailTeamActivity : AppCompatActivity(), Animator.AnimatorListener {
                 NAVIGATE_DETAIL_NEWS_SCREEN -> {
                     val scheme = resources.getString(R2.string.scheme)
                     val host = resources.getString(R2.string.deep_link_detail_news)
-                    val bundle = bundleOf(*it.params.orEmpty())
+                    val bundle = it.toBundle()
                     openDeepLinkActivity(scheme, host, bundle)
                 }
                 NAVIGATE_ALL_NEWS_SCREEN -> {
@@ -115,7 +114,7 @@ class DetailTeamActivity : AppCompatActivity(), Animator.AnimatorListener {
                     NAVIGATE_ALL_NEWS_SCREEN -> {
                         val scheme = resources.getString(R2.string.scheme)
                         val host = resources.getString(R2.string.deep_link_list_news)
-                        val bundle = bundleOf(*it.params.orEmpty())
+                        val bundle = it.toBundle()
                         openDeepLinkActivity(scheme, host, bundle)
                     }
                     NAVIGATE_ALL_PLAYER_SCREEN -> {
@@ -133,15 +132,17 @@ class DetailTeamActivity : AppCompatActivity(), Animator.AnimatorListener {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_detail_match, menu)
         menuFavorite = menu?.findItem(R.id.menu_favorites)
-        menuFavorite?.isVisible = false
-        menuFavorite?.actionView?.apply {
-            onClick {
-                onOptionsItemSelected(menuFavorite)
-            }
-            favoriteAnimationView = find(R.id.lottieAnimationView)
-            favoriteIconImageView = find(R.id.favoriteIcon)
+        menuFavorite?.apply {
+            isVisible = false
+            actionView?.apply {
+                onClick {
+                    onOptionsItemSelected(menuFavorite)
+                }
+                favoriteAnimationView = find(R.id.lottieAnimationView)
+                favoriteIconImageView = find(R.id.favoriteIcon)
 
-            favoriteAnimationView?.addAnimatorListener(this@DetailTeamActivity)
+                favoriteAnimationView?.addAnimatorListener(this@DetailTeamActivity)
+            }
         }
         viewModel.checkFavoriteTeam()
         return true

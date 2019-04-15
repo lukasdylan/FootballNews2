@@ -1,6 +1,5 @@
 package com.lukasdylan.home.ui.nextmatch
 
-import android.content.Intent
 import android.os.Bundle
 import android.provider.CalendarContract
 import android.view.View
@@ -9,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.lukasdylan.core.base.BaseViewModel
 import com.lukasdylan.core.utility.DispatcherProviders
+import com.lukasdylan.core.utility.NavigationScreen
 import com.lukasdylan.core.utility.SingleLiveEvent
 import com.lukasdylan.core.utility.StringUtils
 import com.lukasdylan.core.utility.StringUtils.calendarFromString
@@ -16,6 +16,8 @@ import com.lukasdylan.footballservice.data.entity.DetailMatch
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.*
+
+private const val CALENDAR_REQUEST_CODE = 201
 
 class NextMatchViewModel(dispatcherProvider: DispatcherProviders) : BaseViewModel(dispatcherProvider) {
 
@@ -56,9 +58,6 @@ class NextMatchViewModel(dispatcherProvider: DispatcherProviders) : BaseViewMode
     private val _checkReminderStatusEvent = SingleLiveEvent<String>()
     val checkReminderStatusEvent: LiveData<String> = _checkReminderStatusEvent
 
-    private val _openCalendarEvent = SingleLiveEvent<Intent>()
-    val openCalendarEvent: LiveData<Intent> = _openCalendarEvent
-
     private val _removeReminderEvent = SingleLiveEvent<String>()
     val removeReminderEvent: LiveData<String> = _removeReminderEvent
 
@@ -85,16 +84,14 @@ class NextMatchViewModel(dispatcherProvider: DispatcherProviders) : BaseViewMode
             val endTime = beginTime.clone() as Calendar
             endTime.add(Calendar.MINUTE, 90)
 
-            val intent = Intent(Intent.ACTION_INSERT)
-                .setData(CalendarContract.Events.CONTENT_URI)
-                .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.timeInMillis)
-                .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.timeInMillis)
-                .putExtra(CalendarContract.Events.CAL_SYNC1, _selectedDetailMatch.value?.idEvent.orEmpty())
-                .putExtra(CalendarContract.Events.TITLE, _selectedDetailMatch.value?.matchName.orEmpty())
-                .putExtra(CalendarContract.Events.DESCRIPTION, _selectedDetailMatch.value?.matchDescription.orEmpty())
-                .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_FREE)
-
-            _openCalendarEvent.value = intent
+            val params = arrayOf<Pair<String, Any?>>(
+                CalendarContract.EXTRA_EVENT_BEGIN_TIME to beginTime.timeInMillis,
+                CalendarContract.EXTRA_EVENT_END_TIME to endTime.timeInMillis,
+                CalendarContract.Events.CAL_SYNC1 to _selectedDetailMatch.value?.idEvent.orEmpty(),
+                CalendarContract.Events.TITLE to _selectedDetailMatch.value?.matchName.orEmpty(),
+                CalendarContract.Events.DESCRIPTION to _selectedDetailMatch.value?.matchDescription.orEmpty(),
+                CalendarContract.Events.AVAILABILITY to CalendarContract.Events.AVAILABILITY_FREE)
+            setNavigationScreen(NavigationScreen(CALENDAR_REQUEST_CODE, params))
         } else {
             _removeReminderEvent.value = _selectedDetailMatch.value?.matchName
         }

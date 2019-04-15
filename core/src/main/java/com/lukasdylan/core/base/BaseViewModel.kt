@@ -22,7 +22,7 @@ open class BaseViewModel(protected val dispatcherProviders: DispatcherProviders)
 
     override val coroutineContext: CoroutineContext
         get() = SupervisorJob() + dispatcherProviders.UI + CoroutineExceptionHandler { _, throwable ->
-            AnkoLogger("Football News 2").error { "${throwable.message} ${throwable.getStackTraceString()}" }
+            AnkoLogger("Football News 2").error { "Error on class ${this.javaClass.simpleName} caused by ${throwable.message}" }
         }
 
     private val _errorSnackBarEvent = SingleLiveEvent<ErrorWrapper>()

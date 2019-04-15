@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.lukasdylan.core.extension.liftableWithRecyclerView
 import com.lukasdylan.core.extension.observeValue
 import com.lukasdylan.football.R
 import com.lukasdylan.football.databinding.ActivityStandingsBinding
@@ -30,17 +30,12 @@ class StandingsActivity : AppCompatActivity() {
         with(binding) {
             setSupportActionBar(toolbar)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            appBarLayout.setLiftable(true)
+            appBarLayout.liftableWithRecyclerView(rvStandings)
             rvStandings.apply {
                 setHasFixedSize(true)
                 layoutManager = LinearLayoutManager(context)
                 addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
                 adapter = standingsSectionAdapter
-                addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                        appBarLayout.setLifted(recyclerView.canScrollVertically(-1))
-                    }
-                })
             }
             lifecycleOwner = this@StandingsActivity
         }

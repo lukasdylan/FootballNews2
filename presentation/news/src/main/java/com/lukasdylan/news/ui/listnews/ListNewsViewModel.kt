@@ -27,11 +27,7 @@ class ListNewsViewModel(private val useCase: ListNewsUseCase, dispatcherProvider
 
     private val _newsList = MutableLiveData<MutableList<Article>>()
     val newsList: LiveData<List<Article>> = Transformations.map(_newsList) {
-        return@map if (it.isNullOrEmpty()) {
-            emptyList()
-        } else {
-            it.toList()
-        }
+        return@map it?.toList().orEmpty()
     }
 
     private val _toolbarTitle = MutableLiveData<String>()
@@ -76,20 +72,18 @@ class ListNewsViewModel(private val useCase: ListNewsUseCase, dispatcherProvider
             1 -> NewsSources.SORT_BY_POPULARITY
             else -> NewsSources.SORT_BY_RELEVANCY
         }
-        val filteredSources = _filteredSourceNews.value.orEmpty()
-        if (filteredSources.isNullOrEmpty()) {
+        _filteredSourceNews.value.takeIf { !it.isNullOrEmpty() }?.let {
+            loadNewsList(it.joinToString(","))
+        } ?: kotlin.run {
             loadNewsList()
-        } else {
-            loadNewsList(filteredSources.joinToString(","))
         }
     }
 
     fun onLoadMore() {
-        val filteredSources = _filteredSourceNews.value.orEmpty()
-        if (filteredSources.isNullOrEmpty()) {
+        _filteredSourceNews.value.takeIf { !it.isNullOrEmpty() }?.let {
+            loadNewsList(it.joinToString(","))
+        } ?: kotlin.run {
             loadNewsList()
-        } else {
-            loadNewsList(filteredSources.joinToString(","))
         }
     }
 

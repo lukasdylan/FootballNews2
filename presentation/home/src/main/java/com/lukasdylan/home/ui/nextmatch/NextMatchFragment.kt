@@ -68,8 +68,17 @@ class NextMatchFragment : RoundedBottomSheetFragment() {
                         onCheckCalendar(title)
                     }
                 }
-                observeValue(it.openCalendarEvent) {
-                    startActivityForResult(it, CALENDAR_REQUEST_CODE)
+                observeValue(it.navigationScreenEvent) {
+                    when (it.navigationId) {
+                        CALENDAR_REQUEST_CODE -> {
+                            Intent(Intent.ACTION_INSERT).apply {
+                                data = CalendarContract.Events.CONTENT_URI
+                                putExtras(it.toBundle())
+                            }.run {
+                                startActivityForResult(this, CALENDAR_REQUEST_CODE)
+                            }
+                        }
+                    }
                 }
                 observeValue(it.removeReminderEvent) { title ->
                     checkPermissions(
