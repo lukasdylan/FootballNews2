@@ -15,7 +15,6 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.error
-import org.jetbrains.anko.getStackTraceString
 import kotlin.coroutines.CoroutineContext
 
 open class BaseViewModel(protected val dispatcherProviders: DispatcherProviders) : ViewModel(), CoroutineScope {

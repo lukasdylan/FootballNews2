@@ -29,7 +29,7 @@ class NextMatchViewModel(dispatcherProvider: DispatcherProviders) : BaseViewMode
         it?.awayTeamName.orEmpty()
     }
     val matchDateTime: LiveData<String> = Transformations.map(_selectedDetailMatch) {
-        val calendar = StringUtils.calendarFromString(it?.date.orEmpty(), it?.time.orEmpty())
+        val calendar = calendarFromString(it?.date.orEmpty(), it?.time.orEmpty())
         return@map StringUtils.formatAsDate(calendar.time)
     }
     val matchName: LiveData<String> = Transformations.map(_selectedDetailMatch) {

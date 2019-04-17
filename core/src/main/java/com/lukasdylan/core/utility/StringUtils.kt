@@ -41,3 +41,19 @@ fun String?.asPlayerListFormat(position: String): String {
     }
     return this.replace("""; """, " ($position)\n").trimEnd()
 }
+
+fun Calendar.asStringDate(dateStr: String, timeStr: String): String {
+    val defaultLocale = Locale.getDefault()
+    val timeCalendar = this.clone() as Calendar
+    timeCalendar.time = SimpleDateFormat("HH:mm:ss", defaultLocale).parse(timeStr)
+    val dateCalendar = this.clone() as Calendar
+    with(dateCalendar) {
+        time = SimpleDateFormat("dd/MM/yy", defaultLocale).parse(dateStr)
+        set(Calendar.HOUR_OF_DAY, timeCalendar.get(Calendar.HOUR_OF_DAY))
+        set(Calendar.MINUTE, timeCalendar.get(Calendar.MINUTE))
+        set(Calendar.SECOND, timeCalendar.get(Calendar.SECOND))
+        return SimpleDateFormat("EEEE, d MMM yyyy HH.mm", Locale.getDefault()).also {
+            it.timeZone = TimeZone.getTimeZone("UTC")
+        }.format(time)
+    }
+}

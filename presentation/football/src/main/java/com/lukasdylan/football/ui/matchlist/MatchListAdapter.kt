@@ -7,12 +7,13 @@ import androidx.databinding.ViewDataBinding
 import com.lukasdylan.core.base.BaseAdapter
 import com.lukasdylan.core.base.BaseViewHolder
 import com.lukasdylan.core.extension.loadImagesFromUrl
-import com.lukasdylan.core.utility.StringUtils
+import com.lukasdylan.core.utility.asStringDate
 import com.lukasdylan.football.R
 import com.lukasdylan.football.databinding.ItemMatchListBinding
 import com.lukasdylan.football.utility.asyncText
 import com.lukasdylan.footballservice.data.entity.DetailMatch
 import org.jetbrains.anko.sdk27.coroutines.onClick
+import java.util.*
 
 class MatchListAdapter(private val listener: (Array<Pair<String, Any?>>) -> Unit) :
     BaseAdapter<DetailMatch, MatchListAdapter.MatchListViewHolder>() {
@@ -35,6 +36,8 @@ class MatchListAdapter(private val listener: (Array<Pair<String, Any?>>) -> Unit
         private val listener: (Array<Pair<String, Any?>>) -> Unit
     ) : BaseViewHolder<DetailMatch>(binding) {
 
+        private val calendar = Calendar.getInstance()
+
         override fun bindWithImageMap(item: DetailMatch, imageMap: Map<String, String>) {
             super.bindWithImageMap(item, imageMap)
             with(binding) {
@@ -51,8 +54,7 @@ class MatchListAdapter(private val listener: (Array<Pair<String, Any?>>) -> Unit
                     listener(params)
                 }
                 this.match = item
-                val calendar = StringUtils.calendarFromString(item.date.orEmpty(), item.time.orEmpty())
-                tvDateTimeMatch.asyncText(StringUtils.formatAsDate(calendar.time))
+                tvDateTimeMatch.asyncText(calendar.asStringDate(item.date.orEmpty(), item.time.orEmpty()))
                 executePendingBindings()
             }
         }
