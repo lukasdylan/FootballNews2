@@ -135,7 +135,7 @@ class MainSectionAdapter(layoutMaxWidth: Int, private val listener: (NavigationS
                 )
                 PreviousMatchSectionViewHolder(binding, previousMatchSectionAdapter, listener)
             }
-            else -> throw (Throwable("Unknown ViewHolder"))
+            else -> throw Throwable("Unknown ViewHolder")
         }
     }
 

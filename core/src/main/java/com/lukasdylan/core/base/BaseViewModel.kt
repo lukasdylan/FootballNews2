@@ -15,14 +15,13 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.error
-import org.jetbrains.anko.getStackTraceString
 import kotlin.coroutines.CoroutineContext
 
 open class BaseViewModel(protected val dispatcherProviders: DispatcherProviders) : ViewModel(), CoroutineScope {
 
     override val coroutineContext: CoroutineContext
         get() = SupervisorJob() + dispatcherProviders.UI + CoroutineExceptionHandler { _, throwable ->
-            AnkoLogger("Football News 2").error { "${throwable.message} ${throwable.getStackTraceString()}" }
+            AnkoLogger("Football News 2").error { "Error on class ${this.javaClass.simpleName} caused by ${throwable.message}" }
         }
 
     private val _errorSnackBarEvent = SingleLiveEvent<ErrorWrapper>()

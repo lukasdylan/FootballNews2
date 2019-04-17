@@ -3,7 +3,6 @@ package com.lukasdylan.home.ui.home
 import android.os.Bundle
 import android.util.DisplayMetrics
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lukasdylan.core.extension.*
@@ -41,7 +40,7 @@ class HomeActivity : AppCompatActivity() {
             NAVIGATE_DETAIL_PREVIOUS_MATCH_SCREEN -> {
                 val scheme = resources.getString(R2.string.scheme)
                 val host = resources.getString(R2.string.deep_link_detail_previous_match)
-                val bundle = bundleOf(*it.params.orEmpty())
+                val bundle = it.toBundle()
                 openDeepLinkActivity(scheme, host, bundle)
             }
             NAVIGATE_STANDINGS_SCREEN -> {
@@ -50,7 +49,7 @@ class HomeActivity : AppCompatActivity() {
             NAVIGATE_DETAIL_NEWS_SCREEN -> {
                 val scheme = resources.getString(R3.string.scheme)
                 val host = resources.getString(R3.string.deep_link_detail_news)
-                val bundle = bundleOf(*it.params.orEmpty())
+                val bundle = it.toBundle()
                 openDeepLinkActivity(scheme, host, bundle)
             }
             NAVIGATE_ALL_PREVIOUS_MATCH_SCREEN -> {
@@ -73,6 +72,7 @@ class HomeActivity : AppCompatActivity() {
             setSupportActionBar(toolbar)
             supportActionBar?.title = "Football News 2"
             rvMain.apply {
+                setHasFixedSize(true)
                 layoutManager = LinearLayoutManager(context)
                 mainSectionAdapter = MainSectionAdapter(layoutMaxWidth, adapterListener)
                 adapter = mainSectionAdapter
@@ -108,19 +108,19 @@ class HomeActivity : AppCompatActivity() {
                     NAVIGATE_STANDINGS_SCREEN -> {
                         val scheme = resources.getString(R2.string.scheme)
                         val host = resources.getString(R2.string.deep_link_standings)
-                        val bundle = bundleOf(*it.params.orEmpty())
+                        val bundle = it.toBundle()
                         openDeepLinkActivity(scheme, host, bundle)
                     }
                     NAVIGATE_ALL_PREVIOUS_MATCH_SCREEN -> {
                         val scheme = resources.getString(R2.string.scheme)
                         val host = resources.getString(R2.string.deep_link_match_list)
-                        val bundle = bundleOf(*it.params.orEmpty())
+                        val bundle = it.toBundle()
                         openDeepLinkActivity(scheme, host, bundle)
                     }
                     NAVIGATE_DETAIL_TEAM_SCREEN -> {
                         val scheme = resources.getString(R2.string.scheme)
                         val host = resources.getString(R2.string.deep_link_detail_team)
-                        val bundle = bundleOf(*it.params.orEmpty())
+                        val bundle = it.toBundle()
                         openDeepLinkActivity(scheme, host, bundle)
                     }
                 }
