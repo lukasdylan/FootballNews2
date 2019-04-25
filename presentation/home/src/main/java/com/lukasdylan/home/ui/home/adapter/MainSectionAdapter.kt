@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.*
-import com.lukasdylan.core.extension.onAnimateListener
+import com.lukasdylan.core.extension.onVisibilityListener
 import com.lukasdylan.core.utility.NavigationScreen
 import com.lukasdylan.core.widget.GridSpacingItemDecoration
 import com.lukasdylan.core.widget.LinePagerIndicatorDecoration
@@ -65,26 +65,22 @@ class MainSectionAdapter(layoutMaxWidth: Int, private val listener: (NavigationS
 
     fun standingListUpdate(standingList: List<Standings>) {
         val sectionDataModel = HomeSection(HomeSectionType.STANDINGS, standingList, false)
-        sectionDataList[HomeSectionType.STANDINGS.ordinal] = sectionDataModel
-        notifyItemChanged(HomeSectionType.STANDINGS.ordinal)
+        update(sectionDataModel)
     }
 
     fun nextMatchListUpdate(matchList: List<DetailMatch>) {
         val sectionDataModel = HomeSection(HomeSectionType.NEXT_MATCH, matchList, false)
-        sectionDataList[HomeSectionType.NEXT_MATCH.ordinal] = sectionDataModel
-        notifyItemChanged(HomeSectionType.NEXT_MATCH.ordinal)
+        update(sectionDataModel)
     }
 
     fun previousMatchListUpdate(matchList: List<DetailMatch>) {
         val sectionDataModel = HomeSection(HomeSectionType.PREV_MATCH, matchList, false)
-        sectionDataList[HomeSectionType.PREV_MATCH.ordinal] = sectionDataModel
-        notifyItemChanged(HomeSectionType.PREV_MATCH.ordinal)
+        update(sectionDataModel)
     }
 
     fun trendingNewsListUpdate(newsList: List<Article>) {
         val sectionDataModel = HomeSection(HomeSectionType.TRENDING_LEAGUE_NEWS, newsList, false)
-        sectionDataList[HomeSectionType.TRENDING_LEAGUE_NEWS.ordinal] = sectionDataModel
-        notifyItemChanged(HomeSectionType.TRENDING_LEAGUE_NEWS.ordinal)
+        update(sectionDataModel)
     }
 
     fun setImageData(data: Map<String, String>) {
@@ -95,6 +91,11 @@ class MainSectionAdapter(layoutMaxWidth: Int, private val listener: (NavigationS
 
     fun setLeagueName(leagueName: String) {
         this.leagueName = leagueName
+    }
+
+    private fun update(homeSection: HomeSection) = with(homeSection) {
+        sectionDataList[type.ordinal] = this
+        notifyItemChanged(type.ordinal)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -146,22 +147,20 @@ class MainSectionAdapter(layoutMaxWidth: Int, private val listener: (NavigationS
     @Suppress("UNCHECKED_CAST")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val sectionDataModel = sectionDataList[position]
+        val data = sectionDataModel.data
+        val isLoading = sectionDataModel.isLoading
         when (sectionDataModel.type) {
             HomeSectionType.STANDINGS -> {
-                val standingsData = sectionDataModel.data as List<Standings>
-                (holder as StandingsSectionViewHolder).bind(standingsData, sectionDataModel.isLoading)
+                (holder as StandingsSectionViewHolder).bind(data as List<Standings>, isLoading)
             }
             HomeSectionType.PREV_MATCH -> {
-                val previousMatchData = sectionDataModel.data as List<DetailMatch>
-                (holder as PreviousMatchSectionViewHolder).bind(previousMatchData, sectionDataModel.isLoading)
+                (holder as PreviousMatchSectionViewHolder).bind(data as List<DetailMatch>, isLoading)
             }
             HomeSectionType.NEXT_MATCH -> {
-                val nextMatchData = sectionDataModel.data as List<DetailMatch>
-                (holder as NextMatchSectionViewHolder).bind(nextMatchData, sectionDataModel.isLoading)
+                (holder as NextMatchSectionViewHolder).bind(data as List<DetailMatch>, isLoading)
             }
             HomeSectionType.TRENDING_LEAGUE_NEWS -> {
-                val trendingNewsData = sectionDataModel.data as List<Article>
-                (holder as TrendingNewsSectionViewHolder).bind(trendingNewsData, sectionDataModel.isLoading)
+                (holder as TrendingNewsSectionViewHolder).bind(data as List<Article>, isLoading)
             }
         }
     }
@@ -191,7 +190,7 @@ class MainSectionAdapter(layoutMaxWidth: Int, private val listener: (NavigationS
         fun bind(data: List<Standings>, isLoading: Boolean) {
             with(binding) {
                 tvSeeAllStandings.visibility = if (data.isNullOrEmpty()) View.GONE else View.VISIBLE
-                shimmerLayout.onAnimateListener(isLoading)
+                shimmerLayout.onVisibilityListener(isLoading)
                 rvStandings.adapter = standingsSectionAdapter
                 standingsSectionAdapter.addData(data)
                 executePendingBindings()
@@ -225,7 +224,7 @@ class MainSectionAdapter(layoutMaxWidth: Int, private val listener: (NavigationS
         fun bind(data: List<DetailMatch>, isLoading: Boolean) {
             with(binding) {
                 tvSeeAllMatch.visibility = if (data.isNullOrEmpty()) View.GONE else View.VISIBLE
-                shimmerLayout.onAnimateListener(isLoading)
+                shimmerLayout.onVisibilityListener(isLoading)
                 rvHorizontalMatchList.adapter = previousMatchSectionAdapter
                 previousMatchSectionAdapter.addData(data)
                 executePendingBindings()
@@ -260,7 +259,7 @@ class MainSectionAdapter(layoutMaxWidth: Int, private val listener: (NavigationS
         fun bind(data: List<DetailMatch>, isLoading: Boolean) {
             with(binding) {
                 tvSeeAllMatch.visibility = if (data.isNullOrEmpty()) View.GONE else View.VISIBLE
-                shimmerLayout.onAnimateListener(isLoading)
+                shimmerLayout.onVisibilityListener(isLoading)
                 rvHorizontalMatchList.adapter = nextMatchSectionAdapter
                 nextMatchSectionAdapter.addData(data)
                 executePendingBindings()
@@ -290,7 +289,7 @@ class MainSectionAdapter(layoutMaxWidth: Int, private val listener: (NavigationS
         fun bind(data: List<Article>, isLoading: Boolean) {
             with(binding) {
                 this.title = itemView.resources.getString(R.string.title_news_home, leagueName)
-                shimmerLayout.onAnimateListener(isLoading)
+                shimmerLayout.onVisibilityListener(isLoading)
                 titleTrendingNews.visibility = if (data.isNullOrEmpty()) View.INVISIBLE else View.VISIBLE
                 rvTrendingNews.adapter = trendingNewsSectionAdapter
                 trendingNewsSectionAdapter.addData(data)

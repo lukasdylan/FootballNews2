@@ -50,7 +50,7 @@ fun ViewGroup.showNormalSnackBar(message: String?) {
     }
 }
 
-fun ShimmerFrameLayout.onAnimateListener(isLoading: Boolean) {
+fun ShimmerFrameLayout.onVisibilityListener(isLoading: Boolean) {
     visibility = if (!isLoading) {
         if (isShimmerStarted) {
             stopShimmer()

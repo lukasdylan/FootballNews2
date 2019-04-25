@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.lukasdylan.core.utility.StringUtils
 import com.lukasdylan.core.utility.asGoalScorerFormat
+import com.lukasdylan.core.utility.asStringDate
 import com.lukasdylan.football.R
 import com.lukasdylan.footballservice.data.entity.DetailMatch
 import com.lukasdylan.football.databinding.FragmentOverviewBinding
+import java.util.*
 
 class MatchOverviewFragment : Fragment() {
 
@@ -45,8 +46,7 @@ class MatchOverviewFragment : Fragment() {
                 val matchInformation = mutableListOf<Pair<String, String>>()
                 matchInformation.add(Pair("Match Name", it.matchName ?: "-"))
                 matchInformation.add(Pair("League Name", it.leagueName ?: "-"))
-                val calendar = StringUtils.calendarFromString(it.date.orEmpty(), it.time.orEmpty())
-                matchInformation.add(Pair("Match Date", StringUtils.formatAsDate(calendar.time)))
+                matchInformation.add(Pair("Match Date", Calendar.getInstance().asStringDate(it.date.orEmpty(), it.time.orEmpty())))
                 matchInformation.add(
                     Pair("${it.homeTeamName ?: '-'} Goals", it.homeGoalDetails.asGoalScorerFormat())
                 )

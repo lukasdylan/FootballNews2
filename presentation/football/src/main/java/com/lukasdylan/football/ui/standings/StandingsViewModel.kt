@@ -23,12 +23,10 @@ class StandingsViewModel(dispatcherProviders: DispatcherProviders) : BaseViewMod
     private val _toolbarTitle = MutableLiveData<String>()
     val toolbarTitle: LiveData<String> = _toolbarTitle
 
-    fun loadData(bundle: Bundle) {
-        with(bundle) {
-            _toolbarTitle.value = getString("league_name", "")
-            _leagueTeamDetailList.value = getParcelableArrayList("league_teams")
-            _standingsList.value = getParcelableArrayList("standings")
-        }
+    fun loadData(bundle: Bundle) = with(bundle) {
+        _toolbarTitle.value = getString("league_name", "")
+        _leagueTeamDetailList.value = getParcelableArrayList("league_teams")
+        _standingsList.value = getParcelableArrayList("standings")
     }
 
     fun onSelectedTeam(teamId: String) {

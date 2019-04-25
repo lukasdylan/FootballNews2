@@ -10,14 +10,14 @@ import com.lukasdylan.core.utility.DispatcherProviders
 import com.lukasdylan.core.utility.NavigationScreen
 import com.lukasdylan.core.utility.SingleLiveEvent
 import com.lukasdylan.footballservice.data.entity.DetailMatch
-import com.lukasdylan.footballservice.data.model.League
 import com.lukasdylan.footballservice.data.entity.DetailTeam
+import com.lukasdylan.footballservice.data.model.League
 import com.lukasdylan.footballservice.data.response.Standings
 import com.lukasdylan.home.ui.home.adapter.NAVIGATE_ALL_PREVIOUS_MATCH_SCREEN
 import com.lukasdylan.home.ui.home.adapter.NAVIGATE_DETAIL_TEAM_SCREEN
 import com.lukasdylan.home.ui.home.adapter.NAVIGATE_STANDINGS_SCREEN
 import com.lukasdylan.newsservice.data.Article
-import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -69,7 +69,7 @@ class HomeViewModel(private val useCase: HomeUseCase, dispatcherProviders: Dispa
 
     fun onSelectedLeague(league: League) {
         if (_selectedLeague.value != league) {
-            coroutineContext.cancelChildren()
+            coroutineContext.cancel()
             useCase.setDefaultLeague(league)
             _leagueTrendingNewsList.value = null
             _standingsList.value = null
