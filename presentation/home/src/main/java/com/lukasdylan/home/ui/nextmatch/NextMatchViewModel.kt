@@ -7,11 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.lukasdylan.core.base.BaseViewModel
-import com.lukasdylan.core.utility.DispatcherProviders
-import com.lukasdylan.core.utility.NavigationScreen
-import com.lukasdylan.core.utility.SingleLiveEvent
-import com.lukasdylan.core.utility.StringUtils
-import com.lukasdylan.core.utility.StringUtils.calendarFromString
+import com.lukasdylan.core.utility.*
 import com.lukasdylan.footballservice.data.entity.DetailMatch
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -29,8 +25,7 @@ class NextMatchViewModel(dispatcherProvider: DispatcherProviders) : BaseViewMode
         it?.awayTeamName.orEmpty()
     }
     val matchDateTime: LiveData<String> = Transformations.map(_selectedDetailMatch) {
-        val calendar = calendarFromString(it?.date.orEmpty(), it?.time.orEmpty())
-        return@map StringUtils.formatAsDate(calendar.time)
+        return@map Calendar.getInstance().asStringDate(it?.date.orEmpty(), it?.time.orEmpty())
     }
     val matchName: LiveData<String> = Transformations.map(_selectedDetailMatch) {
         it?.matchName.orEmpty()

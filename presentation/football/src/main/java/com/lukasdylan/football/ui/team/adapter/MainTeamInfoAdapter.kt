@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
 import com.lukasdylan.core.extension.GlideTransformationMode
 import com.lukasdylan.core.extension.loadImagesFromUrl
-import com.lukasdylan.core.extension.onAnimateListener
+import com.lukasdylan.core.extension.onVisibilityListener
 import com.lukasdylan.core.utility.NavigationScreen
 import com.lukasdylan.core.widget.GridSpacingItemDecoration
 import com.lukasdylan.football.R
@@ -249,7 +249,7 @@ class MainTeamInfoAdapter(private val listener: (NavigationScreen) -> Unit) :
         fun bind(data: List<Player>, isLoading: Boolean) {
             with(binding) {
                 tvSeeAllPlayer.visibility = if (data.isNullOrEmpty()) View.GONE else View.VISIBLE
-                shimmerLayout.onAnimateListener(isLoading)
+                shimmerLayout.onVisibilityListener(isLoading)
                 rvPlayers.adapter = teamPlayersAdapter
                 teamPlayersAdapter.addData(data)
                 executePendingBindings()
@@ -283,7 +283,7 @@ class MainTeamInfoAdapter(private val listener: (NavigationScreen) -> Unit) :
             with(binding) {
                 this.newsCount = if (response.isNotEmpty()) response[0].totalResult ?: 0 else 0
                 this.teamName = teamName
-                shimmerLayout.onAnimateListener(isLoading)
+                shimmerLayout.onVisibilityListener(isLoading)
                 rvNews.adapter = teamNewsAdapter
                 teamNewsAdapter.addData(if (response.isNotEmpty()) response[0].articles else emptyList())
                 btnBrowseMore.visibility =

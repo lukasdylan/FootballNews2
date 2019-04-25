@@ -11,6 +11,7 @@
     <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:descendantFocusability="blocksDescendants"
             android:fitsSystemWindows="true"
             android:clipToPadding="false"
             android:padding="16dp">
@@ -18,6 +19,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:descendantFocusability="blocksDescendants"
                 android:animateLayoutChanges="true">
 
             <TextView
@@ -40,7 +42,6 @@
                     android:layout_height="wrap_content"
                     android:scrollbars="none"
                     android:layout_marginTop="16dp"
-                    android:descendantFocusability="beforeDescendants"
                     app:layout_constraintTop_toBottomOf="@id/title_match_info"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

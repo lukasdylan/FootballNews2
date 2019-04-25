@@ -8,12 +8,13 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import ru.gildor.coroutines.retrofit.Result
 import ru.gildor.coroutines.retrofit.getOrNull
 
+private typealias ErrorHandler = (errorWrapper: ErrorWrapper) -> Unit
 inline fun <T : Any> Result<T>.onSuccess(crossinline handler: (data: T) -> Unit): Result<T> {
     (this as? Result.Ok)?.getOrNull()?.let { handler(it) }
     return this
 }
 
-inline fun <T : Any> Result<T>.onFailed(crossinline handler: (errorWrapper: ErrorWrapper) -> Unit): Result<T> {
+inline fun <T : Any> Result<T>.onFailed(crossinline handler: ErrorHandler): Result<T> {
     //combination between onError and onException
     when (this) {
         is Result.Error -> onError(handler)
@@ -22,7 +23,7 @@ inline fun <T : Any> Result<T>.onFailed(crossinline handler: (errorWrapper: Erro
     return this
 }
 
-inline fun <T : Any> Result<T>.onError(crossinline handler: (errorWrapper: ErrorWrapper) -> Unit): Result<T> {
+inline fun <T : Any> Result<T>.onError(crossinline handler: ErrorHandler): Result<T> {
     (this as? Result.Error)?.let {
         val errorMessage = it.response.message() ?: it.exception.message()
         if (!errorMessage.isNullOrBlank()) {
@@ -34,7 +35,7 @@ inline fun <T : Any> Result<T>.onError(crossinline handler: (errorWrapper: Error
     return this
 }
 
-inline fun <T : Any> Result<T>.onException(crossinline handler: (errorWrapper: ErrorWrapper) -> Unit): Result<T> {
+inline fun <T : Any> Result<T>.onException(crossinline handler: ErrorHandler): Result<T> {
     (this as? Result.Exception)?.exception?.let { handler(ErrorWrapper.invoke(it)) }
     return this
 }

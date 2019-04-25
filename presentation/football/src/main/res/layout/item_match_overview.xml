@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -21,7 +21,8 @@
             android:focusableInTouchMode="false"
             android:focusable="false"
             android:background="@android:color/white"
-            app:hintAnimationEnabled="false">
+            app:hintAnimationEnabled="false"
+            tools:hint="Test">
 
         <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -35,7 +36,8 @@
                 android:enabled="false"
                 android:clickable="false"
                 android:text="@{value}"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                tools:text="Test 123"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
