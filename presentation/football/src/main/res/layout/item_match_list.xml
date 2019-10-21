@@ -4,11 +4,9 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
                 name="match"
                 type="com.lukasdylan.footballservice.data.entity.DetailMatch"/>
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
